@@ -1,0 +1,29 @@
+{% load static %}
+{% block home_header %}
+<!-- Header Section Start -->
+  <section id="intro">
+    <div class="container-lg">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-md-5 text-center text-md-start" style="height: 100%;">
+          <h1>
+            <div class="display-2">Repiar your Vehicle</div>
+            <div class="display-6 text-muted">search and book</div>
+          </h1>
+          <p class="lead my-4 text-muted">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+        </div>
+        <div class="col-md-5 text-center d-none d-md-block">
+          <!-- tooltip -->
+          <span class="tt" data-bs-placement="bottom" title="OvROS">
+            <img class="img-fluid" src="{% static 'images/hero_img.png' %}" alt="ebook">
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Header Section End -->
+
+{% endblock %}

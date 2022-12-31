@@ -1,0 +1,55 @@
+{% load static %}
+
+{% block main_navbar %}
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+
+            {% if section == 'dashboard' %}
+                <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                   aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon"></span>
+                </a>
+            {% endif %}
+
+            <a class="navbar-brand my-3 mx-3" href="#"><i class="bi bi-gear-wide-connected"></i>OvROS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-main"
+                    aria-controls="navbar-main" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar-main">
+                <ul class="navbar-nav justify-content-end ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'services' %}">Services</a>
+                    </li>
+                    {% if not request.user.is_authenticated %}
+                        <li class="nav-item ms-2 d-none d-md-inline">
+                            <a href="{% url 'login' %}" class="btn btn-secondary">Login</a>
+                        </li>
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item ms-2 d-none d-md-inline">
+                            <a href="{% url 'logout' %}" class="btn btn-info">Logout</a>
+                        </li>
+                    {% endif %}
+
+                    {% if not request.user.is_authenticated %}
+                        <li class="nav-item ms-2 d-none d-md-inline">
+                            <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
+                        </li>
+                    {% endif %}
+
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item ms-2 d-none d-md-inline">
+                            <a href="{% url 'dashboard' %}" class="btn btn-success">Dashboard</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Navigation bar end -->
+{% endblock %}

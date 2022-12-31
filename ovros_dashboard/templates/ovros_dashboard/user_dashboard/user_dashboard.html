@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    User Dashboard
+{% endblock %}
+
+{% block dashboard %}
+    <!-- Navigation Bar - Dashboard start -->
+    <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvasExample"
+         aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">User Dashboard</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="button"><i class="bi bi-speedometer"></i> Overview</button>
+                <button class="btn btn-primary" type="button"><i class="bi bi-amd"></i> Bookings</button>
+                <button class="btn btn-primary" type="button"><i class="bi bi-cash-coin"></i> Payment</button>
+                <button class="btn btn-primary" type="button"><i class="bi bi-star"></i> Favorites</button>
+            </div>
+
+            <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle"></i> Profile
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">View Profile</a></li>
+                    <li><a class="dropdown-item" href="#">Edit Profile Details</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation bar Dashboard end -->
+{% endblock %}

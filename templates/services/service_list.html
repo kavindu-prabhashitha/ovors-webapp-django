@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Ovros Services
+{% endblock %}
+
+{% block content %}
+
+        <!-- Service Section Start -->
+    <section id="ovros-service">
+        <div class="container">
+            <div class="row my-5 align-items-center justify-content-center">
+                <div class="col-lg-4 col-md-4">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row my-5">
+                <div class="col-sm-4 col-md-3">
+                    <div class="card">
+                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-3">
+                    <div class="card ">
+                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-3">
+                    <div class="card">
+                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-3">
+                    <div class="card">
+                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <!-- Service Section End -->
+
+{% endblock %}
