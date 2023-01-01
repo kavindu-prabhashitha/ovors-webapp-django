@@ -1,0 +1,101 @@
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
+{% block title %}
+    {% load static %}
+    Shop-Overview
+{% endblock %}
+
+{% block support_navbar_content %}
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Shop Dashboard Overview > </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'shop_overview' %}"><span
+                                class="badge rounded-pill text-bg-primary">Overview</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'shop_services' %}"><span
+                                class="badge rounded-pill text-bg-primary">Services</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'shop_bookings' %}"><span
+                                class="badge rounded-pill text-bg-primary">Booking</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"><span
+                                class="badge rounded-pill text-bg-primary">Payment</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"><span
+                                class="badge rounded-pill text-bg-primary">Reports</span></a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+
+
+{% block dashboard_content %}
+    <div class="container">
+        <div class="row my-5 text-center">
+            <h3>Shop Dashboard Overview</h3>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="{% static 'images/service_v2.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Services</p>
+                    </div>
+                    <div class="card-footer">
+                        <h3>23</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="{% static 'images/booking_v1.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Bookings</p>
+                    </div>
+                    <div class="card-footer">
+                        <h3>23</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card">
+                    <img src="{% static 'images/payment_v1.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Payment</p>
+                    </div>
+                    <div class="card-footer">
+                        <h3>23</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card" >
+                    <img src="{% static 'images/report_v1.jpg' %}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <p class="card-text">Report</p>
+                    </div>
+                    <div class="card-footer">
+                        <h3>23</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

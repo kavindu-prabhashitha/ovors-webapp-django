@@ -55,7 +55,7 @@ def dashboard(request):
 
     if user_profile.user_role == "USER_SHOP":
         return render(request,
-                      'ovros_dashboard/shop_dashboard/shop_dashboard.html',
+                      'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
                       {'section': 'dashboard', 'user_profile': user_profile.user_role})
 
     return login_required()

@@ -4,6 +4,7 @@
     User Dashboard
 {% endblock %}
 
+
 {% block dashboard %}
     <!-- Navigation Bar - Dashboard start -->
     <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvasExample"
@@ -15,10 +16,10 @@
         <div class="offcanvas-body">
 
             <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="button"><i class="bi bi-speedometer"></i> Overview</button>
-                <button class="btn btn-primary" type="button"><i class="bi bi-amd"></i> Bookings</button>
-                <button class="btn btn-primary" type="button"><i class="bi bi-cash-coin"></i> Payment</button>
-                <button class="btn btn-primary" type="button"><i class="bi bi-star"></i> Favorites</button>
+                <a class="btn btn-primary" href="{% url 'user_overview' %}"><i class="bi bi-speedometer"></i> Overview</a>
+                <a class="btn btn-primary" href="{% url 'user_bookings' %}"><i class="bi bi-amd"></i> Bookings</a>
+                <a class="btn btn-primary" href="{% url 'user_payments' %}"><i class="bi bi-cash-coin"></i> Payment</a>
+                <a class="btn btn-primary" href="{% url 'user_favorite' %}"><i class="bi bi-star"></i> Favorites</a>
             </div>
 
             <div class="dropdown mt-3">
@@ -33,4 +34,10 @@
         </div>
     </div>
     <!-- Navigation bar Dashboard end -->
+
+
+{% block dashboard_content %}
 {% endblock %}
+
+{% endblock %}
+

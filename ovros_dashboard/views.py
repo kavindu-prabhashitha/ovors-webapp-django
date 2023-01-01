@@ -38,3 +38,39 @@ def admin_register_user(request):
                       'ovros_dashboard/admin_dashboard/admin_dashboard_users_register.html',
                       {'user_form': user_form}
                       )
+
+
+def shop_overview(request):
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html', {'section': 'dashboard'})
+
+
+def shop_services(request):
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_services.html', {'section': 'dashboard'})
+
+
+def shop_bookings(request):
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_bookings.html', {'section': 'dashboard'})
+
+
+def shop_payments(request):
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment.html', {'section': 'dashboard'})
+
+
+def shop_reports(request):
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_report.html', {'section': 'dashboard'})
+
+
+def user_overview(request):
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_overview.html', {'section': 'dashboard'})
+
+
+def user_booking(request):
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_bookings.html', {'section': 'dashboard'})
+
+
+def user_payment(request):
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment.html', {'section': 'dashboard'})
+
+
+def user_favorites(request):
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_favorites.html', {'section': 'dashboard'})
