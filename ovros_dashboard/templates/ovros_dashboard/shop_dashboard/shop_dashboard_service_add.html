@@ -1,0 +1,33 @@
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard_services.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% load static %}
+    Shop-Services-Add
+{% endblock %}
+
+
+{% block dashboard_content %}
+
+    <div class="container ">
+                    <div class="row my-2 text-center">
+                    <h3>Add Service</h3>
+                </div>
+        <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <img class="card-img-top" src="{% static 'images/service_v2.jpg' %}" alt="user_module">
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                       <form method="post">
+                           {% csrf_token %}
+                           {{ form | crispy }}
+                           <p><input class="btn btn-primary" type="submit" value="Add Service"></p>
+                       </form>
+
+                    </div>
+
+
+
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
