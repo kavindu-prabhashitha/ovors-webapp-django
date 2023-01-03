@@ -1,5 +1,6 @@
 from django.db import models
 from ovros_user_module.models import ShopProfile
+import os
 # Create your models here.
 
 SERVICE_AVAILABILITY = (

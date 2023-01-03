@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from ovros_service_module.models import Service
 
 
 def home(request):
@@ -6,4 +7,5 @@ def home(request):
 
 
 def services(request):
-    return render(request, 'services/service_list.html')
+    all_services = Service.objects.all()
+    return render(request, 'services/service_list.html', {'services': all_services})
