@@ -13,6 +13,7 @@ class Service(models.Model):
     shop = models.ForeignKey(to=ShopProfile, on_delete=models.CASCADE)
     service_name = models.CharField(max_length=100)
     service_image = models.ImageField(upload_to='images/service_img', blank=True)
+    service_description = models.CharField(max_length=500, default='',blank=True)
     service_price = models.CharField(max_length=20)
     service_duration = models.CharField(max_length=5)
     date_created = models.DateField()

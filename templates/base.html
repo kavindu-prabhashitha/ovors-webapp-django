@@ -60,6 +60,38 @@
       new bootstrap.Tooltip(t)
     })
   </script>
+
+<script>
+    function save_user_data(uid,u_role,pro_id) {
+        console.log("Saving User Data");
+        let user_id = uid;
+        let profile_id = pro_id;
+        let user_role = u_role;
+
+        localStorage.setItem("user_id",user_id+'');
+        localStorage.setItem('user_role',user_role+'');
+        localStorage.setItem('profile_id',profile_id+'');
+    }
+
+    function get_user_id() {
+        return localStorage.getItem('user_id');
+    }
+
+    function get_user_role() {
+        return localStorage.getItem('user_role');
+    }
+
+    function  get_profile_id(){
+        return localStorage.getItem('profile_id');
+    }
+
+    function remove_user_data(){
+        localStorage.removeItem('user_id');
+        localStorage.removeItem('user_role');
+        localStorage.removeItem('profile_id');
+    }
+</script>
+
 </body>
 
 </html>

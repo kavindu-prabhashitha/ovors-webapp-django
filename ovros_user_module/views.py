@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from .forms import (
@@ -13,6 +13,7 @@ from .models import (
     UserProfile,
     ShopProfile)
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -100,7 +101,12 @@ def shop_register(request):
             # Save the User Object
             new_user.save()
             # create the user profile
-            UserProfile.objects.create(user=new_user)
+            shop = ShopProfile.objects.create(user=new_user)
+            currently_saved_user = User.objects.get(id=shop.user_id)
+            shop.shop_name = request.POST['shop_name']
+            shop.shop_address = request.POST['shop_address']
+            shop.shop_contact = request.POST['shop_contact']
+            shop.save()
             return render(request,
                           'account/shop_register.html', {'new_user': new_user})
     else:

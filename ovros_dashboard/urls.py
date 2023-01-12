@@ -15,6 +15,7 @@ urlpatterns =[
     path('shop-bookings', views.shop_bookings, name='shop_bookings'),
     path('shop-payments', views.shop_payments, name='shop_payments'),
     path('shop-reports', views.shop_reports, name='shop_reports'),
+    path('shop-services-list', views.shop_services_list, name='shop_services_list'),
 
     # shop dashboard urls
     path('user-overview', views.user_overview, name='user_overview'),

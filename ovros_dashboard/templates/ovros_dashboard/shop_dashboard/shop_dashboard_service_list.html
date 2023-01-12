@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block title %}
     {% load static %}
-    Shop-Services-Add
+    Shop-Services-List
 {% endblock %}
 
 
@@ -22,72 +22,20 @@
         </div>
         <div class="container">
             <div class="row my-5 g-3">
-                <div class="col-12 col-md-6 col-lg-4">
+                {% for service in services %}
+                    <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
-                        <img src="{% static 'images/services.jpeg' %}" class="card-img-top" alt="...">
+                        <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
                         <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            <h5 class="card-title">{{ service.service_name}}</h5>
+                            <p class="card-text">{{ service.service_description }}
                             </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <a href="#" class="btn btn-primary">{{ service.service_price}}</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card ">
-                        <img src="{% static 'images/service_vector.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <img src="{% static 'images/service_v2.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <img src="{% static 'images/report_v1.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <img src="{% static 'images/payment_v1.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
+
             </div>
         </div>
 

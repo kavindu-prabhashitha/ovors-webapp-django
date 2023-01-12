@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from ovros_user_module.forms import UserRegistrationForm
 from ovros_user_module.models import UserProfile
+from ovros_service_module.models import Service
 
 
 @login_required
@@ -52,7 +53,16 @@ def shop_bookings(request):
     return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_bookings.html', {'section': 'dashboard'})
 
 
-def shop_payments(request):
+def shop_services_list(request):
+    print(request.POST['profile_id'])
+    pro_id = request.POST['profile_id']
+    services = Service.objects.filter(shop_id=pro_id)
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_service_list.html',
+                  {'service': 'dashboard', 'services': services})
+
+
+def shop_payments(request, profile_id):
+    print(profile_id)
     return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment.html', {'section': 'dashboard'})
 
 

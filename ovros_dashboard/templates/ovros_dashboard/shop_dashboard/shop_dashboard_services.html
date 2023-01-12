@@ -19,40 +19,52 @@
                                 class="badge rounded-pill text-bg-primary">Add Service</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'service_list' %}"><span
+                        <a class="nav-link active" aria-current="page" href="#" id="shop_list_for_shop"><span
                                 class="badge rounded-pill text-bg-primary">View Services</span></a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+
+    <form method="post" id="form-id" action="{% url 'shop_services_list' %}">
+        <input type="hidden" name="profile_id" value="1">
+        {% csrf_token %}
+    </form>
+    <script>
+        var form = document.getElementById("form-id");
+
+        document.getElementById("shop_list_for_shop").addEventListener("click", function () {
+            form.submit();
+        });
+
+    </script>
 {% endblock %}
 
 {% block dashboard_content %}
 
     <div class="container text-center">
-                    <div class="row my-5">
-                    <h3>Shop Dashboard Services</h3>
-                </div>
+        <div class="row my-5">
+            <h3>Shop Dashboard Services</h3>
+        </div>
         <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6">
-                        <img class="card-img-top" src="{% static 'images/service_v2.jpg' %}" alt="user_module">
+            <div class="col-12 col-md-6 col-lg-6">
+                <img class="card-img-top" src="{% static 'images/service_v2.jpg' %}" alt="user_module">
+            </div>
+            <div class="col-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        ovros-shops-Services
                     </div>
-                    <div class="col-12 col-md-6 col-lg-6">
-                        <div class="card" >
-                            <div class="card-header">
-                                ovros-shops-Services
-                            </div>
-                            <div class="card-body">
-                                <p class="fs-1 fw-bold">30</p>
-                            </div>
-                            <div class="card-footer">
-                                <p class="fw-bold">Number of Active Services</p>
-                            </div>
-                        </div>
-
+                    <div class="card-body">
+                        <p class="fs-1 fw-bold">30</p>
                     </div>
+                    <div class="card-footer">
+                        <p class="fw-bold">Number of Active Services</p>
+                    </div>
+                </div>
 
+            </div>
 
 
             <div class="col"></div>

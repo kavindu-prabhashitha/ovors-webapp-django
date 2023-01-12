@@ -24,13 +24,25 @@
                 {% for service in services %}
                     <div class="col-12 col-md-6 col-lg-4">
                         <div class="card">
-                            <img src="{{ service.service_image.url}}" class="card-img-top" alt="...">
-                            <div class="card-body">
+                            <div class="card-body text-center">
+                                {% if service.service_image is None %}
+                                    <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top"
+                                         alt="...">
+                                {% else %}
+                                    <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
+                                {% endif %}
                                 <h5 class="card-title">{{ service.service_name }}</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.
-                                </p>
-                                <a href="#" class="btn btn-primary">{{ service.service_price }}</a>
+                                <div class="card-body ">
+                                    <div class="list-group">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">Duration
+                                            : {{ service.service_duration }} min</li>
+                                            <li class="list-group-item">Shop
+                                            : {{ service.shop.shop_name }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <a href="#" class="btn btn-info ">View Details</a>
                             </div>
                         </div>
                     </div>

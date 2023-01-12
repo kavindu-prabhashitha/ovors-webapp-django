@@ -20,6 +20,7 @@
                        <form method="post" enctype="multipart/form-data">
                            {% csrf_token %}
                            {{ form | crispy }}
+                           <input id="user_role" type="hidden" name="user_role"  >
                            <p><input class="btn btn-primary" type="submit" value="Add Service"></p>
                        </form>
 
@@ -30,4 +31,16 @@
             <div class="col"></div>
         </div>
     </div>
+
+    <script>
+        function updateUserRole(){
+            let userRoleVal = get_user_role();
+             document.getElementById("user_role").value = userRoleVal;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("insert user data to form")
+            updateUserRole();
+        });
+    </script>
 {% endblock %}

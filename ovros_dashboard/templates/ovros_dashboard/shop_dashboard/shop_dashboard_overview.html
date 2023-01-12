@@ -1,4 +1,5 @@
 {% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
+{% load to_str_tag %}
 {% block title %}
     {% load static %}
     Shop-Overview
@@ -39,6 +40,13 @@
             </div>
         </div>
     </nav>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("save user data on load")
+            save_user_data({{ request.user.id|stringformat:'i' }}, {{user_role}}, {{ profile_id }})
+        });
+    </script>
 {% endblock %}
 
 
