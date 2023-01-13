@@ -7,7 +7,9 @@ from ovros_service_module.models import Service
 
 @login_required
 def admin_overview(request):
-    return render(request, 'ovros_dashboard/admin_dashboard/admin_dashboard_overview.html', {'section': 'dashboard'})
+    no_of_services = Service.objects.count()
+    return render(request, 'ovros_dashboard/admin_dashboard/admin_dashboard_overview.html',
+                  {'section': 'dashboard', 'no_of_services': no_of_services})
 
 
 @login_required
@@ -42,11 +44,14 @@ def admin_register_user(request):
 
 
 def shop_overview(request):
-    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html', {'section': 'dashboard'})
+    no_of_services = Service.objects.count()
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
+                  {'section': 'dashboard', 'no_of_services': no_of_services})
 
 
 def shop_services(request):
-    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_services.html', {'section': 'dashboard'})
+
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_services.html', {'section': 'dashboard', })
 
 
 def shop_bookings(request):
