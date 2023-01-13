@@ -41,7 +41,10 @@ def service_add(request):
                               'ovros_dashboard/shop_dashboard/shop_dashboard_service_add.html',
                               {'section': 'dashboard', 'form': form})
 
-            return render(request, 'services/service_list.html')
+            return render(request,
+                          'ovros_dashboard/shop_dashboard/shop_dashboard_service_add.html',
+                          {'section': 'dashboard', 'form': form}
+                          )
     else:
         form = ServiceCreationForm()
         return render(request,

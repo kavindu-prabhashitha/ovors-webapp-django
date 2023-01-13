@@ -47,17 +47,23 @@ def dashboard(request):
     if user_profile.user_role == "USER_CUSTOMER":
         return render(request,
                       'ovros_dashboard/user_dashboard/user_dashboard.html',
-                      {'section': 'dashboard', 'user_profile': user_profile.user_role})
+                      {'section': 'dashboard',
+                       'user_role': '9',
+                       'profile_id': user_profile.id})
 
     if user_profile.user_role == "USER_ADMIN":
         return render(request,
                       'ovros_dashboard/admin_dashboard/admin_dashboard_overview.html',
-                      {'section': 'dashboard', 'user_profile': user_profile.user_role})
+                      {'section': 'dashboard',
+                       'user_role': '99',
+                       'profile_id': user_profile.id})
 
     if user_profile.user_role == "USER_SHOP":
         return render(request,
                       'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
-                      {'section': 'dashboard', 'user_profile': user_profile.user_role})
+                      {'section': 'dashboard',
+                        'user_role': '999',
+                       'profile_id': user_profile.id})
 
     return login_required()
 

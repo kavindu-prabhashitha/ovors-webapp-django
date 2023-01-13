@@ -28,11 +28,14 @@
     </nav>
 
     <form method="post" id="form-id" action="{% url 'shop_services_list' %}">
-        <input type="hidden" name="profile_id" value="1">
+        <input type="hidden" name="profile_id" value="0" id="user_profile_id">
         {% csrf_token %}
     </form>
     <script>
         var form = document.getElementById("form-id");
+        var profile_id = localStorage.getItem('profile_id')
+
+        document.getElementById('user_profile_id').value = profile_id
 
         document.getElementById("shop_list_for_shop").addEventListener("click", function () {
             form.submit();
