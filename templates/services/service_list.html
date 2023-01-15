@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="card-body text-center">
                                 {% if service.service_image is None %}
-                                    <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top"
+                                    <img src="{% static 'images/service_vector.jpg' %}" class="card-img-top"
                                          alt="...">
                                 {% else %}
                                     <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
@@ -42,7 +42,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-info ">View Details</a>
+                                <a href="{% url 'service_detail' service.id %}" class="btn btn-info ">View Details</a>
                             </div>
                         </div>
                     </div>

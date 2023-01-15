@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from ovros_service_module.models import Service
 from .forms import (
     LoginForm,
     UserEditForm,
@@ -14,6 +15,7 @@ from .models import (
     ShopProfile)
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .profile_detail import ProfileData
 
 # Create your views here.
 
@@ -22,6 +24,7 @@ def user_login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
+            print('session data : ', request.session.values())
             cd = form.cleaned_data
             user = authenticate(request, username=cd['username'], password=cd['password'])
             if user is not None:
@@ -39,19 +42,26 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
+    print('session data : ', request.session.keys())
     try:
         user_profile = UserProfile.objects.get(user_id=request.user.id)
     except UserProfile.DoesNotExist:
         user_profile = ShopProfile.objects.get(user_id=request.user.id)
 
+    profile_data = ProfileData(request)
+
     if user_profile.user_role == "USER_CUSTOMER":
+        profile_data.add(request.user.id, user_profile.id, 'USER_CUSTOMER')
+        print('user customer profile data : ', request.session['profile_data'])
         return render(request,
-                      'ovros_dashboard/user_dashboard/user_dashboard.html',
+                      'ovros_dashboard/user_dashboard/user_dashboard_overview.html',
                       {'section': 'dashboard',
                        'user_role': '9',
                        'profile_id': user_profile.id})
 
     if user_profile.user_role == "USER_ADMIN":
+        profile_data.add(request.user.id, user_profile.id, 'USER_ADMIN')
+        print('user admin profile data : ', request.session['profile_data'])
         return render(request,
                       'ovros_dashboard/admin_dashboard/admin_dashboard_overview.html',
                       {'section': 'dashboard',
@@ -59,10 +69,12 @@ def dashboard(request):
                        'profile_id': user_profile.id})
 
     if user_profile.user_role == "USER_SHOP":
+        profile_data.add(request.user.id, user_profile.id, 'USER_SHOP')
+        print('user profile data : ', request.session['profile_data'])
+        no_of_services = Service.objects.filter(shop_id=user_profile.id).count()
         return render(request,
                       'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
-                      {'section': 'dashboard',
-                        'user_role': '999',
+                      {'section': 'dashboard', 'no_of_services': no_of_services, 'user_role': '999',
                        'profile_id': user_profile.id})
 
     return login_required()

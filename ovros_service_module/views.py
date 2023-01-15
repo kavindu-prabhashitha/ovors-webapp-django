@@ -4,9 +4,6 @@ from ovros_user_module.views import ShopProfile
 from .models import Service
 
 
-# Create your views here.
-
-
 def service_add(request):
     if request.method == 'POST':
         form = ServiceCreationForm(request.POST, request.FILES or None)
@@ -32,9 +29,9 @@ def service_add(request):
                     else:
                         default_file_path = 'images/service_img/card-header-default.jpg'
                         new_service.service_image = default_file_path
-                        print("form image url : ", new_service.service_image)
 
                     new_service.save()
+
             except ShopProfile.DoesNotExist:
                 form = ServiceCreationForm()
                 return render(request,
@@ -56,3 +53,9 @@ def service_list(request):
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_service_list.html',
                   {'section': 'dashboard'})
+
+
+def service_detail(request, service_id):
+    print(service_id)
+    service = Service.objects.get(id=service_id)
+    return render(request, 'services/service_detail.html', {'service': service})

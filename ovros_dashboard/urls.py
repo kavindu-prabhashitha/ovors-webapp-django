@@ -23,5 +23,7 @@ urlpatterns =[
     path('user-payments', views.user_payment, name='user_payments'),
     path('user-reports', views.user_payment, name='user_reports'),
     path('user-favorites', views.user_favorites, name='user_favorite'),
+    path('user-profile', views.user_profile, name='user_profile'),
+    path('user-profile-edit', views.user_profile_edit, name='user_profile_edit'),
 
 ]

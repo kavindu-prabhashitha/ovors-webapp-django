@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Ovros Services
+{% endblock %}
+
+{% block content %}
+
+    <!-- Service Section Start -->
+    <section id="ovros-service">
+                <div class="container">
+                    <div class="row my-5 align-items-center justify-content-center">
+                        <div class="col-lg-4 col-md-4">
+                            <form class="d-flex" role="search" method="get" action="{% url 'home_search' %}">
+                                <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                                       aria-label="Search">
+                                <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+        <div class="container">
+            <div class="row my-5 g-3">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            {% if service.service_image is None %}
+                                <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top"
+                                     alt="...">
+                            {% else %}
+                                <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-8">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ service.service_name }}</h5>
+                            <div class="card-body ">
+                                <div class="list-group">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Duration
+                                            : {{ service.service_duration }} min
+                                        </li>
+                                        <li class="list-group-item">Shop
+                                            : {{ service.shop.shop_name }}</li>
+                                        <li class="list-group-item">Shop
+                                            : {{ service.service_description }}</li>
+                                        <li class="list-group-item">Price
+                                            : <span>Rs.</span>{{ service.service_price }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a href="{% url 'service_detail' service.id %}" class="btn btn-info ">Book Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <!-- Service Section End -->
+
+{% endblock %}
