@@ -53,10 +53,15 @@ def admin_register_user(request):
 
 
 def shop_overview(request):
+    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    shop_booking_count = ServiceBooking.objects.filter(service__shop_id=shop_profile_id).count()
     no_of_services = Service.objects.count()
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
-                  {'section': 'dashboard', 'no_of_services': no_of_services})
+                  {'section': 'dashboard',
+                   'no_of_services': no_of_services,
+                   'no_of_bookings': shop_booking_count
+                   })
 
 
 @login_required()
@@ -66,8 +71,10 @@ def shop_services(request):
     shop = ShopProfile.objects.get(user_id=user_id)
     shop_id = shop.id
     no_of_services = Service.objects.filter(shop_id=shop_id).count()
-    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_services.html',
-                  {'section': 'dashboard', 'no_of_services': no_of_services })
+    return render(request,
+                  'ovros_dashboard/shop_dashboard/shop_dashboard_services.html',
+                  {'section': 'dashboard',
+                   'no_of_services': no_of_services })
 
 
 @login_required()
@@ -94,7 +101,7 @@ def shop_bookings_view(request):
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_bookings_view.html',
                   {'pro_id': shop_profile_id,
-                   'section':'dashboard',
+                   'section': 'dashboard',
                    'shop_bookings': shop_booking_list,
                    'action_form': book_status_chng_form})
 
@@ -105,7 +112,7 @@ def shop_services_list(request):
     services = Service.objects.filter(shop_id=pro_id)
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_service_list.html',
-                  {'service': 'dashboard', 'services': services})
+                  {'section': 'dashboard', 'services': services})
 
 
 def shop_service_edit(request, service_id):
