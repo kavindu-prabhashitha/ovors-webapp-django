@@ -1,10 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from ovros_user_module.forms import UserRegistrationForm, UserEditForm, UserProfileEditForm
 from ovros_user_module.models import UserProfile, ShopProfile
 from ovros_service_module.models import Service
 from ovros_booking.views import ServiceBooking
+from django.contrib import messages
+
 from ovros_booking.forms import BookingStatusChangeForm
+from ovros_service_module.forms import ServiceEditForm
+
 from django.contrib.auth.models import User
 
 from ovros_booking.models import ServiceBooking
@@ -97,12 +101,46 @@ def shop_bookings_view(request):
 
 @login_required()
 def shop_services_list(request):
-    print(request.POST['profile_id'])
-    pro_id = request.POST['profile_id']
+    pro_id = request.session['profile_data']['profile_data']['profile_id']
     services = Service.objects.filter(shop_id=pro_id)
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_service_list.html',
                   {'service': 'dashboard', 'services': services})
+
+
+def shop_service_edit(request, service_id):
+    service_rec = Service.objects.get(id=service_id)
+    old_img = service_rec.service_image
+
+    if request.method == 'POST':
+        service_form = ServiceEditForm(request.POST, request.FILES or None)
+        if service_form.is_valid():
+            cd = service_form.cleaned_data
+            service_rec.service_name = cd['service_name']
+            if 'service_image' in request.FILES:
+                service_rec.service_image = cd['service_image']
+            else:
+                service_rec.service_image = old_img
+            service_rec.service_description = cd['service_description']
+            service_rec.service_duration = cd['service_duration']
+            service_rec.service_price = cd['service_price']
+            service_rec.save()
+            messages.success(request, "Service Updated ...")
+            return redirect('shop_services_list')
+    else:
+        initial_rec_dic = {
+                'service_name': service_rec.service_name,
+                'service_image': service_rec.service_image,
+                'service_description': service_rec.service_description,
+                'service_duration': service_rec.service_duration,
+                'service_price': service_rec.service_price,
+        }
+
+        service_edit_form = ServiceEditForm(initial=initial_rec_dic)
+        return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_service_edit.html',{
+            'section': 'dashboard',
+            'service_edit_form': service_edit_form
+        })
 
 
 def shop_payments(request, profile_id):

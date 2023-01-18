@@ -19,9 +19,9 @@
                     <div class="col-12 col-md-6 col-lg-6">
                        <form method="post" enctype="multipart/form-data">
                            {% csrf_token %}
-                           {{ form | crispy }}
+                           {{ service_edit_form | crispy }}
                            <input id="user_role" type="hidden" name="user_role"  >
-                           <p><input class="btn btn-primary" type="submit" value="Add Service"></p>
+                           <p><input class="btn btn-primary" type="submit" value="Edit Service"></p>
                        </form>
 
                     </div>
