@@ -13,6 +13,8 @@ urlpatterns =[
     path('shop-overview', views.shop_overview, name='shop_overview'),
     path('shop-services', views.shop_services, name='shop_services'),
     path('shop-bookings', views.shop_bookings, name='shop_bookings'),
+    path('shop-bookings-view', views.shop_bookings_view, name='shop_bookings_view'),
+
     path('shop-payments', views.shop_payments, name='shop_payments'),
     path('shop-reports', views.shop_reports, name='shop_reports'),
     path('shop-services-list', views.shop_services_list, name='shop_services_list'),

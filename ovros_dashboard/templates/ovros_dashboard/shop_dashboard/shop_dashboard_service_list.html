@@ -26,12 +26,26 @@
                     {% for service in services %}
                         <div class="col-12 col-md-6 col-lg-4">
                             <div class="card">
-                                <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
+                                <img src="{{ service.service_image.url }}" class="card-img-top">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ service.service_name }}</h5>
-                                    <p class="card-text">{{ service.service_description }}
-                                    </p>
-                                    <a href="#" class="btn btn-primary">{{ service.service_price }}</a>
+                                    <div class="list-group">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <h4>{{ service.service_name}}</h4>
+
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Description :</strong><br>
+                                                {{ service.service_description }}</li>
+                                            <li class="list-group-item"><strong>Price : </strong><span>Rs.</span>{{ service.service_price }}</li>
+                                            <li class="list-group-item"><strong>Date Created </strong>
+                                                :{{ service.date_created }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <a class="btn btn-primary" href="#">View Details</a>
+                                    <a class="btn btn-success" href="#">Edit</a>
                                 </div>
                             </div>
                         </div>

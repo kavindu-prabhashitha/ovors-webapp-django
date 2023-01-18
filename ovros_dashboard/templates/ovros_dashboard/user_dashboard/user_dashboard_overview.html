@@ -53,7 +53,12 @@
                         <p class="card-text">Bookings</p>
                     </div>
                     <div class="card-footer">
-                        <h3>23</h3>
+                        {% if booking_count == 0 %}
+                            <h3>0</h3>
+                        {% else %}
+                            <h3>{{ booking_count }}</h3>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

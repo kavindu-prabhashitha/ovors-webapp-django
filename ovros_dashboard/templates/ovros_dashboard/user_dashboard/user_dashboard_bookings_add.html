@@ -1,4 +1,5 @@
 {% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
+{% load crispy_forms_tags %}
 {% block title %}
     {% load static %}
     User-Bookings
@@ -7,7 +8,7 @@
 {% block support_navbar_content %}
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'user_bookings' %}">User Dashboard Bookings >> </a>
+            <a class="navbar-brand" href="#">User Dashboard Bookings >> </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -15,11 +16,11 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'services' %}"><span
+                        <a class="nav-link active" aria-current="page" href="#"><span
                                 class="badge rounded-pill text-bg-primary">Add Booking</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'view_booking' %}"><span
+                        <a class="nav-link active" aria-current="page" href="#"><span
                                 class="badge rounded-pill text-bg-primary">View Booking</span></a>
                     </li>
                 </ul>
@@ -32,28 +33,49 @@
 
     <div class="container text-center">
         <div class="row my-5">
-            <h3>User Dashboard Bookings</h3>
+            <h3>User Dashboard Add Booking</h3>
         </div>
         <div class="row">
-            <div class="col-12 col-md-6 col-lg-1"></div>
+            <div class="col-12 col-md-6 col-lg-1">
+
+            </div>
             <div class="col-12 col-md-6 col-lg-6">
-                <div class="card" style="border: white">
-                    <img src="{% static 'images/booking_v2.jpg' %}" alt="booking image" class="card-img-top">
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Duration
+                                    : {{ service.service_duration }} min
+                                </li>
+                                <li class="list-group-item">Shop
+                                    : {{ service.shop.shop_name }}</li>
+                                <li class="list-group-item">Shop
+                                    : {{ service.service_description }}</li>
+                                <li class="list-group-item">Price
+                                    : <span>Rs.</span>{{ service.service_price }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer"></div>
                 </div>
+
             </div>
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-header">
-                        ovros-user-bookings
+                        Add Booking
                     </div>
                     <div class="card-body">
-                        <p class="fs-1 fw-bold">{{ bookings.count }}</p>
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <input class="btn btn-success" value="Confirm Booking" type="submit">
+                        </form>
 
                     </div>
                     <div class="card-footer">
-                        <p><span class="badge rounded-pill text-bg-warning">Pending : {{ pending_count }} </span></p>
-                        <p><span class="badge rounded-pill text-bg-success">Approved :{{ approved_count }}</span></p>
-                        <p><span class="badge rounded-pill text-bg-danger">Canceled : {{ canceled_count }}</span></p>
+                        <p class="fw-bold">######</p>
                     </div>
                 </div>
             </div>

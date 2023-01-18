@@ -3,7 +3,11 @@ from django.contrib.auth.decorators import login_required
 from ovros_user_module.forms import UserRegistrationForm, UserEditForm, UserProfileEditForm
 from ovros_user_module.models import UserProfile, ShopProfile
 from ovros_service_module.models import Service
+from ovros_booking.views import ServiceBooking
+from ovros_booking.forms import BookingStatusChangeForm
 from django.contrib.auth.models import User
+
+from ovros_booking.models import ServiceBooking
 
 
 @login_required
@@ -46,7 +50,8 @@ def admin_register_user(request):
 
 def shop_overview(request):
     no_of_services = Service.objects.count()
-    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
+    return render(request,
+                  'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
                   {'section': 'dashboard', 'no_of_services': no_of_services})
 
 
@@ -64,6 +69,30 @@ def shop_services(request):
 @login_required()
 def shop_bookings(request):
     return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_bookings.html', {'section': 'dashboard'})
+
+
+@login_required()
+def shop_bookings_view(request):
+
+    if request.method == 'POST':
+        print("Booking Data Received...")
+        print("Booking id : ", request.POST['booking_id'])
+        print("Booking STATUS : ", request.POST['booking_status'])
+        booking_id = request.POST['booking_id']
+        booking_status = request.POST['booking_status']
+        booking_rec = ServiceBooking.objects.get(id=booking_id)
+        booking_rec.booking_status = booking_status
+        booking_rec.save()
+
+    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    shop_booking_list = ServiceBooking.objects.filter(service__shop_id=shop_profile_id)
+    book_status_chng_form = BookingStatusChangeForm()
+    return render(request,
+                  'ovros_dashboard/shop_dashboard/shop_dashboard_bookings_view.html',
+                  {'pro_id': shop_profile_id,
+                   'section':'dashboard',
+                   'shop_bookings': shop_booking_list,
+                   'action_form': book_status_chng_form})
 
 
 @login_required()
@@ -87,11 +116,29 @@ def shop_reports(request):
 
 @login_required()
 def user_overview(request):
-    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_overview.html', {'section': 'dashboard'})
+    user_id = request.session['profile_data']['profile_data']['user_id']
+    booking_count = ServiceBooking.objects.filter(user_id=user_id).count()
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_overview.html',
+                  {'section': 'dashboard',
+                   'booking_count': booking_count
+                   })
 
 
+@login_required()
 def user_booking(request):
-    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_bookings.html', {'section': 'dashboard'})
+    user_id = request.session['profile_data']['profile_data']['user_id']
+    bookings = ServiceBooking.objects.filter(user_id=user_id)
+    pending_bookings = bookings.filter(booking_status="PENDING").count()
+    approved_bookings = bookings.filter(booking_status="APPROVED").count()
+    canceled_bookings = bookings.filter(booking_status="CANCELED").count()
+    return render(request,
+                  'ovros_dashboard/user_dashboard/user_dashboard_bookings.html',
+                  {'section': 'dashboard',
+                   'bookings': bookings,
+                   'pending_count': pending_bookings,
+                   'approved_count': approved_bookings,
+                   'canceled_count': canceled_bookings,
+                   })
 
 
 def user_payment(request):

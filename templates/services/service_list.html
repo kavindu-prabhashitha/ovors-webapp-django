@@ -31,18 +31,26 @@
                                 {% else %}
                                     <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
                                 {% endif %}
-                                <h5 class="card-title">{{ service.service_name }}</h5>
-                                <div class="card-body ">
+                                <div class="card-body">
                                     <div class="list-group">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">Duration
-                                            : {{ service.service_duration }} min</li>
-                                            <li class="list-group-item">Shop
-                                            : {{ service.shop.shop_name }}</li>
+                                            <li class="list-group-item">
+                                                <h4>{{ service.service_name}}</h4>
+
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Description :</strong><br>
+                                                {{ service.service_description }}</li>
+                                            <li class="list-group-item"><strong>Price : </strong><span>Rs.</span>{{ service.service_price }}</li>
+                                            <li class="list-group-item"><strong>Avg Duration </strong>
+                                                : {{ service.service_duration }} minutes</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <a href="{% url 'service_detail' service.id %}" class="btn btn-info ">View Details</a>
+                                                            <div class="card-footer">
+                                <a href="{% url 'service_detail' service.id %}" class="btn btn-primary ">View Details</a>
+
+                                </div>
                             </div>
                         </div>
                     </div>

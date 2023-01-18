@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-
+from django.contrib.messages import constants as messages
 import ovros_dashboard.apps
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'ovros_user_module.apps.OvrosUserModuleConfig',
     'ovros_dashboard.apps.OvrosDashboardConfig',
     'ovros_service_module.apps.OvrosServiceModuleConfig',
+    'ovros_booking.apps.OvrosBookingConfig',
     'django.contrib.admin',
     "crispy_forms",
     "crispy_bootstrap5",
@@ -115,7 +116,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ovros_user_module/static/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 # Default primary key field type
@@ -138,3 +139,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 MEDIA_URL = '/media/'
 
 PROFILE_DETAIL_SESSION_ID = 'profile_data'
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}

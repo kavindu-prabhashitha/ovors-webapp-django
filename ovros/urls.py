@@ -5,6 +5,7 @@ from ovros_user_module import urls as account_urls
 from ovros_dashboard import urls as dashboard_urls
 from ovros_home.views import search
 from ovros_service_module import urls as service_urls
+from ovros_booking import urls as booking_urls
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -16,6 +17,7 @@ urlpatterns = [
     path('account/', include(account_urls)),
     path('dashboard/', include(dashboard_urls)),
     path('service/', include(service_urls)),
+    path('booking/', include(booking_urls)),
 ]
 
 
