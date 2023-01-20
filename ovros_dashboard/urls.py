@@ -17,6 +17,7 @@ urlpatterns =[
 
     path('shop-payments', views.shop_payments, name='shop_payments'),
     path('shop-reports', views.shop_reports, name='shop_reports'),
+    path('shop-profile', views.shop_profile, name='shop_profile'),
     path('shop-services-list', views.shop_services_list, name='shop_services_list'),
     path('shop-service-edit/<service_id>', views.shop_service_edit, name='shop_service_edit'),
 
@@ -28,5 +29,6 @@ urlpatterns =[
     path('user-favorites', views.user_favorites, name='user_favorite'),
     path('user-profile', views.user_profile, name='user_profile'),
     path('user-profile-edit', views.user_profile_edit, name='user_profile_edit'),
+    path('user-print-booking/<booking_id>', views.generate_booking_detail, name='user_print_booking_pdf')
 
 ]

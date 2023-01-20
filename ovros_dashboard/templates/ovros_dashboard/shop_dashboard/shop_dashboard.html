@@ -11,6 +11,10 @@
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Ovros Shop Dashboard</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <div class="text-center">
+                    <img class="card-image-top" src="{% static 'images/logo.png' %}" style="width: 150px;height: 150px">
+                    <p>SHOP DASHBOARD</p>
+        </div>
         </div>
         <div class="offcanvas-body">
 
@@ -29,7 +33,7 @@
                      <i class="bi bi-person-circle"></i>Shop Profile
                 </button>
                 <ul class="dropdown-menu">
-                     <li><a class="dropdown-item" href="#">View Profile</a></li>
+                     <li><a class="dropdown-item" href="{% url 'shop_profile' %}">View Profile</a></li>
                     <li><a class="dropdown-item" href="#">Edit Profile Details</a></li>
                 </ul>
             </div>

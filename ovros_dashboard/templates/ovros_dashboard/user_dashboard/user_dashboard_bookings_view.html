@@ -73,6 +73,10 @@
                         <div class="card-footer">
                             <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#id_{{ forloop.counter }}">Cancel
                                 Booking</a>
+                            {% if booking.booking_status == 'APPROVED' %}
+                            <a href="{% url 'user_print_booking_pdf' booking.id %}" class="btn btn-info" >Print
+                                Booking Detail</a>
+                            {% endif %}
                         </div>
                     </div>
 

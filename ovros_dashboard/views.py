@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
 from ovros_user_module.forms import UserRegistrationForm, UserEditForm, UserProfileEditForm
@@ -12,7 +14,7 @@ from ovros_service_module.forms import ServiceEditForm
 from django.contrib.auth.models import User
 
 from ovros_booking.models import ServiceBooking
-
+from .helpers import save_pdf
 
 @login_required
 def admin_overview(request):
@@ -159,6 +161,19 @@ def shop_reports(request):
     return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_report.html', {'section': 'dashboard'})
 
 
+def shop_profile(request):
+    user_id = request.session['profile_data']['profile_data']['user_id']
+    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    profile = ShopProfile.objects.get(id=shop_profile_id)
+    shop_p_data = User.objects.get(id=user_id)
+    print(shop_p_data.email)
+    return render(request,
+                  'ovros_dashboard/shop_dashboard/shop_dashboard_profile.html',
+                  {'section': 'dashboard',
+                   'profile_d': shop_p_data,
+                   'profile': profile})
+
+
 @login_required()
 def user_overview(request):
     user_id = request.session['profile_data']['profile_data']['user_id']
@@ -249,3 +264,14 @@ def user_profile_edit(request):
         return render(request,
                       'ovros_dashboard/user_dashboard/user_dashboard_profile_edit.html',
                       {'section': 'dashboard', 'u_form': u_form, 'p_form': p_form})
+
+
+def generate_booking_detail(request, booking_id):
+    booking = ServiceBooking.objects.get(id=booking_id)
+
+    params = {
+        'today': datetime.date.today(),
+        'booking': booking
+    }
+    file_res = save_pdf(params)
+    return file_res
