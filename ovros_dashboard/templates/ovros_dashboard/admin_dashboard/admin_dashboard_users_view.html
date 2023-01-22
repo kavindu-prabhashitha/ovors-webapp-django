@@ -1,0 +1,49 @@
+{% extends 'ovros_dashboard/admin_dashboard/admin_dashboard_users.html' %}
+{% block title %}
+    {% load static %}
+    Admin-Overview
+{% endblock %}
+
+{% block dashboard_content %}
+
+    <div class="container text-center">
+
+        <div class="row my-2">
+            <h3>Admin Dashboard View Users</h3>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-3 col-lg-3"></div>
+            <div class="col-12 col-md-3 col-lg-6">
+                <form class="d-flex" role="search" method="get" action="{% url 'home_search' %}">
+                    <input class="form-control me-2" type="search" name="search" placeholder="Search email"
+                           aria-label="Search">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Open this select user type</option>
+                        <option value="1">USER</option>
+                        <option value="2">SHOP</option>
+                        <option value="3">ALL</option>
+                    </select>
+
+                    <button class="btn btn-success text-nowrap mx-2" type="submit">Search User</button>
+                </form>
+
+            </div>
+            <div class="col-12 col-md-3 col-lg-3"></div>
+
+        </div>
+        <div class="row">
+            <div class="col-12 col-lg-2">
+
+            </div>
+            <div class="col-12 col-lg-8">
+                <iframe></iframe>
+            </div>
+            <div class="col-12 col-lg-2">
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

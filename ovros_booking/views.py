@@ -37,7 +37,7 @@ def add_booking(request, service_id):
         return render(request,
                       'ovros_dashboard/user_dashboard/user_dashboard_bookings_add.html',
                       {'form': booking_form,
-                       'section':'dashboard',
+                       'section': 'dashboard',
                        'service': service}
                       )
 
@@ -48,7 +48,7 @@ def view_user_bookings(request):
     bookings = ServiceBooking.objects.filter(user_id=user_profile_id)
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_bookings_view.html'
                   , {
-                    'section':'dashboard',
+                    'section': 'dashboard',
                     'bookings': bookings
                   })
 

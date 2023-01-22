@@ -31,7 +31,7 @@
                                 class="badge rounded-pill text-bg-primary">Add Users</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"><span
+                        <a class="nav-link active" aria-current="page" href="{% url 'admin_users_view' %}"><span
                                 class="badge rounded-pill text-bg-primary">View Users</span></a>
                     </li>
                 </ul>
@@ -59,7 +59,7 @@
                                 ovros-users
                             </div>
                             <div class="card-body">
-                                <p class="fs-1 fw-bold">12</p>
+                                <p class="fs-1 fw-bold">{{ no_of_users }}</p>
                             </div>
                             <div class="card-footer">
                                 <p class="fw-bold">Number of System Users</p>
