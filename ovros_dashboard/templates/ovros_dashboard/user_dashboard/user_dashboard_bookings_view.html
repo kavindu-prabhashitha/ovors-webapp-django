@@ -1,33 +1,10 @@
-{% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
+{% extends 'ovros_dashboard/user_dashboard/user_dashboard_bookings.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
     {% load static %}
     User-Bookings
 {% endblock %}
 
-{% block support_navbar_content %}
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">User Dashboard Bookings >> </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"><span
-                                class="badge rounded-pill text-bg-primary">Add Booking</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"><span
-                                class="badge rounded-pill text-bg-primary">View Booking</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-{% endblock %}
 
 {% block dashboard_content %}
 
@@ -35,10 +12,7 @@
         <div class="row my-5">
             <h3>User Dashboard View Booking</h3>
         </div>
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-1">
-
-            </div>
+        <div class="row my-5 g-3">
             {% for booking in bookings %}
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
@@ -71,17 +45,20 @@
                             </div>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#id_{{ forloop.counter }}">Cancel
-                                Booking</a>
+                            {% if not booking.booking_status == "APPROVED" %}
+                                <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                                   data-bs-target="#id_{{ forloop.counter }}">Cancel
+                                    Booking</a>
+                            {% endif %}
+
                             {% if booking.booking_status == 'APPROVED' %}
-                            <a href="{% url 'user_print_booking_pdf' booking.id %}" class="btn btn-info" >Print
-                                Booking Detail</a>
+                                <a href="{% url 'user_print_booking_pdf' booking.id %}" class="btn btn-info">Print
+                                    Booking Detail</a>
                             {% endif %}
                         </div>
                     </div>
-
-
-                    <div class="modal fade" id="id_{{ forloop.counter }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    <div class="modal fade" id="id_{{ forloop.counter }}" tabindex="-1"
+                         aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -91,26 +68,22 @@
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                   <p>Service Booking for {{ booking.service.shop.shop_name }}
-                                       with service name {{ booking.service.service_name }}
-                                    on {{ booking.booking_date }} at {{ booking.booking_date }} will be cancelled.</p>
+                                    <p>Service Booking for {{ booking.service.shop.shop_name }}
+                                        with service name {{ booking.service.service_name }}
+                                        on {{ booking.booking_date }} at {{ booking.booking_date }} will be
+                                        cancelled.</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
                                     </button>
-                                    <a  type="button" href="{% url 'cancel_booking' booking.id %}" class="btn btn-danger">Cancel Booking</a>
+                                    <a type="button" href="{% url 'cancel_booking' booking.id %}"
+                                       class="btn btn-danger">Cancel Booking</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             {% endfor %}
         </div>
-        <div class="col-12 col-md-6 col-lg-1">
-
-        </div>
     </div>
-
 {% endblock %}

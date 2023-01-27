@@ -14,18 +14,29 @@ class Service(models.Model):
     service_name = models.CharField(max_length=100)
     service_image = models.ImageField(upload_to='images/service_img', blank=True)
     service_description = models.CharField(max_length=500, default='', blank=True)
-    service_price = models.CharField(max_length=20)
+    service_price = models.DecimalField(max_digits=10, decimal_places=2)
     service_duration = models.CharField(max_length=5)
-    date_created = models.DateField()
+    is_for_car = models.BooleanField(verbose_name="Available for car", default=False)
+    is_for_van = models.BooleanField(verbose_name="Available for van", default=False)
+    is_for_suv = models.BooleanField(verbose_name="Available for suv", default=False)
+    is_for_lorry = models.BooleanField(verbose_name="Available for lorry", default=False)
+    is_for_bike = models.BooleanField(verbose_name="Available for bike", default=False)
+    service_availability = models.BooleanField(
+        verbose_name="Service availability",
+        default=False,
+        help_text="is service available currently"
+    )
+    date_created = models.DateField(auto_now_add=True)
+    date_updated = models.DateField(blank=True)
 
     def __str__(self):
-        return f"Servie Name : {self.service_name}"
+        return f"Servie Name : {self.service_name} is available : {self.service_availability}"
 
 
 class ServicePart(models.Model):
     part_name = models.CharField(max_length=50)
     part_type = models.CharField(max_length=50)
-    part_price = models.CharField(max_length=20)
+    part_price = models.DecimalField(max_digits=10, decimal_places=2)
     service = models.ManyToManyField(Service, through='PartForService')
 
     def __str__(self):

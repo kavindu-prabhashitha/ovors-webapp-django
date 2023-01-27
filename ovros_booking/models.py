@@ -45,5 +45,4 @@ class ServiceBooking(models.Model):
         return f"shop {self.service.shop.shop_name}," \
                f" id {self.service.id}," \
                f" booking status {self.booking_status}"\
-               f" service status {self.service_status}" \
-               f" payment status {self.payment_status}"
+               f" service status {self.service_status}"

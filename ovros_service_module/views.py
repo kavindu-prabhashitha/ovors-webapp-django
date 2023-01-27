@@ -22,14 +22,17 @@ def service_add(request):
                     new_service.service_name = cd['service_name']
                     new_service.service_price = cd['service_price']
                     new_service.service_duration = cd['service_duration']
-                    new_service.date_created = cd['date_created']
                     new_service.service_description = cd['service_description']
+                    new_service.is_for_car = cd['is_for_car']
+                    new_service.is_for_suv = cd['is_for_suv']
+                    new_service.is_for_van = cd['is_for_van']
+                    new_service.is_for_lorry = cd['is_for_lorry']
+                    new_service.is_for_bike = cd['is_for_bike']
                     if form.cleaned_data['service_image']:
                         new_service.service_image = form.cleaned_data['service_image']
                     else:
                         default_file_path = 'images/service_img/card-header-default.jpg'
                         new_service.service_image = default_file_path
-
                     new_service.save()
 
             except ShopProfile.DoesNotExist:
