@@ -166,3 +166,6 @@ def edit(request):
                   {'user_form': user_form,
                    'profile_form': profile_form})
 
+
+def test_function(input):
+    pass
