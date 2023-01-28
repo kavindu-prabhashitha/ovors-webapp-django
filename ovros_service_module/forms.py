@@ -36,6 +36,11 @@ class ServiceEditForm(forms.ModelForm):
             'service_description',
             'service_duration',
             'service_price',
+            'is_for_bike',
+            'is_for_van',
+            'is_for_car',
+            'is_for_suv',
+            'is_for_lorry'
         )
 
         widgets = {

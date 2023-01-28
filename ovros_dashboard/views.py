@@ -11,7 +11,7 @@ from ovros_booking.forms import BookingStatusChangeForm, ServiceStatusChangeForm
 from ovros_service_module.forms import ServiceEditForm
 from django.contrib.auth.models import User
 
-from ovros_payment_module.forms import ShopBankDetAddForm
+from ovros_payment_module.forms import ShopBankDetAddForm, ShopBankDetEditForm
 from ovros_payment_module.models import ShopPaymentDetail
 
 from ovros_booking.models import ServiceBooking
@@ -161,9 +161,13 @@ def shop_services_list(request):
 
 
 def shop_service_edit(request, service_id):
+    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    shop_profile_role = request.session['profile_data']['profile_data']['profile_role']
     service_rec = Service.objects.get(id=service_id)
     old_img = service_rec.service_image
 
+    is_verified = check_service_edit_permission(service_rec ,request.user.id, shop_profile_role)
+    print('is user verified :', is_verified)
     if request.method == 'POST':
         service_form = ServiceEditForm(request.POST, request.FILES or None)
         if service_form.is_valid():
@@ -176,6 +180,12 @@ def shop_service_edit(request, service_id):
             service_rec.service_description = cd['service_description']
             service_rec.service_duration = cd['service_duration']
             service_rec.service_price = cd['service_price']
+            service_rec.is_for_bike = cd['is_for_bike']
+            service_rec.is_for_van = cd['is_for_van']
+            service_rec.is_for_car = cd['is_for_car']
+            service_rec.is_for_suv = cd['is_for_suv']
+            service_rec.is_for_lorry = cd['is_for_lorry']
+
             service_rec.save()
             messages.success(request, "Service Updated ...")
             return redirect('shop_services_list')
@@ -186,6 +196,11 @@ def shop_service_edit(request, service_id):
                 'service_description': service_rec.service_description,
                 'service_duration': service_rec.service_duration,
                 'service_price': service_rec.service_price,
+                'is_for_bike': service_rec.is_for_bike,
+                'is_for_van': service_rec.is_for_van,
+                'is_for_car': service_rec.is_for_car,
+                'is_for_suv': service_rec.is_for_suv,
+                'is_for_lorry': service_rec.is_for_lorry,
         }
 
         service_edit_form = ServiceEditForm(initial=initial_rec_dic)
@@ -194,6 +209,13 @@ def shop_service_edit(request, service_id):
                         'section': 'dashboard',
                         'service_edit_form': service_edit_form}
                       )
+
+
+def check_service_edit_permission(service, user_id, user_role):
+    if service.shop.user.id == user_id:
+        return True
+    else:
+        return False
 
 
 def shop_payments(request):
@@ -222,26 +244,44 @@ def shop_profile(request):
     shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
 
     if request.method == 'POST':
-        payment_form = ShopBankDetAddForm(request.POST)
-        if payment_form.is_valid():
-            p_detail = ShopPaymentDetail()
-            p_detail.shop_profile = ShopProfile.objects.get(id=shop_profile_id)
-            p_detail.bank_name = request.POST['bank_name']
-            p_detail.bank_branch = request.POST['bank_branch']
-            p_detail.account_no = request.POST['account_no']
-            p_detail.account_name = request.POST['account_name']
-            p_detail.save()
+        if request.POST['edit_payment'] == '0':
+            payment_form = ShopBankDetAddForm(request.POST)
+            if payment_form.is_valid():
+                p_detail = ShopPaymentDetail()
+                p_detail.shop_profile = ShopProfile.objects.get(id=shop_profile_id)
+                p_detail.bank_name = request.POST['bank_name']
+                p_detail.bank_branch = request.POST['bank_branch']
+                p_detail.account_no = request.POST['account_no']
+                p_detail.account_name = request.POST['account_name']
+                p_detail.save()
+        if request.POST['edit_payment'] == '1':
+            payment_edit_form = ShopBankDetEditForm(request.POST)
+            if payment_edit_form.is_valid():
+                shop_pro = ShopProfile.objects.get(id=shop_profile_id)
+                p_detail = ShopPaymentDetail.objects.get(shop_profile=shop_pro)
+                p_detail.bank_name = request.POST['bank_name']
+                p_detail.bank_branch = request.POST['bank_branch']
+                p_detail.account_no = request.POST['account_no']
+                p_detail.account_name = request.POST['account_name']
+                p_detail.save()
 
     profile = ShopProfile.objects.get(id=shop_profile_id)
     shop_p_data = User.objects.get(id=user_id)
     try:
         payment_detail = ShopPaymentDetail.objects.get(shop_profile_id=profile.id)
         bank_det_available = True
+        intial_dict = {
+            'bank_name': payment_detail.bank_name,
+            'bank_branch': payment_detail.bank_branch,
+            'account_no': payment_detail.account_no,
+            'account_name': payment_detail.account_name
+        }
     except ShopPaymentDetail.DoesNotExist:
         payment_detail = ShopPaymentDetail()
+        intial_dict = {}
         bank_det_available = False
 
-    payment_form = ShopBankDetAddForm()
+    payment_form = ShopBankDetAddForm(initial=intial_dict)
     print(shop_p_data.email)
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_profile.html',
@@ -251,6 +291,13 @@ def shop_profile(request):
                    'payment_add_form': payment_form,
                    'profile_d': shop_p_data,
                    'profile': profile})
+
+
+def shop_profile_edit(request):
+    user_id = request.session['profile_data']['profile_data']['user_id']
+    profile_id = request.session['profile_data']['profile_data']['profile_id']
+    user = User.objects.get(id=user_id)
+    profile = ShopProfile.objects.get(id=profile_id)
 
 
 @login_required()

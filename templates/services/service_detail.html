@@ -9,17 +9,17 @@
 
     <!-- Service Section Start -->
     <section id="ovros-service">
-                <div class="container">
-                    <div class="row my-5 align-items-center justify-content-center">
-                        <div class="col-lg-4 col-md-4">
-                            <form class="d-flex" role="search" method="get" action="{% url 'home_search' %}">
-                                <input class="form-control me-2" type="search" name="search" placeholder="Search"
-                                       aria-label="Search">
-                                <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
-                            </form>
-                        </div>
-                    </div>
+        <div class="container">
+            <div class="row my-5 align-items-center justify-content-center">
+                <div class="col-lg-4 col-md-4">
+                    <form class="d-flex" role="search" method="get" action="{% url 'home_search' %}">
+                        <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                               aria-label="Search">
+                        <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
+                    </form>
                 </div>
+            </div>
+        </div>
         <div class="container">
             <div class="row my-5 g-3">
                 <div class="col-12 col-md-6 col-lg-4">
@@ -52,10 +52,41 @@
                                             :</strong> <span>Rs.</span>{{ service.service_price }}</li>
                                         <li class="list-group-item"><strong>Location
                                             :</strong> {{ service.shop.shop_address }}</li>
+                                        <li class="list-group-item"><strong>Available Vehicles </strong>
+                                            <div>
+                                                {% if service.is_for_car %}
+                                                    <img height="40px" width="40px"
+                                                         src="{% static 'icons/car_icon.png' %}">
+                                                {% endif %}
+                                                {% if service.is_for_van %}
+                                                    <img height="40px" width="40px" class="bi"
+                                                         src="{% static 'icons/van_icon.png' %}">
+                                                {% endif %}
+
+                                                {% if service.is_for_suv %}
+                                                    <img height="40px" width="40px" class="bi"
+                                                         src="{% static 'icons/suv_icon.png' %}">
+                                                {% endif %}
+
+                                                {% if service.is_for_lorry %}
+                                                    <img height="40px" width="40px" class="bi"
+                                                         src="{% static 'icons/lorry_icon.png' %}">
+                                                {% endif %}
+
+                                                {% if service.is_for_bike %}
+                                                    <img height="40px" width="40px" class="bi"
+                                                         src="{% static 'icons/bike_icon.png' %}">
+                                                {% endif %}
+
+                                            </div>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
-                            <a href="{% url 'add_booking' service.id %}" class="btn btn-info ">Book Service</a>
+
+                            {% if user_role == "USER_CUSTOMER" %}
+                                <a href="{% url 'add_booking' service.id %}" class="btn btn-info ">Book Service</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

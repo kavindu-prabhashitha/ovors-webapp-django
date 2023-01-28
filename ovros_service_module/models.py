@@ -27,7 +27,7 @@ class Service(models.Model):
         help_text="is service available currently"
     )
     date_created = models.DateField(auto_now_add=True)
-    date_updated = models.DateField(blank=True)
+    date_updated = models.DateField(auto_now=True)
 
     def __str__(self):
         return f"Servie Name : {self.service_name} is available : {self.service_availability}"

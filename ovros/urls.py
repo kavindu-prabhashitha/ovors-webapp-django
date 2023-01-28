@@ -9,6 +9,10 @@ from ovros_booking import urls as booking_urls
 from django.conf import settings
 from django.conf.urls.static import static
 
+admin.site.site_header = 'Ovros Admin'
+admin.site.site_title = 'Ovros administration'
+admin.site.index_title = 'Ovros Admin Dashboard'
+
 urlpatterns = [
     path('', home, name='home'),
     path('services/', services, name='services'),

@@ -79,16 +79,18 @@
                                 <form method="post">
                                     {% csrf_token %}
                                     {{ payment_add_form|crispy }}
+                                    <input type="hidden" name="edit_payment" value="0">
                                     <input class="btn btn-primary" type="submit" value="Add Payment Details">
                                 </form>
                             {% endif %}
 
-                            <div id="collapseOne02" class="accordion-collapse collapse show"
+                            <div id="collapseOne02" class="accordion-collapse collapse"
                                  aria-labelledby="headingOne">
                                 <div class="accordion-body">
                                     <form method="post">
                                         {% csrf_token %}
                                         {{ payment_add_form|crispy }}
+                                        <input type="hidden" name="edit_payment" value="1">
                                         <input class="btn btn-warning" type="submit" value="Edit Payment Details">
                                     </form>
                                 </div>

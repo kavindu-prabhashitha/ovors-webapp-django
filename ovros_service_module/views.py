@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import ServiceCreationForm
 from ovros_user_module.views import ShopProfile
 from .models import Service
 
 
 def service_add(request):
+    user_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    user_profile_role = request.session['profile_data']['profile_data']['profile_role']
     if request.method == 'POST':
         form = ServiceCreationForm(request.POST, request.FILES or None)
         if form.is_valid():
@@ -14,7 +16,7 @@ def service_add(request):
             print(role)
             print(request.user.id)
             try:
-                if role == '999':
+                if user_profile_role == 'USER_SHOP':
                     shop = ShopProfile.objects.get(user_id=request.user.id)
                     print(shop.shop_name)
                     new_service = Service()
@@ -34,6 +36,7 @@ def service_add(request):
                         default_file_path = 'images/service_img/card-header-default.jpg'
                         new_service.service_image = default_file_path
                     new_service.save()
+                    return redirect('shop_services_list')
 
             except ShopProfile.DoesNotExist:
                 form = ServiceCreationForm()
@@ -59,6 +62,10 @@ def service_list(request):
 
 
 def service_detail(request, service_id):
-    print(service_id)
+    user_profile_role = request.session['profile_data']['profile_data']['profile_role']
+    print(service_id, '  ', user_profile_role)
     service = Service.objects.get(id=service_id)
-    return render(request, 'services/service_detail.html', {'service': service})
+    return render(request, 'services/service_detail.html',
+                  {'service': service,
+                   'user_role': user_profile_role
+                   })

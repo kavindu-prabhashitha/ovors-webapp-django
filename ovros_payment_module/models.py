@@ -9,7 +9,7 @@ class ShopPaymentDetail(models.Model):
     account_no = models.CharField(max_length=50, verbose_name='Account number')
     account_name = models.CharField(max_length=100, verbose_name='Account Name')
     created_at = models.DateField(auto_now_add=True)
-    updated_at = models.DateField(blank=True)
+    updated_at = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f"shop : {self.shop_profile.shop_name} bank: {self.bank_name} account: {self.account_no}"
