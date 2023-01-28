@@ -135,6 +135,8 @@ def shop_register(request):
             shop.shop_contact = request.POST['shop_contact']
             shop.save()
             return redirect('login')
+        else:
+            return redirect('shop_register')
     else:
         user_form = UserRegistrationForm()
         shop_profile_form = ShopProfileCreationForm()
