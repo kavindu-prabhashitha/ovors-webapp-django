@@ -62,9 +62,13 @@ def service_list(request):
 
 
 def service_detail(request, service_id):
-    user_profile_role = request.session['profile_data']['profile_data']['profile_role']
-    print(service_id, '  ', user_profile_role)
+    if request.user.is_authenticated:
+        user_profile_role = request.session['profile_data']['profile_data']['profile_role']
+        print(service_id, '  ', user_profile_role)
+    else:
+        user_profile_role = "USER_CUSTOMER"
     service = Service.objects.get(id=service_id)
+
     return render(request, 'services/service_detail.html',
                   {'service': service,
                    'user_role': user_profile_role
