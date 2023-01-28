@@ -1,35 +1,44 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     Admin Dashboard
 {% endblock %}
 
 {% block dashboard %}
     <!-- Navigation Bar - Dashboard start -->
-    <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvasExample"
+    <div class="offcanvas offcanvas-start " tabindex="-1" id="offcanvasExample"
          aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Ovros Shop Dashboard</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+        </div>
+        <div class="text-center">
+            <img class="card-image-top" src="{% static 'images/logo.png' %}" style="width: 150px;height: 150px">
+            <p>SHOP DASHBOARD</p>
+
         </div>
         <div class="offcanvas-body">
 
-    <div class="d-grid gap-2">
-        <a class="btn btn-primary" href="#"><i class="bi bi-speedometer"></i> Overview</a>
-        <a class="btn btn-primary" href="#"><i class="bi bi-people-fill"></i> Services</a>
-        <a class="btn btn-primary" href="#"><i class="bi bi-shop"></i> Shops</a>
-        <button class="btn btn-primary" type="button"><i class="bi bi-amd"></i> Bookings</button>
-        <button class="btn btn-primary" type="button"><i class="bi bi-cash-coin"></i> Payment</button>
+            <div class="d-grid gap-2">
+                <a class="btn btn-primary" href="{% url 'shop_overview' %}"><i class="bi bi-speedometer"></i>
+                    Overview</a>
+                <a class="btn btn-primary" href="{% url 'shop_services' %}"><i class="bi bi-people-fill"></i>
+                    Services</a>
+                <a class="btn btn-primary" href="{% url 'shop_bookings' %}"><i class="bi bi-amd"></i> Bookings</a>
+                <a class="btn btn-primary" href="{% url 'shop_payments' %}"><i class="bi bi-cash-coin"></i> Payment</a>
+                <a class="btn btn-primary" href="{% url 'shop_reports' %}"><i class="bi bi-file-bar-graph-fill"></i>
+                    Reports</a>
 
-    </div>
+            </div>
 
 
             <div class="dropdown mt-3">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                     <i class="bi bi-person-circle"></i>Shop Profile
+                    <i class="bi bi-person-circle"></i>Shop Profile
                 </button>
                 <ul class="dropdown-menu">
-                     <li><a class="dropdown-item" href="#">View Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'shop_profile' %}">View Profile</a></li>
                     <li><a class="dropdown-item" href="#">Edit Profile Details</a></li>
                 </ul>
             </div>

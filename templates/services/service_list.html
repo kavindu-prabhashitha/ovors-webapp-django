@@ -2,69 +2,95 @@
 {% load static %}
 
 {% block title %}
-Ovros Services
+    Ovros Services
 {% endblock %}
 
 {% block content %}
 
-        <!-- Service Section Start -->
+    <!-- Service Section Start -->
     <section id="ovros-service">
         <div class="container">
             <div class="row my-5 align-items-center justify-content-center">
                 <div class="col-lg-4 col-md-4">
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form class="d-flex" role="search" method="get" action="{% url 'home_search' %}">
+                        <input class="form-control me-2" type="search" name="search" placeholder="Search"
+                               aria-label="Search">
                         <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
                     </form>
                 </div>
             </div>
         </div>
         <div class="container">
-            <div class="row my-5">
-                <div class="col-sm-4 col-md-3">
-                    <div class="card">
-                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div class="row my-5 g-3">
+                {% for service in services %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                {% if service.service_image is None %}
+                                    <img src="{% static 'images/service_vector.jpg' %}" class="card-img-top"
+                                         alt="...">
+                                {% else %}
+                                    <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
+                                {% endif %}
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <h4>{{ service.service_name }}</h4>
+
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Description :</strong><br>
+                                                {{ service.service_description }}</li>
+                                        <li class="list-group-item">
+                                                <strong>Shop :</strong><br>
+                                                {{ service.shop.shop_name }}</li>
+                                            <li class="list-group-item"><strong>Price
+                                                : </strong><span>Rs.</span>{{ service.service_price }}</li>
+                                            <li class="list-group-item"><strong>Avg Duration </strong>
+                                                : {{ service.service_duration }} minutes
+                                            </li>
+                                            <li class="list-group-item"><strong>Available Vehicles </strong>
+                                                <div>
+                                                    {% if service.is_for_car %}
+                                                        <img height="40px" width="40px"
+                                                             src="{% static 'icons/car_icon.png' %}">
+                                                    {% endif %}
+                                                    {% if service.is_for_van %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/van_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_suv %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/suv_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_lorry %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/lorry_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_bike %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/bike_icon.png' %}">
+                                                    {% endif %}
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer">
+                                    <a href="{% url 'service_detail' service.id %}" class="btn btn-primary ">View
+                                        Details</a>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-4 col-md-3">
-                    <div class="card ">
-                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-3">
-                    <div class="card">
-                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-3">
-                    <div class="card">
-                        <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
-                            </p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
 

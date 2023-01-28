@@ -9,15 +9,6 @@ class Types(models.TextChoices):
     USER_CUSTOMER = "USER_CUSTOMER", "UserCustomer"
 
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-#     date_of_birth = models.DateField(blank=True, null=True)
-#     photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True)
-#
-#     def __str__(self):
-#         return f'Profile for user {self.user.username}'
-
-
 class ShopProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_role = models.CharField('Type', max_length=40, choices=Types.choices, default=Types.USER_SHOP)
@@ -33,6 +24,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_role = models.CharField('Type', max_length=40, choices=Types.choices, default=Types.USER_CUSTOMER)
     photo = models.ImageField(upload_to='users/%Y', blank=True,)
+    contact_number = models.CharField(max_length=15, blank=True)
     created_at = models.DateTimeField(auto_created=True, null=True)
 
     def __str__(self):

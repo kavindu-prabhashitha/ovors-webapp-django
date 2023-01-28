@@ -23,7 +23,7 @@
                         <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'services' %}">Services</a>
+                        <a class="nav-link active" href="{% url 'services' %}">Services</a>
                     </li>
                     {% if not request.user.is_authenticated %}
                         <li class="nav-item ms-2 d-none d-md-inline">
@@ -31,8 +31,8 @@
                         </li>
                     {% endif %}
                     {% if request.user.is_authenticated %}
-                        <li class="nav-item ms-2 d-none d-md-inline">
-                            <a href="{% url 'logout' %}" class="btn btn-info">Logout</a>
+                        <li class="nav-item ms-2  d-md-inline">
+                            <a href="{% url 'logout' %}" class="btn btn-info" ><span onclick="remove_user_data()"></span>Logout</a>
                         </li>
                     {% endif %}
 
@@ -43,10 +43,21 @@
                     {% endif %}
 
                     {% if request.user.is_authenticated %}
-                        <li class="nav-item ms-2 d-none d-md-inline">
+                        <li class="nav-item ms-2 my-0  d-md-inline">
                             <a href="{% url 'dashboard' %}" class="btn btn-success">Dashboard</a>
                         </li>
                     {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item ms-2 my-0  d-md-inline">
+                                       {% if section == 'dashboard' %}
+                <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button"
+                   aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon"></span>
+                </a>
+            {% endif %}
+                        </li>
+                    {% endif %}
+
                 </ul>
             </div>
         </div>

@@ -1,0 +1,110 @@
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% load static %}
+    User-profile
+{% endblock %}
+
+{% block content %}
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4 text-center">
+                <div class="card">
+                    <img src="{% static 'images/shopprofile_default.jpg' %}" class="card-img-top">
+                    <div class="card-body">
+                        <div class="list-group">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <h4><strong>{{ profile.shop_name }}</strong></h4>
+
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Email :</strong><br>
+                                    {{ profile_d.email }}</li>
+                                <li class="list-group-item"><strong>Contact : </strong>{{ profile.shop_contact }}</li>
+                                <li class="list-group-item"><strong>Address : </strong>
+                                    {{ profile.shop_address }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="#">Edit Details</a>
+                        <a class="btn btn-success" href="{% url 'password_change' %}">Change password &raquo;</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Payment Details
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                {% if bank_detail_availability %}
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <strong>Bank Name :</strong>
+                                            {{ payment_detail.bank_name }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Branch Name :</strong>
+                                            {{ payment_detail.bank_branch }}</li>
+                                        <li class="list-group-item"><strong>Account Name
+                                            : </strong>{{ payment_detail.account_name }}</li>
+                                        <li class="list-group-item"><strong>Account Number : </strong>
+                                            {{ payment_detail.account_no }}</li>
+                                        <li class="list-group-item">
+
+                                        </li>
+                                    </ul>
+                                    <button class="btn btn-primary"
+                                            type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne02" aria-expanded="true"
+                                            aria-controls="collapseOne02"
+
+                                    >Edit Details >
+                                    </button>
+
+                                    </div>
+                                {% endif %}
+                            {% if not bank_detail_availability %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ payment_add_form|crispy }}
+                                    <input type="hidden" name="edit_payment" value="0">
+                                    <input class="btn btn-primary" type="submit" value="Add Payment Details">
+                                </form>
+                            {% endif %}
+
+                            <div id="collapseOne02" class="accordion-collapse collapse"
+                                 aria-labelledby="headingOne">
+                                <div class="accordion-body">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {{ payment_add_form|crispy }}
+                                        <input type="hidden" name="edit_payment" value="1">
+                                        <input class="btn btn-warning" type="submit" value="Edit Payment Details">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-
+from django.contrib.messages import constants as messages
 import ovros_dashboard.apps
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,6 +30,9 @@ INSTALLED_APPS = [
     'ovros_home.apps.OvrosHomeConfig',
     'ovros_user_module.apps.OvrosUserModuleConfig',
     'ovros_dashboard.apps.OvrosDashboardConfig',
+    'ovros_service_module.apps.OvrosServiceModuleConfig',
+    'ovros_booking.apps.OvrosBookingConfig',
+    'ovros_payment_module.apps.OvrosPaymentModuleConfig',
     'django.contrib.admin',
     "crispy_forms",
     "crispy_bootstrap5",
@@ -59,6 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'ovros_user_module.context_processors.profile_data',
             ],
         },
     },
@@ -113,7 +117,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ovros_user_module/static/static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
 # Default primary key field type
@@ -131,5 +135,16 @@ LOGOUT_URL = 'logout'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
+
+PROFILE_DETAIL_SESSION_ID = 'profile_data'
+
+MESSAGE_TAGS = {
+        messages.DEBUG: 'alert-secondary',
+        messages.INFO: 'alert-info',
+        messages.SUCCESS: 'alert-success',
+        messages.WARNING: 'alert-warning',
+        messages.ERROR: 'alert-danger',
+}

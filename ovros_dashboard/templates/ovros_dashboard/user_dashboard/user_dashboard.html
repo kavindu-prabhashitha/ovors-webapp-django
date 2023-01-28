@@ -1,24 +1,29 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}
     User Dashboard
 {% endblock %}
 
+
 {% block dashboard %}
     <!-- Navigation Bar - Dashboard start -->
-    <div class="offcanvas offcanvas-start show" tabindex="-1" id="offcanvasExample"
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
          aria-labelledby="offcanvasExampleLabel">
         <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasExampleLabel">User Dashboard</h5>
+            <h5 class="offcanvas-title " id="offcanvasExampleLabel">User Dashboard</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="text-center">
+                    <img class="card-image-top" src="{% static 'images/logo.png' %}" style="width: 150px;height: 150px">
+<p>USER DASHBOARD</p>
         </div>
         <div class="offcanvas-body">
 
             <div class="d-grid gap-2">
-                <button class="btn btn-primary" type="button"><i class="bi bi-speedometer"></i> Overview</button>
-                <button class="btn btn-primary" type="button"><i class="bi bi-amd"></i> Bookings</button>
-                <button class="btn btn-primary" type="button"><i class="bi bi-cash-coin"></i> Payment</button>
-                <button class="btn btn-primary" type="button"><i class="bi bi-star"></i> Favorites</button>
+                <a class="btn btn-primary" href="{% url 'user_overview' %}"><i class="bi bi-speedometer"></i> Overview</a>
+                <a class="btn btn-primary" href="{% url 'user_bookings' %}"><i class="bi bi-amd"></i> Bookings</a>
+                <a class="btn btn-primary" href="{% url 'user_payments' %}"><i class="bi bi-cash-coin"></i> Payment</a>
+{#                <a class="btn btn-primary" href="{% url 'user_favorite' %}"><i class="bi bi-star"></i> Favorites</a>#}
             </div>
 
             <div class="dropdown mt-3">
@@ -26,11 +31,17 @@
                     <i class="bi bi-person-circle"></i> Profile
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">View Profile</a></li>
-                    <li><a class="dropdown-item" href="#">Edit Profile Details</a></li>
+                    <li><a class="dropdown-item" href="{% url 'user_profile' %}">View Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'user_profile_edit' %}">Edit Profile Details</a></li>
                 </ul>
             </div>
         </div>
     </div>
     <!-- Navigation bar Dashboard end -->
+
+
+{% block dashboard_content %}
 {% endblock %}
+
+{% endblock %}
+

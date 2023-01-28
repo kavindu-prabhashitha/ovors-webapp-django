@@ -18,12 +18,19 @@
                     {{ form |crispy }}
                     {% csrf_token %}
                     <p><input class="btn btn-primary my-4" type="submit" value="Log in"></p>
+                    <a href="{% url 'password_reset' %}">Forgot Password ?</a>
                 </form>
             </div>
             <div class="col"></div>
         </div>
     </div>
 
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("remove user data on load")
+            remove_user_data();
+        });
+    </script>
 
 
 {% endblock %}

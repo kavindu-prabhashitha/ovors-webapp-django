@@ -1,0 +1,99 @@
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard_services.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% load static %}
+    Shop-Services-List
+{% endblock %}
+
+
+{% block dashboard_content %}
+
+    <!-- Service Section Start -->
+    <section id="ovros-service">
+        <div class="container">
+            <div class="row my-5 align-items-center justify-content-center">
+                <div class="col-lg-4 col-md-4">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row my-5 g-3">
+                {% if services.count > 0 %}
+                    {% for service in services %}
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card">
+                                <img src="{{ service.service_image.url }}" class="card-img-top">
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <h4>{{ service.service_name }}</h4>
+
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Description :</strong><br>
+                                                {{ service.service_description }}</li>
+                                            <li class="list-group-item"><strong>Price
+                                                : </strong><span>Rs.</span>{{ service.service_price }}</li>
+                                            <li class="list-group-item"><strong>Date Created </strong>
+                                                :{{ service.date_created }}</li>
+                                            <li class="list-group-item"><strong>Available Vehicles </strong>
+                                                <div>
+                                                    {% if service.is_for_car %}
+                                                        <img height="40px" width="40px"
+                                                             src="{% static 'icons/car_icon.png' %}">
+                                                    {% endif %}
+                                                    {% if service.is_for_van %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/van_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_suv %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/suv_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_lorry %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/lorry_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_bike %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/bike_icon.png' %}">
+                                                    {% endif %}
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <a class="btn btn-primary" href="{% url 'service_detail' service.id %}">View
+                                        Details</a>
+                                    <a class="btn btn-success" href="{% url 'shop_service_edit' service.id %}">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+
+                {% else %}
+
+                    <h1>No Services Added ..</h1>
+
+                {% endif %}
+
+            </div>
+        </div>
+
+
+    </section>
+    <!-- Service Section End -->
+
+
+{% endblock %}
