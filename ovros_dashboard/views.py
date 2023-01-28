@@ -7,7 +7,7 @@ from ovros_user_module.models import UserProfile, ShopProfile
 from ovros_service_module.models import Service
 from django.contrib import messages
 
-from ovros_booking.forms import BookingStatusChangeForm, ServiceStatusChangeForm
+from ovros_booking.forms import BookingStatusChangeForm, ServiceStatusChangeForm, ServicePaymentStatusChangeForm
 from ovros_service_module.forms import ServiceEditForm
 from django.contrib.auth.models import User
 
@@ -226,7 +226,7 @@ def shop_payments_view(request):
     user_id = request.user.id
     shop = ShopProfile.objects.get(user_id=user_id)
     shop_service_bookings = ServiceBooking.objects.filter(service__shop_id=shop.id)
-    service_status_chng_form = ServiceStatusChangeForm()
+    service_status_chng_form = ServicePaymentStatusChangeForm()
     return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment_view.html',
                   {
                       'section': 'dashboard',

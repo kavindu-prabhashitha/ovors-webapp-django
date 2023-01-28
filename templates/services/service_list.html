@@ -50,6 +50,9 @@
                                             <li class="list-group-item"><strong>Avg Duration </strong>
                                                 : {{ service.service_duration }} minutes
                                             </li>
+                                            <li class="list-group-item"><strong>Location </strong>
+                                                : {{service.shop.shop_address}}
+                                            </li>
                                             <li class="list-group-item"><strong>Available Vehicles </strong>
                                                 <div>
                                                     {% if service.is_for_car %}

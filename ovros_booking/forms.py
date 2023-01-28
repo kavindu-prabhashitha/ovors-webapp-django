@@ -42,3 +42,10 @@ class ServiceStatusChangeForm(forms.ModelForm):
     class Meta:
         model = ServiceBooking
         fields = ('service_status', )
+
+
+class ServicePaymentStatusChangeForm(forms.ModelForm):
+    class Meta:
+        model=ServiceBooking
+        fields = ('payment_status', )
+
