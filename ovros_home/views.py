@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from ovros_service_module.models import Service
+from .forms import ServiceSearchForm
 
 
 def home(request):
-    return render(request, 'home/index.html')
+    search_form = ServiceSearchForm()
+    return render(request, 'home/index.html', {'form': search_form})
 
 
 def services(request):
@@ -14,7 +16,7 @@ def services(request):
 def search(request):
     found_results = []
     if request.method == 'GET':
-        search_keyword = request.GET.get('search')
+        search_keyword = request.GET.get('search_by_Keyword')
         key = search_keyword.split()
         size_of_key = len(key)
         print("Array Size : ", size_of_key)
