@@ -51,7 +51,7 @@
                                         <li class="list-group-item"><strong>Price
                                             :</strong> <span>Rs.</span>{{ service.service_price }}</li>
                                         <li class="list-group-item"><strong>Location
-                                            :</strong> {{ service.shop.shop_address }}</li>
+                                            :</strong> {{ service.shop.get_full_address }}</li>
                                         <li class="list-group-item"><strong>Available Vehicles </strong>
                                             <div>
                                                 {% if service.is_for_car %}

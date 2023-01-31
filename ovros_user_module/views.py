@@ -131,7 +131,10 @@ def shop_register(request):
             # create the user profile
             shop = ShopProfile.objects.create(user=new_user)
             shop.shop_name = request.POST['shop_name']
-            shop.shop_address = request.POST['shop_address']
+            shop.shop_address_no = request.POST['shop_address_no']
+            shop.shop_address_street = request.POST['shop_address_street']
+            shop.shop_address_city = request.POST['shop_address_city']
+            shop.shop_address_district = request.POST['shop_address_district']
             shop.shop_contact = request.POST['shop_contact']
             shop.save()
             return redirect('login')
