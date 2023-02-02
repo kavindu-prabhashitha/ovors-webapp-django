@@ -41,35 +41,4 @@
     </section>
     <!-- Header Section End -->
 
-    <script type="text/javascript" src="{% static 'js/c.js' %}"></script>
-
-    <script>
-        var s_a = new Array();
-
-        s_a[0] = "";
-        s_a[1] = "Colombo 01 | Colombo 02 | Colombo 03 | Colombo 04 | Colombo 05 | Colombo 06 | Colombo 07 | Colombo 08 | Colombo 09 | Colombo 10 | Colombo 11 | Colombo 12 | Colombo 13 | Dehiwala | Homagama  | Kaduwela | Kesbewa | Kolonnawa  | Kotte | Maharagama | Moratuwa | Padukka | Ratmalana | Seethawaka | Thimbirigasyaya";
-        s_a[2] = "Attanagalla | Biyagama | Divulapitiya | Dompe | Gampaha | Ja-Ela | Katana | Kelaniya | Mahara | Minuwangoda | Mirigama | Negombo | Wattala";
-        s_a[3] = "Agalawatta | Bandaragama | Beruwala | Bulathsinhala | Dodangoda | Horana | Ingiriya | Kalutara | Madurawela | Mathugama | Millaniya | Palindanuwara | Panadura | Walallavita";
-        s_a[4] = "Akurana | Delthota | Doluwa | Gagawata Korale | Ganga Ihala Korale | Harispattuwa | Hatharaliyadda | Kundasale | Medadumbara | Minipe | Panvila | Pasbage Korale | Pathadumbara | Pathahewaheta | Poojapitiya | Thumpane | Udadumbara | Udapalatha | Udunuwara | Yatinuwara";
-        s_a[5] = "Galewela | Matale | Yatawatta | Wilgamuwa | Rathtota | Rathtota | Ambangaga Korale | Dambulla | Pallepola | Ukuwela | Naula | Laggala - Pallegama";
-        s_a[6] = "town31 | town32 | town33 | town34 | town35 | town36";
-        s_a[7] = "town37 | town38 | town39 | town40 | town41 | town42";
-        s_a[8] = "town43 | town44 | town45 | town46 | town47 | town48";
-
-        let selected_value = document.getElementById('id_search_by_district')
-        selected_value.onclick = function () {
-            console.log(selected_value.value)
-            let options_available = document.getElementById('id_search_by_city')
-            options_available.length = 0;
-            options_available.options[0] = new Option('Select City', '');
-            options_available.selectedIndex = 1;
-            let city_arr = s_a[selected_value.selectedIndex].split("|");
-
-            for (let i = 0; i < city_arr.length; i++) {
-                options_available.options[options_available.length] = new Option(city_arr[i], city_arr[i]);
-            }
-        }
-
-    </script>
-
 {% endblock %}
