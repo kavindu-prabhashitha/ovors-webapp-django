@@ -13,7 +13,7 @@
                         <div class="display-6 text-muted">search and book</div>
                         <p class="lead my-1 text-muted">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
                     </h1>
-                    <hr>
+
                     <hr>
 
 
@@ -59,13 +59,13 @@
         let selected_value = document.getElementById('id_search_by_district')
         selected_value.onclick = function () {
             console.log(selected_value.value)
-            var options_available = document.getElementById('id_search_by_city')
+            let options_available = document.getElementById('id_search_by_city')
             options_available.length = 0;
             options_available.options[0] = new Option('Select City', '');
             options_available.selectedIndex = 1;
-            var city_arr = s_a[selected_value.selectedIndex + 1].split("|");
+            let city_arr = s_a[selected_value.selectedIndex].split("|");
 
-            for (var i = 0; i < city_arr.length; i++) {
+            for (let i = 0; i < city_arr.length; i++) {
                 options_available.options[options_available.length] = new Option(city_arr[i], city_arr[i]);
             }
         }

@@ -26,6 +26,7 @@ PAYMENT_STATUS = (
 )
 
 DISTRICTS = (
+    ('SelectDistrict', 'Select District'),
     ('Colombo', 'Colombo'),
     ('Gampaha', 'Gampaha'),
     ('Kalutara', 'Kalutara'),
