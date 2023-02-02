@@ -30,6 +30,21 @@
             </div>
         </form>
 
+        {% if services.count == 0 %}
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-lg-3 col-md-4"></div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <h3>Oophss.. No Services Found !</h3>
+                        <img class="card-img-top" src="{% static 'images/search_not_found.jpg' %}">
+                    </div>
+                    <div class="col-lg-3 col-md-4"></div>
+                </div>
+
+            </div>
+        {% endif %}
+
+
         <div class="container">
             <div class="row my-5 g-3">
                 {% for service in services %}
@@ -51,7 +66,8 @@
                                             </li>
                                             <li class="list-group-item">
                                                 <strong>Description :</strong><br>
-                                                {{ service.service_description  | slice:":100" }} <a href="{% url 'service_detail' service.id %}">read more...</a></li>
+                                                {{ service.service_description  | slice:":100" }} <a
+                                                    href="{% url 'service_detail' service.id %}">read more...</a></li>
                                             <li class="list-group-item">
                                                 <strong>Shop :</strong><br>
                                                 {{ service.shop.shop_name }}</li>
@@ -107,8 +123,8 @@
             </div>
         </div>
 
-
     </section>
     <!-- Service Section End -->
 
 {% endblock %}
+

@@ -29,6 +29,42 @@ PAYMENT_STATUS = (
 DISTRICTS = (
     ('SelectDistrict', 'Select District'),
     ('Colombo', 'Colombo'),
+)
+
+DISTRICTS_CITY = (
+    ('SelectCity', 'Select City'),
+    ('Colombo 01', 'Colombo 01'),
+    ('Colombo 02', 'Colombo 02'),
+    ('Colombo 03', 'Colombo 03'),
+    ('Colombo 04', 'Colombo 04'),
+    ('Colombo 05', 'Colombo 05'),
+    ('Colombo 06', 'Colombo 06'),
+    ('Colombo 07', 'Colombo 07'),
+    ('Colombo 08', 'Colombo 08'),
+    ('Colombo 09', 'Colombo 09'),
+    ('Colombo 10', 'Colombo 10'),
+    ('Colombo 11', 'Colombo 11'),
+    ('Colombo 12', 'Colombo 12'),
+    ('Colombo 13', 'Colombo 13'),
+    ('Colombo 14', 'Colombo 14'),
+    ('Colombo 15', 'Colombo 15'),
+    ('Dehiwala', 'Dehiwala'),
+    ('Homagama', 'Homagama'),
+    ('Kaduwela', 'Kaduwela'),
+    ('Kesbewa', 'Kesbewa'),
+    ('Kolonnawa', 'Kolonnawa'),
+    ('Kotte', 'Kotte'),
+    ('Maharagama', 'Maharagama'),
+    ('Moratuwa', 'Moratuwa'),
+    ('Padukka', 'Padukka'),
+    ('Ratmalana', 'Ratmalana'),
+    ('Seethawaka', 'Seethawaka'),
+    ('Thimbirigasyaya', 'Thimbirigasyaya'),
+
+)
+
+
+ALL_DISTRICT = (
     ('Gampaha', 'Gampaha'),
     ('Kalutara', 'Kalutara'),
     ('Kandy', 'Kandy'),

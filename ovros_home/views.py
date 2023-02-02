@@ -25,6 +25,7 @@ def services(request):
     search_form01 = ServiceSearchForm01()
     search_form02 = ServiceSearchForm02()
     all_services = Service.objects.all()
+
     return render(request, 'services/service_list.html', {
         'services': all_services,
         'form01': search_form01,
@@ -61,10 +62,11 @@ def search(request):
                 print("Search by district is empty")
             else:
                 print("Search Contains district")
-                all_services = all_services.filter(shop__shop_address_district__contains=search_district)
+                all_services = all_services.filter(shop__shop_address_district=search_district)
+                print(all_services)
 
         if "search_by_city" in request.GET:
-            if request.GET.get("search_by_district") == "":
+            if request.GET.get("search_by_city") == "SelectCity":
                 print("Search_by_city is empty")
             else:
                 print("Search Contains city")
