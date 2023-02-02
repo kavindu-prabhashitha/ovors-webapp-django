@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     Ovros Services
@@ -9,17 +10,26 @@
 
     <!-- Service Section Start -->
     <section id="ovros-service">
-        <div class="container">
-            <div class="row my-5 align-items-center justify-content-center">
-                <div class="col-lg-4 col-md-4">
-                    <form class="d-flex" role="search" method="get" action="{% url 'home_search' %}">
-                        <input class="form-control me-2" type="search" name="search" placeholder="Search"
-                               aria-label="Search">
+        <form role="search" method="get" action="{% url 'home_search' %}">
+            <div class="container">
+                <div class="row mt-5 ">
+                    <div class="col-lg-2 col-md-4"></div>
+                    <div class="col-lg-4 col-md-4">
+                        {{ form01|crispy }}
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        {{ form02 | crispy }}
+                    </div>
+                    <div class="col-lg-2 col-md-4"></div>
+                </div>
+                <div class="row  justify-content-center ">
+                    <div class="col-lg-8 col-md-4 align-items-center">
                         <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
+
         <div class="container">
             <div class="row my-5 g-3">
                 {% for service in services %}
@@ -41,8 +51,8 @@
                                             </li>
                                             <li class="list-group-item">
                                                 <strong>Description :</strong><br>
-                                                {{ service.service_description }}</li>
-                                        <li class="list-group-item">
+                                                {{ service.service_description  | slice:":100" }} <a href="{% url 'service_detail' service.id %}">read more...</a></li>
+                                            <li class="list-group-item">
                                                 <strong>Shop :</strong><br>
                                                 {{ service.shop.shop_name }}</li>
                                             <li class="list-group-item"><strong>Price
@@ -51,7 +61,7 @@
                                                 : {{ service.service_duration }} minutes
                                             </li>
                                             <li class="list-group-item"><strong>Location </strong>
-                                                : {{service.shop.get_full_address}}
+                                                : {{ service.shop.get_full_address }}
                                             </li>
                                             <li class="list-group-item"><strong>Available Vehicles </strong>
                                                 <div>
