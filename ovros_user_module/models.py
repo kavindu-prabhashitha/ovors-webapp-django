@@ -13,8 +13,33 @@ class ShopProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_role = models.CharField('Type', max_length=40, choices=Types.choices, default=Types.USER_SHOP)
     shop_name = models.CharField(max_length=100, help_text="Service Shop name")
-    shop_address = models.CharField(max_length=200, help_text="Service Shop address")
-    shop_contact = models.CharField(max_length=20)
+    shop_address_no = models.CharField(
+        max_length=200,
+        help_text="Service Shop address Number",
+        default=9999
+    )
+    shop_address_street = models.CharField(
+        max_length=200,
+        help_text="Service Shop address street",
+        default=9999
+    )
+    shop_address_city = models.CharField(
+        max_length=200,
+        help_text="Service Shop address city",
+        default=9999
+    )
+    shop_address_district = models.CharField(
+        max_length=200,
+        help_text="Service Shop address district",
+        default=9999
+    )
+    shop_contact = models.CharField(max_length=10)
+
+    def get_full_address(self):
+        return f'No {self.shop_address_no} , ' \
+               f'{self.shop_address_street}, ' \
+               f'{self.shop_address_city}, ' \
+               f'{self.shop_address_district}'
 
     def __str__(self):
         return f'Shop Profile for {self.shop_name}'

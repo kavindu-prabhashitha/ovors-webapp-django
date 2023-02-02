@@ -9,4 +9,4 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 @admin.register(ShopProfile)
 class ShopProfileAdmin(admin.ModelAdmin):
-    list_display = ['shop_name', 'shop_address']
+    list_display = ['shop_name', 'shop_address_district']

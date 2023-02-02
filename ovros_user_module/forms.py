@@ -52,5 +52,10 @@ class UserProfileEditForm(forms.ModelForm):
 class ShopProfileCreationForm(forms.ModelForm):
     class Meta:
         model = ShopProfile
-        fields = ('shop_name', 'shop_address', 'shop_contact')
+        fields = ('shop_name',
+                  'shop_address_no',
+                  'shop_address_street',
+                  'shop_address_city',
+                  'shop_address_district',
+                  'shop_contact')
 
