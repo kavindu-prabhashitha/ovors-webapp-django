@@ -46,6 +46,7 @@
                         <th scope="col">Service</th>
                         <th scope="col">Vehicle</th>
                         <th scope="col">Booking Status</th>
+                        <th scope="col">Booking Time</th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -53,8 +54,8 @@
                     {% for shop_booking in shop_bookings %}
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ shop_booking.service.service_name }}</td>
                             <td>{{ shop_booking.user.contact_number }}</td>
+                            <td>{{ shop_booking.service.service_name }}</td>
                             <td>{{ shop_booking.vehicle }}</td>
                             <td>
                                 {% if shop_booking.booking_status == "PENDING" %}
@@ -71,6 +72,14 @@
                                     <span class="badge rounded-pill text-bg-danger">
                             {{ shop_booking.booking_status }}
                         </span>
+                                {% endif %}
+
+                            </td>
+                            <td>
+                                {% if shop_booking.booking_time == None %}
+                                    <span class="badge rounded-pill text-bg-danger">Not Assigned</span>
+                                {% else %}
+                                    {{ shop_booking.booking_time }}
                                 {% endif %}
 
                             </td>
@@ -104,18 +113,15 @@
                                                         : <span>Rs.</span>{{ shop_booking.service.service_price }}</li>
                                                     <li class="list-group-item"><strong>Date</strong>
                                                         : {{ shop_booking.booking_date }}</li>
-                                                    <li class="list-group-item"><strong>Time</strong>
-                                                        : {{ shop_booking.booking_time }}</li>
                                                     <li class="list-group-item">
                                                         <form method="post" id="form_id_{{ forloop.counter }}">
                                                             {% csrf_token %}
                                                             <input type="hidden" name="booking_id"
                                                                    value="{{ shop_booking.id }}">
                                                             {{ action_form| crispy }}
+                                                            {{ action_form_booking_time | crispy }}
                                                         </form>
-
                                                     </li>
-
                                                 </ul>
                                             </div>
                                         </div>
@@ -139,7 +145,7 @@
     </div>
 
     <script>
-        function update_booking(form_id) {
+        function update_booking(form_id){
             let form = document.getElementById('form_id_' + form_id);
             form.submit();
         }

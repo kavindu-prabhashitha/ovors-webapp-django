@@ -32,7 +32,7 @@ PAYMENT_STATUS = (
 
 class ServiceBooking(models.Model):
     booking_date = models.DateField()
-    booking_time = models.TimeField()
+    booking_time = models.TimeField(null=True)
     vehicle = models.CharField(choices=VEHICLE_TYPE, default='NON', max_length=5)
     booking_note = models.CharField(max_length=250, blank=True)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)

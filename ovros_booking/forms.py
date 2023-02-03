@@ -8,7 +8,6 @@ class BookingCreationForm(forms.ModelForm):
         fields = (
             'vehicle',
             'booking_date',
-            'booking_time',
             'booking_note',
         )
 
@@ -23,12 +22,6 @@ class BookingCreationForm(forms.ModelForm):
                                                    'type': 'date'
                                                    # <--- IF I REMOVE THIS LINE, THE INITIAL VALUE IS DISPLAYED
                                                    }),
-            'booking_time': forms.TimeInput(
-               attrs={
-                   'class': 'form-control',
-                   'type': 'time'
-               }
-            ),
         }
 
 
@@ -46,6 +39,25 @@ class ServiceStatusChangeForm(forms.ModelForm):
 
 class ServicePaymentStatusChangeForm(forms.ModelForm):
     class Meta:
-        model=ServiceBooking
+        model = ServiceBooking
         fields = ('payment_status', )
+
+    # 'booking_time': forms.TimeInput(
+    #     attrs={
+    #         'class': 'form-control',
+    #         'type': 'time'
+    #     }
+
+
+class ServiceBookingTimeAdd(forms.ModelForm):
+    class Meta:
+        model = ServiceBooking
+        fields = ('booking_time', )
+        widgets = {
+            'booking_time': forms.TimeInput(
+                attrs={
+                    'class': 'form-control',
+                    'type': 'time'
+                }),
+        }
 
