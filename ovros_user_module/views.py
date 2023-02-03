@@ -43,10 +43,6 @@ def user_login(request):
 @login_required
 def dashboard(request):
     print('session data : ', request.session.keys())
-
-    # user_profile_id = request.session['profile_data']['profile_data']
-    # user_profile_id = request.session['profile_data']['profile_data']['profile_id']
-    # print('user profile id at login : ', user_profile_id)
     try:
         user_profile = UserProfile.objects.get(user_id=request.user.id)
     except UserProfile.DoesNotExist:
@@ -57,31 +53,16 @@ def dashboard(request):
     if user_profile.user_role == "USER_CUSTOMER":
         profile_data.add(request.user.id, user_profile.id, 'USER_CUSTOMER')
         print('user customer profile data : ', request.session['profile_data'])
-        # return render(request,
-        #               'ovros_dashboard/user_dashboard/user_dashboard_overview.html',
-        #               {'section': 'dashboard',
-        #                'user_role': '9',
-        #                'profile_id': user_profile.id})
         return redirect('user_overview')
 
     if user_profile.user_role == "USER_ADMIN":
         profile_data.add(request.user.id, user_profile.id, 'USER_ADMIN')
         print('user admin profile data : ', request.session['profile_data'])
-        # return render(request,
-        #               'ovros_dashboard/admin_dashboard/admin_dashboard_overview.html',
-        #               {'section': 'dashboard',
-        #                'user_role': '99',
-        #                'profile_id': user_profile.id})
         return redirect('admin:login')
 
     if user_profile.user_role == "USER_SHOP":
         profile_data.add(request.user.id, user_profile.id, 'USER_SHOP')
         print('user profile data : ', request.session['profile_data'])
-        no_of_services = Service.objects.filter(shop_id=user_profile.id).count()
-        # return render(request,
-        #               'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
-        #               {'section': 'dashboard', 'no_of_services': no_of_services, 'user_role': '999',
-        #                'profile_id': user_profile.id})
         return redirect('shop_overview')
 
     return login_required()
@@ -119,7 +100,8 @@ def user_register(request):
 def shop_register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
-        if user_form.is_valid():
+        shop_profile_form = ShopProfileCreationForm(request.POST)
+        if user_form.is_valid() and shop_profile_form.is_valid():
             # create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
             # set the chosen password
@@ -139,11 +121,22 @@ def shop_register(request):
             shop.save()
             return redirect('login')
         else:
-            return redirect('shop_register')
+            # return redirect('shop_register')
+            return render(request, 'account/shop_register.html', {
+                'user_form': user_form, 'shop_profile': shop_profile_form})
     else:
+        intial_data = {
+            "shop_address_no": " ",
+            "shop_address_street": "",
+            "shop_address_city": "",
+            "shop_address_district": ""
+        }
         user_form = UserRegistrationForm()
-        shop_profile_form = ShopProfileCreationForm()
-        return render(request, 'account/shop_register.html', {'user_form': user_form, 'shop_profile': shop_profile_form})
+        shop_profile_form = ShopProfileCreationForm(initial=intial_data)
+        return render(request, 'account/shop_register.html', {
+            'user_form': user_form,
+            'shop_profile': shop_profile_form,
+        })
 
 
 @login_required

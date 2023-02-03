@@ -48,6 +48,17 @@ class UserProfileEditForm(forms.ModelForm):
         model = UserProfile
         fields = ('photo', 'contact_number')
 
+    def clean(self):
+        super(UserProfileEditForm, self).clean()
+
+        contact_number = self.cleaned_data.get('contact_number')
+
+        if not len(contact_number) == 10:
+            self._errors['contact_number'] = self.error_class([
+                "Contact Number Should contain 10 numbers"
+            ])
+        return self.cleaned_data
+
 
 class ShopProfileCreationForm(forms.ModelForm):
     class Meta:
@@ -58,4 +69,20 @@ class ShopProfileCreationForm(forms.ModelForm):
                   'shop_address_city',
                   'shop_address_district',
                   'shop_contact')
+
+    def clean(self):
+        super(ShopProfileCreationForm, self).clean()
+
+        contact_number = self.cleaned_data.get('shop_contact')
+
+        if not len(contact_number) == 10:
+            self._errors['shop_contact'] = self.error_class([
+                "Contact Number Should contain 10 numbers"
+            ])
+
+        if not contact_number.isnumeric():
+            self._errors['shop_contact'] = self.error_class([
+                "Contact Number Should contain only numbers"
+            ])
+        return self.cleaned_data
 

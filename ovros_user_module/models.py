@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from common.enums import DISTRICTS, DISTRICTS_CITY
 
 
 class Types(models.TextChoices):
@@ -24,16 +25,16 @@ class ShopProfile(models.Model):
         default=9999
     )
     shop_address_city = models.CharField(
+        choices=DISTRICTS,
         max_length=200,
         help_text="Service Shop address city",
-        default=9999
     )
     shop_address_district = models.CharField(
+        choices=DISTRICTS_CITY,
         max_length=200,
         help_text="Service Shop address district",
-        default=9999
     )
-    shop_contact = models.CharField(max_length=10)
+    shop_contact = models.CharField(max_length=10, help_text="eg: 07xxxxxxxx")
 
     def get_full_address(self):
         return f'No {self.shop_address_no} , ' \
@@ -51,6 +52,7 @@ class UserProfile(models.Model):
     photo = models.ImageField(upload_to='users/%Y', blank=True,)
     contact_number = models.CharField(max_length=15, blank=True)
     created_at = models.DateTimeField(auto_created=True, null=True)
+
 
     def __str__(self):
         return f'Profile for user {self.user.username}'

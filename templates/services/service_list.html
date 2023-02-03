@@ -11,41 +11,44 @@
         <div class="row mt-5">
             <div class="col-lg-2 col-md-4"></div>
             <div class="col-lg-8 col-md-4">
-                    <div class="accordion" id="accordion_search_service">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="true" aria-controls="collapseOne">
-                    Search  <i class="bi bi-search mx-4"></i>
-                </button>
-            </h2>
-            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                 data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-       <form role="search" method="get" action="{% url 'home_search' %}">
-            <div class="container">
-                <div class="row mt-5 ">
-                    <div class="col-lg-2 col-md-4"></div>
-                    <div class="col-lg-4 col-md-4">
-                        {{ form01|crispy }}
-                    </div>
-                    <div class="col-lg-4 col-md-4">
-                        {{ form02 | crispy }}
-                    </div>
-                    <div class="col-lg-2 col-md-4"></div>
-                </div>
-                <div class="row  justify-content-center ">
-                    <div class="col-lg-8 col-md-4 align-items-center">
-                        <button class="btn btn-success text-nowrap" type="submit">Search Service</button>
-                    </div>
-                </div>
-            </div>
-        </form>
+                <div class="accordion" id="accordion_search_service">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                Search <i class="bi bi-search mx-4"></i>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <form role="search" method="get" action="{% url 'home_search' %}">
+                                    <div class="container">
+                                        <div class="row mt-5 ">
+                                            <div class="col-lg-2 col-md-4"></div>
+                                            <div class="col-lg-4 col-md-4">
+                                                {{ form01|crispy }}
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                {{ form02 | crispy }}
+                                            </div>
+                                            <div class="col-lg-2 col-md-4"></div>
+                                        </div>
+                                        <div class="row  justify-content-center ">
+                                            <div class="col-lg-8 col-md-4 align-items-center">
+                                                <button class="btn btn-success text-nowrap" type="submit">Search
+                                                    Service
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
 
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
             </div>
             <div class="col-lg-2 col-md-4"></div>
         </div>

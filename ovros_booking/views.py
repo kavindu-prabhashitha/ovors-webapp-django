@@ -10,18 +10,21 @@ from django.contrib import messages
 
 @login_required
 def add_booking(request, service_id):
+    """
+    Add Booking
+    """
     user_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    user_user_id = request.session['profile_data']['profile_data']['user_id']
     if request.method == 'POST':
         form = BookingCreationForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
             service = get_object_or_404(Service, id=service_id)
-            user = get_object_or_404(UserProfile, id=user_profile_id)
+            user = get_object_or_404(UserProfile, user_id=user_user_id)
             service_booking = ServiceBooking()
             service_booking.service = service
             service_booking.user = user
             service_booking.booking_date = cd['booking_date']
-            service_booking.booking_time = cd['booking_time']
             service_booking.booking_note = cd['booking_note']
             service_booking.vehicle = cd['vehicle']
             booked_service = service_booking.save()
@@ -32,6 +35,8 @@ def add_booking(request, service_id):
                           {'section': 'dashboard'}
                           )
     else:
+        print("Current user profile id : ", user_profile_id)
+        print("Current user id : ", user_user_id)
         service = Service.objects.get(id=service_id)
         booking_form = BookingCreationForm()
         return render(request,
@@ -44,8 +49,10 @@ def add_booking(request, service_id):
 
 @login_required
 def view_user_bookings(request):
-    user_profile_id = request.session['profile_data']['profile_data']['profile_id']
-    bookings = ServiceBooking.objects.filter(user_id=user_profile_id)
+    user_id = request.session['profile_data']['profile_data']['user_id']
+    profile_id = request.session['profile_data']['profile_data']['profile_id']
+    bookings = ServiceBooking.objects.filter(user_id=profile_id)
+    print("User Booking Count : ", bookings.count(), "User id : ", user_id, " Profile id : ", profile_id)
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_bookings_view.html'
                   , {
                     'section': 'dashboard',
