@@ -17,12 +17,10 @@ class ShopProfile(models.Model):
     shop_address_no = models.CharField(
         max_length=200,
         help_text="Service Shop address Number",
-        default=9999
     )
     shop_address_street = models.CharField(
         max_length=200,
         help_text="Service Shop address street",
-        default=9999
     )
     shop_address_city = models.CharField(
         choices=DISTRICTS,
@@ -52,7 +50,6 @@ class UserProfile(models.Model):
     photo = models.ImageField(upload_to='users/%Y', blank=True,)
     contact_number = models.CharField(max_length=15, blank=True)
     created_at = models.DateTimeField(auto_created=True, null=True)
-
 
     def __str__(self):
         return f'Profile for user {self.user.username}'

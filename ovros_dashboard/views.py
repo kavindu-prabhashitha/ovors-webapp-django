@@ -363,6 +363,14 @@ def user_payment(request):
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment.html', {'section': 'dashboard'})
 
 
+def user_payment_view(request):
+    pro_id = request.session['profile_data']['profile_data']['profile_id']
+    user_bookings = ServiceBooking.objects.filter(user_id=pro_id)
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment_view.html', {
+        'section': 'dashboard',
+        "user_bookings": user_bookings
+    })
+
 def user_favorites(request):
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_favorites.html', {'section': 'dashboard'})
 

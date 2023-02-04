@@ -28,6 +28,7 @@ urlpatterns =[
     path('user-overview', views.user_overview, name='user_overview'),
     path('user-bookings', views.user_booking, name='user_bookings'),
     path('user-payments', views.user_payment, name='user_payments'),
+    path('user-payments-view', views.user_payment_view, name='user_payments_view'),
     path('user-reports', views.user_payment, name='user_reports'),
     path('user-favorites', views.user_favorites, name='user_favorite'),
     path('user-profile', views.user_profile, name='user_profile'),
