@@ -21,7 +21,10 @@
                            {% csrf_token %}
                            {{ form | crispy }}
                            <input id="user_role" type="hidden" name="user_role"  >
-                           <p><input class="btn btn-primary" type="submit" value="Add Service"></p>
+                           <p><input class="btn btn-primary" type="submit" value="Add Service">
+                               <a class="btn btn-danger" href="{% url 'shop_overview' %}">Cancel</a>
+                           </p>
+
                        </form>
 
                     </div>

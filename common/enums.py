@@ -93,4 +93,14 @@ ALL_DISTRICT = (
     ('Kegalle', 'Kegalle'),
 )
 
+SHOP_REPORT_TYPES = (
+    ('ALL_SERVICES', 'ALL_SERVICES'),
+    ('ALL_PAYMENTS', 'ALL_PAYMENTS')
+)
+
+USER_REPORT_TYPES = (
+    ('BOOKED_SERVICES', 'BOOKED_SERVICES'),
+    ('CONFIRMED_SERVICES', 'CONFIRMED_SERVICES')
+)
+
 PAYMENT_DEFAULT_SLIP = "/media/users/payment/payment_not_submitted.jpg"

@@ -26,15 +26,17 @@
 {% endblock %}
 
 {% if messages %}
-    {% for message in messages %}
-        <div class="container-fluid p-6 m-3">
+    <div class="container-fluid p-6 ">
+        {% for message in messages %}
+
             <div class="alert {{ message.tags }} alert-dismissible" role="alert">
                 {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
             </div>
-        </div>
-    {% endfor %}
+
+        {% endfor %}
+    </div>
 {% endif %}
 
 

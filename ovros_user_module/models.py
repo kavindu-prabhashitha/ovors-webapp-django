@@ -23,12 +23,12 @@ class ShopProfile(models.Model):
         help_text="Service Shop address street",
     )
     shop_address_city = models.CharField(
-        choices=DISTRICTS,
+        choices=DISTRICTS_CITY,
         max_length=200,
         help_text="Service Shop address city",
     )
     shop_address_district = models.CharField(
-        choices=DISTRICTS_CITY,
+        choices=DISTRICTS,
         max_length=200,
         help_text="Service Shop address district",
     )

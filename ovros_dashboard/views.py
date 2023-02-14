@@ -2,7 +2,7 @@ import datetime
 
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from ovros_user_module.forms import UserRegistrationForm, UserEditForm, UserProfileEditForm
+from ovros_user_module.forms import UserRegistrationForm, UserEditForm, UserProfileEditForm, ShopProfileCreationForm
 from ovros_user_module.models import UserProfile, ShopProfile
 from ovros_service_module.models import Service
 from django.contrib import messages
@@ -29,7 +29,6 @@ from common.enums import (
 from ovros_payment_module.forms import PaymentProceedForm
 from ovros_payment_module.models import ShopPaymentProceed
 
-
 @login_required
 def admin_overview(request):
     no_of_services = Service.objects.count()
@@ -52,6 +51,7 @@ def admin_users(request):
                    'no_of_users': no_of_users})
 
 
+@login_required
 def admin_users_view(request):
     return render(request, 'ovros_dashboard/admin_dashboard/admin_dashboard_users_view.html',
                   {'section': 'dashboard'}
@@ -91,12 +91,14 @@ def admin_register_user(request):
 def shop_overview(request):
     shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
     shop_booking_count = ServiceBooking.objects.filter(service__shop_id=shop_profile_id).count()
+    shop_payments_count = ShopPaymentProceed.objects.filter(payment_booking_id__service__shop_id=shop_profile_id).count()
     no_of_services = Service.objects.count()
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
                   {'section': 'dashboard',
                    'no_of_services': no_of_services,
-                   'no_of_bookings': shop_booking_count
+                   'no_of_bookings': shop_booking_count,
+                   'no_of_payments': shop_payments_count
                    })
 
 
@@ -256,7 +258,18 @@ def check_service_edit_permission(service, user_id, user_role):
 
 
 def shop_payments(request):
-    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment.html', {'section': 'dashboard'})
+    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    user_id = request.user.id
+    shop = ShopProfile.objects.get(user_id=user_id)
+    shop_service_bookings = ServiceBooking.objects.filter(service__shop_id=shop.id)
+    shop_payments_count = ShopPaymentProceed.objects.filter(payment_booking_id__service__shop_id=shop_profile_id).count()
+    shop_payments_count_pending = shop_service_bookings.filter(payment_status="PAYMENT_PENDING").count()
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment.html', {
+        'section': 'dashboard',
+        'shop_pay_count': shop_payments_count,
+        'shop_pay_pending_count': shop_payments_count_pending
+
+    })
 
 
 def shop_payments_view(request):
@@ -371,14 +384,52 @@ def shop_profile_edit(request):
     user = User.objects.get(id=user_id)
     profile = ShopProfile.objects.get(id=profile_id)
 
+    if request.method == 'POST':
+        s_form = ShopProfileCreationForm(request.POST)
+        if s_form.is_valid():
+            c_data = s_form.cleaned_data
+            print(c_data)
+            profile.shop_name = c_data['shop_name']
+            profile.shop_address_no = c_data['shop_address_no']
+            profile.shop_address_city = c_data['shop_address_city']
+            profile.shop_address_district = c_data['shop_address_district']
+            profile.shop_contact = c_data['shop_contact']
+            profile.save()
+            messages.success(request, "Shop Profile Updated..")
+            return redirect('shop_profile')
+        else:
+            return render(request, "ovros_dashboard/shop_dashboard/shop_dashboard_profile_edit.html", {
+                'section': 'dashboard',
+                's_form': s_form
+            })
+
+    else:
+        intial_dict = {
+            'shop_name': profile.shop_name,
+            'shop_address_no': profile.shop_address_no,
+            "shop_address_street": profile.shop_address_street,
+            'shop_address_city': profile.shop_address_city,
+            'shop_address_district': profile.shop_address_district,
+            'shop_contact': profile.shop_contact
+
+        }
+        s_form = ShopProfileCreationForm(initial=intial_dict)
+        return render(request, "ovros_dashboard/shop_dashboard/shop_dashboard_profile_edit.html",{
+            'section': 'dashboard',
+            's_form': s_form
+        })
+
 
 @login_required()
 def user_overview(request):
     user_id = request.session['profile_data']['profile_data']['user_id']
+    profile_id =  request.session['profile_data']['profile_data']['profile_id']
     booking_count = ServiceBooking.objects.filter(user_id=user_id).count()
+    payment_count = ShopPaymentProceed.objects.filter(payment_user_pro_id_id=profile_id).count()
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_overview.html',
                   {'section': 'dashboard',
-                   'booking_count': booking_count
+                   'booking_count': booking_count,
+                   'payment_count': payment_count,
                    })
 
 

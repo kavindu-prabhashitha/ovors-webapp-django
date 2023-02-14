@@ -25,12 +25,12 @@
                                     {{ profile_d.email }}</li>
                                 <li class="list-group-item"><strong>Contact : </strong>{{ profile.shop_contact }}</li>
                                 <li class="list-group-item"><strong>Address : </strong>
-                                    {{ profile.shop_address }}</li>
+                                    {{ profile.get_full_address }}</li>
                             </ul>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a class="btn btn-primary" href="#">Edit Details</a>
+                        <a class="btn btn-primary" href="{% url 'shop_profile_edit' %}">Edit Details</a>
                         <a class="btn btn-success" href="{% url 'password_change' %}">Change password &raquo;</a>
                     </div>
                 </div>

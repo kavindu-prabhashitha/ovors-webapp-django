@@ -32,7 +32,7 @@
                                 class="badge rounded-pill text-bg-primary">Payment</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"><span
+                        <a class="nav-link active" aria-current="page" href="{% url 'shop_generate_report' %}"><span
                                 class="badge rounded-pill text-bg-primary">Reports</span></a>
                     </li>
 
@@ -88,7 +88,7 @@
                         <p class="card-text">Payment</p>
                     </div>
                     <div class="card-footer">
-                        <h3>23</h3>
+                        <h3>{{ no_of_payments }}</h3>
                     </div>
                 </div>
             </div>
@@ -99,7 +99,7 @@
                         <p class="card-text">Report</p>
                     </div>
                     <div class="card-footer">
-                        <h3>23</h3>
+                        <a class="btn btn-secondary" href="{% url 'shop_generate_report' %}">Generate Report</a>
                     </div>
                 </div>
             </div>

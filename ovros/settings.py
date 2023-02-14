@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'ovros_service_module.apps.OvrosServiceModuleConfig',
     'ovros_booking.apps.OvrosBookingConfig',
     'ovros_payment_module.apps.OvrosPaymentModuleConfig',
+    'ovros_report_module.apps.OvrosReportModuleConfig',
     'django.contrib.admin',
     "crispy_forms",
     "crispy_bootstrap5",

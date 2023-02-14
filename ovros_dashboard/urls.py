@@ -22,6 +22,7 @@ urlpatterns =[
     path('shop-payments-verify', views.shop_payments_verify, name='shop_payments_verify'),
     path('shop-reports', views.shop_reports, name='shop_reports'),
     path('shop-profile', views.shop_profile, name='shop_profile'),
+    path('shop-profile-edit', views.shop_profile_edit, name='shop_profile_edit'),
     path('shop-services-list', views.shop_services_list, name='shop_services_list'),
     path('shop-service-edit/<service_id>', views.shop_service_edit, name='shop_service_edit'),
 
