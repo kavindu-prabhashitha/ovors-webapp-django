@@ -1,0 +1,92 @@
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard_payment.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% load static %}
+    Shop-Payment-verify
+{% endblock %}
+
+{% block dashboard_content %}
+    <div class="row mt-3">
+        <div class="col-12 col-md-6 col-lg-1"></div>
+        <div class="col-12 col-md-6 col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                    Booking Details
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Booking id : </strong>
+                                {{ booking_data.id }}
+                            </li>
+                            <li class="list-group-item"><strong>Shop</strong>
+                                : {{ booking_data.service.shop.shop_name }}
+                                | {{ booking_data.service.service_name }}</li>
+                            <li class="list-group-item"><strong>Price</strong>
+                                :
+                                <span class="badge rounded-pill text-bg-info">
+                                                                    <span>Rs.</span>{{ booking_data.service.service_price }}
+                                                                     </span>
+                            </li>
+                            <li class="list-group-item"><strong>Date and
+                                Time</strong>
+                                : {{ booking_data.booking_date }}
+                                | {{ booking_data.booking_time }}</li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div class="card-header">
+                    Service Details
+                </div>
+                <div class="card-body">
+                    <li class="list-group-item"><strong>Shop</strong>
+                        : {{ booking_data.service.shop.shop_name }}
+                        | {{ booking_data.service.service_name }}</li>
+                    <li class="list-group-item"><strong>Date and
+                        Time</strong>
+                        : {{ booking_data.booking_date }}
+                        | {{ booking_data.booking_time }}</li>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                    Booking Proceed
+                </div>
+                <div class="card-body">
+                    {% if booking_data.payment_status != "PAYMENT_PENDING"%}
+                        <img class="card-img-top" src="{{ payment_verify_data.payment_slip.url }}">
+                    {% else %}
+                        <img class="card-img-top" src="{{ payment_verify_data.payment_slip }}">
+                    {% endif %}
+
+                    <div class="list-group">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Current Status : </strong>
+                              <span class="badge text-bg-primary">{{ booking_data.payment_status }}</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                {% if booking_data.payment_status != "PAYMENT_PENDING" %}
+                       <div class="card-footer">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form | crispy }}
+                        {{ p_status_chg_form | crispy }}
+                        <input type="hidden" value="{{ booking_data.id }}" name="booking_id">
+                        <input type="hidden" value="{{ booking_data.user.id }}" name="user_profile_id">
+                        <input type="hidden" value="1" name="proceed_payment_pv_verify">
+                        <button class="btn btn-success" type="submit">Update Payment Record</button>
+                    </form>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-1"></div>
+    </div>
+{% endblock %}

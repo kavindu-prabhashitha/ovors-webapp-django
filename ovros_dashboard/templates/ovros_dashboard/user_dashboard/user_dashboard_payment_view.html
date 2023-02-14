@@ -75,33 +75,78 @@
                                                         aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="card-body">
-                                                    <div class="list-group">
-                                                        <ul class="list-group list-group-flush">
-                                                            <li class="list-group-item"><strong>Shop</strong>
-                                                                : {{ shop_booking.service.shop.shop_name }}</li>
-                                                            <li class="list-group-item"><strong>Service</strong>
-                                                                : {{ shop_booking.service.service_name }}</li>
-                                                            <li class="list-group-item"><strong>Price</strong>
-                                                                :
-                                                                <span>Rs.</span>{{ shop_booking.service.service_price }}
-                                                            </li>
-                                                            <li class="list-group-item"><strong>Date</strong>
-                                                                : {{ shop_booking.booking_date }}</li>
-                                                            <li class="list-group-item"><strong>Time</strong>
-                                                                : {{ shop_booking.booking_time }}</li>
-                                                            <li class="list-group-item">
-                                                                <form method="post"
-                                                                      id="form_id_py_st_user{{ forloop.counter }}">
-                                                                    {% csrf_token %}
-                                                                    <input type="hidden" name="booking_id"
-                                                                           value="{{ shop_booking.id }}">
-                                                                    {{ action_form| crispy }}
-                                                                </form>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        Service Details
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="list-group">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item"><strong>Booking id : </strong>
+                                                                    {{ shop_booking.id }}
+                                                                </li>
+                                                                <li class="list-group-item"><strong>Shop</strong>
+                                                                    : {{ shop_booking.service.shop.shop_name }}
+                                                                    | {{ shop_booking.service.service_name }}</li>
+                                                                <li class="list-group-item"><strong>Price</strong>
+                                                                    :
+                                                                     <span class="badge rounded-pill text-bg-info">
+                                                                    <span>Rs.</span>{{ shop_booking.service.service_price }}
+                                                                     </span>
+                                                                </li>
+                                                                <li class="list-group-item"><strong>Date and
+                                                                    Time</strong>
+                                                                    : {{ shop_booking.booking_date }}
+                                                                    | {{ shop_booking.booking_time }}</li>
+                                                                <li class="list-group-item">
+                                                                    <form method="post"
+                                                                          id="form_id_py_st_user{{ forloop.counter }}">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="booking_id"
+                                                                               value="{{ shop_booking.id }}">
+                                                                        {{ action_form| crispy }}
+                                                                    </form>
 
-                                                            </li>
+                                                                </li>
 
-                                                        </ul>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-header">
+                                                        Service shop Payment Details
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="list-group">
+                                                            <ul class="list-group list-group-flush">
+                                                                <li class="list-group-item"><strong>Bank Name</strong>
+                                                                    : {{ shop_booking.service.shop.shoppaymentdetail.bank_name }}
+                                                                </li>
+                                                                <li class="list-group-item"><strong>Account
+                                                                    Number</strong>
+                                                                    : {{ shop_booking.service.shop.shoppaymentdetail.account_no }}
+                                                                </li>
+
+                                                                <li class="list-group-item"><strong>Branch name</strong>
+                                                                    :
+                                                                    {{ shop_booking.service.shop.shoppaymentdetail.bank_branch }}
+                                                                </li>
+
+                                                                <li class="list-group-item">
+                                                                    <form method="post""
+                                                                          id="form_id_py_st_user{{ forloop.counter }}">
+                                                                        {% csrf_token %}
+                                                                        <input type="hidden" name="booking_id"
+                                                                               value="{{ shop_booking.id }}">
+                                                                        {{ action_form| crispy }}
+                                                                    </form>
+
+                                                                </li>
+
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        To proceed payment you have to pay the above-mentioned fee through mobile app or bank and upload the slip.
                                                     </div>
                                                 </div>
                                             </div>
@@ -109,9 +154,9 @@
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
-                                                <button type="button" class="btn btn-primary"
+                                                <button type="button" class="btn btn-success"
                                                         onclick="update_booking_payment_status({{ forloop.counter }})">
-                                                    Update Booking
+                                                    Proceed Payment
                                                 </button>
                                             </div>
                                         </div>

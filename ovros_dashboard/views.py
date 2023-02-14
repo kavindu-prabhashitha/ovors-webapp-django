@@ -21,7 +21,13 @@ from ovros_payment_module.models import ShopPaymentDetail
 
 from ovros_booking.models import ServiceBooking
 from .helpers import save_pdf
-from common.enums import BOOKING_STATUS
+from common.enums import (
+    BOOKING_STATUS,
+    PAYMENT_STATUS,
+    PAYMENT_DEFAULT_SLIP
+)
+from ovros_payment_module.forms import PaymentProceedForm
+from ovros_payment_module.models import ShopPaymentProceed
 
 
 @login_required
@@ -158,7 +164,7 @@ def shop_bookings_view(request):
             print("Booking Status not found")
 
         if "booking_time" in request.POST:
-            if len(request.POST['booking_time']) is 0:
+            if len(request.POST['booking_time']) == 0:
                 print("Booking Time Not Assigned")
             else:
                 booking_time = request.POST['booking_time']
@@ -266,6 +272,41 @@ def shop_payments_view(request):
                   })
 
 
+def shop_payments_verify(request):
+    # booking_id = 0
+    if request.method == 'POST' and ('booking_id_pv' in request.POST):
+        p_status_chg_form = ServicePaymentStatusChangeForm()
+        print("Incoming post request from payment view")
+        booking_id = request.POST['booking_id_pv']
+        b_data = ServiceBooking.objects.get(id=booking_id)
+        print("Booing id at payment verify : ", booking_id)
+        try:
+            b_pay_proceed = ShopPaymentProceed.objects.get(payment_booking_id_id=booking_id)
+        except ShopPaymentProceed.DoesNotExist:
+            b_pay_proceed = ShopPaymentProceed()
+            b_pay_proceed.payment_slip = PAYMENT_DEFAULT_SLIP
+
+        return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment_verify.html',
+                      {'section': 'dashboard',
+                       'booking_data': b_data,
+                       'payment_verify_data': b_pay_proceed,
+                       'p_status_chg_form': p_status_chg_form
+                       })
+
+    if request.method == 'POST' and ('proceed_payment_pv_verify' in request.POST):
+        payment_status_chng_form = ServicePaymentStatusChangeForm(request.POST)
+        if payment_status_chng_form.is_valid():
+            booking_id = request.POST['booking_id']
+            b_data = ServiceBooking.objects.get(id=booking_id)
+            b_data.payment_status = request.POST['payment_status']
+            print("Incoming post request from payment verify : ", b_data.payment_status)
+            b_data.save()
+            messages.success(request, "Payment Status updated")
+            return redirect('shop_payments_view')
+        print("Incoming post request from payment verify")
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment_verify.html')
+
+
 def shop_reports(request):
     return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_report.html', {'section': 'dashboard'})
 
@@ -365,11 +406,57 @@ def user_payment(request):
 
 def user_payment_view(request):
     pro_id = request.session['profile_data']['profile_data']['profile_id']
-    user_bookings = ServiceBooking.objects.filter(user_id=pro_id)
-    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment_view.html', {
-        'section': 'dashboard',
-        "user_bookings": user_bookings
-    })
+    if request.method == 'POST' and ('proceed_payment' in request.POST):
+        print("payment proceed form")
+        p_form = PaymentProceedForm(request)
+        profile_id = pro_id
+        if p_form.is_valid():
+            if request.POST['proceed_payment'] == '1':
+                if "payment_slip" in request.FILES:
+                    slip = request.FILES['payment_slip']
+                    if 'payment_note' in request.POST:
+                        note = request.POST['payment_note']
+                    else:
+                        note = "Null"
+                    b_id = request.POST['booking_id']
+                    user_pro = UserProfile.objects.get(id=profile_id)
+                    b_data = ServiceBooking.objects.get(id=b_id)
+                    spp = ShopPaymentProceed()
+                    spp.payment_slip = slip
+                    spp.payment_note = note
+                    spp.payment_booking_id = b_data
+                    spp.payment_user_pro_id = user_pro
+                    b_data.payment_status = PAYMENT_STATUS[1][0]
+                    b_data.save()
+                    spp.save()
+                    messages.success(request, "Payment details submitted successfully..")
+                    return redirect('user_payments_view')
+
+    if request.method == 'POST':
+        booking_id = request.POST['booking_id']
+        booking_data = ServiceBooking.objects.get(id=booking_id)
+        print('Booking id from payment proceed : ', booking_id)
+        payment_proceed_form = PaymentProceedForm()
+        return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment_proceed.html', {
+            'section': 'dashboard',
+            'booking_id': booking_id,
+            'booking_data': booking_data,
+            'form': payment_proceed_form
+        })
+    else:
+        user_bookings = ServiceBooking.objects.filter(user_id=pro_id)
+
+        return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment_view.html', {
+            'section': 'dashboard',
+            "user_bookings": user_bookings
+        })
+
+
+def user_payment_proceed(request):
+    booking_id = request.POST['booking_id']
+    print('Booking id from payment proceed : ', booking_id)
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment_proceed.html')
+
 
 def user_favorites(request):
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_favorites.html', {'section': 'dashboard'})

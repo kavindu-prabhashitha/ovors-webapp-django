@@ -24,6 +24,8 @@ PAYMENT_STATUS = (
     ('PAYMENT_PENDING', 'PAYMENT_PENDING'),
     ('PAYMENT_PROCESSING', 'PAYMENT_PROCESSING'),
     ('PAYMENT_COMPLETED', 'PAYMENT_COMPLETED'),
+    ('PAYMENT_NOT_VERIFIED', 'PAYMENT_NOT_VERIFIED'),
+    ('PAYMENT_RESUBMISSION_REQUIRED', 'PAYMENT_RESUBMISSION_REQUIRED'),
 )
 
 DISTRICTS = (
@@ -90,3 +92,5 @@ ALL_DISTRICT = (
     ('Ratnapura', 'Ratnapura'),
     ('Kegalle', 'Kegalle'),
 )
+
+PAYMENT_DEFAULT_SLIP = "/media/users/payment/payment_not_submitted.jpg"
