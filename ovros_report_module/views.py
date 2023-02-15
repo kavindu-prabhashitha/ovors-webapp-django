@@ -68,6 +68,16 @@ def generate_report_user(request):
 
 
 def generate_booking_detail(request, uid, pid, title, booked_service_r, confirmed_service_r):
+    """
+
+    :param request: request object
+    :param uid: user id
+    :param pid: profile id
+    :param title: title for the generated document
+    :param booked_service_r: is for booked services
+    :param confirmed_service_r: is for confirmed services
+    :return: File response
+    """
     bookings = ServiceBooking.objects.filter(user_id=uid)
 
     if confirmed_service_r == 1:

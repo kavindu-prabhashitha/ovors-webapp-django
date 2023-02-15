@@ -2,14 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns =[
-
-    # admin dashboard urls
-    path('admin-overview', views.admin_overview, name='admin_overview'),
-    path('admin-users', views.admin_users, name='admin_users'),
-    path('admin-users-view', views.admin_users_view, name='admin_users_view'),
-    path('admin-users/register', views.admin_register_user, name='admin_users_register'),
-    path('admin-shops', views.admin_shops, name='admin_shops'),
-
     # shop dashboard urls
     path('shop-overview', views.shop_overview, name='shop_overview'),
     path('shop-services', views.shop_services, name='shop_services'),
