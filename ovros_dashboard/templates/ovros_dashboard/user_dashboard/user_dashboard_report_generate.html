@@ -16,7 +16,8 @@
                 <img class="card-img-top" src="{% static 'images/report_v1.jpg' %}">
             </div>
             <div class="col-12 col-md-2 col-lg-5">
-                <form>
+                <form method="post">
+                    {% csrf_token %}
                     {{ form | crispy }}
                     <input type="submit" class="btn btn-success" value="Generate Report">
                 </form>

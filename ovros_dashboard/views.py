@@ -1,6 +1,6 @@
 import datetime
 
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from ovros_user_module.forms import UserRegistrationForm, UserEditForm, UserProfileEditForm, ShopProfileCreationForm
 from ovros_user_module.models import UserProfile, ShopProfile
@@ -579,3 +579,4 @@ def generate_booking_detail(request, booking_id):
     }
     file_res = save_pdf(params)
     return file_res
+

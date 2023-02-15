@@ -1,0 +1,19 @@
+<div style="margin: 40px">
+    <h1>{{ title}}</h1>
+    <h4>{{ today }}</h4>
+    <div>
+
+    </div>
+    <div>
+        <div>
+            {% for shop_service in shop_services %}
+                <p><strong>Service Name :</strong> {{  shop_service.service_name }}</p>
+                <p><strong>Shop :</strong>{{ shop_service.shop.shop_name }}</p>
+                <p><strong>Price: </strong><span>Rs.</span>{{ shop_service.service_price }}</p>
+                <p><strong>Avg Duration </strong>: {{ shop_service.service_duration }} minutes</p>
+                <p>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
