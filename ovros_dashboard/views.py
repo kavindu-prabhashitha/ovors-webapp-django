@@ -1,12 +1,10 @@
 import datetime
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from ovros_user_module.forms import UserRegistrationForm, UserEditForm, UserProfileEditForm, ShopProfileCreationForm
 from ovros_user_module.models import UserProfile, ShopProfile
 from ovros_service_module.models import Service
 from django.contrib import messages
-
 from ovros_booking.forms import (
     BookingStatusChangeForm,
     ServiceStatusChangeForm,
@@ -15,10 +13,8 @@ from ovros_booking.forms import (
 )
 from ovros_service_module.forms import ServiceEditForm
 from django.contrib.auth.models import User
-
 from ovros_payment_module.forms import ShopBankDetAddForm, ShopBankDetEditForm
 from ovros_payment_module.models import ShopPaymentDetail
-
 from ovros_booking.models import ServiceBooking
 from .helpers import save_pdf
 from common.enums import (
@@ -29,8 +25,14 @@ from common.enums import (
 from ovros_payment_module.forms import PaymentProceedForm
 from ovros_payment_module.models import ShopPaymentProceed
 
+
 @login_required
 def admin_overview(request):
+    """
+
+    :param request:
+    :return:
+    """
     no_of_services = Service.objects.count()
     no_of_shops = ShopProfile.objects.count()
     no_of_users = UserProfile.objects.count()

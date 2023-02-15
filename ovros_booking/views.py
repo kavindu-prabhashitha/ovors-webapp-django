@@ -46,6 +46,11 @@ def add_booking(request, service_id):
 
 @login_required
 def view_user_bookings(request):
+    """
+    View user bookings. List Service bookings related to specific user
+    :param request:
+    :return:
+    """
     user_id = request.session['profile_data']['profile_data']['user_id']
     profile_id = request.session['profile_data']['profile_data']['profile_id']
     bookings = ServiceBooking.objects.filter(user_id=profile_id)
@@ -59,6 +64,12 @@ def view_user_bookings(request):
 
 @login_required()
 def cancel_user_booking(request, booking_id):
+    """
+    Cancel Bookings
+    :param request:
+    :param booking_id:
+    :return:
+    """
     ServiceBooking.objects.filter(id=booking_id).delete()
     messages.warning(request, "Booking Cancelled Success...")
     return redirect('view_booking')
