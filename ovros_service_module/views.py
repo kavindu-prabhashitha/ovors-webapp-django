@@ -5,6 +5,11 @@ from .models import Service
 
 
 def service_add(request):
+    """
+    Add Service by Service Shops
+    :param request:
+    :return:
+    """
     user_profile_id = request.session['profile_data']['profile_data']['profile_id']
     user_profile_role = request.session['profile_data']['profile_data']['profile_role']
     if request.method == 'POST':
@@ -56,12 +61,23 @@ def service_add(request):
 
 
 def service_list(request):
+    """
+    Return All Available services
+    :param request:
+    :return:
+    """
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_service_list.html',
                   {'section': 'dashboard'})
 
 
 def service_detail(request, service_id):
+    """
+    Return service details for selected service
+    :param request:
+    :param service_id:
+    :return:
+    """
     if request.user.is_authenticated:
         user_profile_role = request.session['profile_data']['profile_data']['profile_role']
         print(service_id, '  ', user_profile_role)

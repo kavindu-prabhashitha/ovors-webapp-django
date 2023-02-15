@@ -1,33 +1,7 @@
 from django.db import models
 from ovros_user_module.models import ShopProfile, UserProfile
 from ovros_service_module.models import Service
-
-VEHICLE_TYPE = (
-    ('NON', 'Non'),
-    ('CAR', 'Car'),
-    ('VAN', 'Van'),
-    ('BIKE', 'Bike'),
-    ('SUV', 'Suv')
-)
-
-BOOKING_STATUS = (
-    ('PENDING', 'PENDING'),
-    ('APPROVED', 'APPROVED'),
-    ('CANCELED', 'CANCELED'),
-)
-
-SERVICE_STATUS = (
-    ('PENDING', 'PENDING'),
-    ('QUEUED', 'QUEUED'),
-    ('ONGOING', 'ONGOING'),
-    ('OVER', 'OVER'),
-)
-
-PAYMENT_STATUS = (
-    ('PAYMENT_PENDING', 'PAYMENT_PENDING'),
-    ('PAYMENT_PROCESSING', 'PAYMENT_PROCESSING'),
-    ('PAYMENT_COMPLETED', 'PAYMENT_COMPLETED'),
-)
+from common.enums import PAYMENT_STATUS, SERVICE_STATUS, BOOKING_STATUS, VEHICLE_TYPE
 
 
 class ServiceBooking(models.Model):

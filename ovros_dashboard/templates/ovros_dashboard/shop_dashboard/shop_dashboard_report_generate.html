@@ -1,0 +1,30 @@
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    {% load static %}
+    Shop-Report-Generate
+{% endblock %}
+
+{% block dashboard_content %}
+    <div class="container text-center">
+        <div class="row my-5">
+            <h3>Shop Dashboard Report - Generator</h3>
+        </div>
+        <div class="row my-5">
+            <div class="col-12 col-md-2 col-lg-2"></div>
+            <div class="col-12 col-md-2 col-lg-3">
+                <img class="card-img-top" src="{% static 'images/report_v1.jpg' %}">
+            </div>
+            <div class="col-12 col-md-2 col-lg-5">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    <input type="submit" class="btn btn-success" value="Generate Report">
+                    <a class="btn btn-danger" href="{% url 'shop_overview' %}">Cancel</a>
+                </form>
+            </div>
+            <div class="col-12 col-md-2 col-lg-2"></div>
+
+        </div>
+    </div>
+{% endblock %}

@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from ovros_service_module.models import Service
 from .forms import (
     LoginForm,
     UserEditForm,
@@ -14,13 +13,17 @@ from .models import (
     UserProfile,
     ShopProfile)
 from django.contrib import messages
-from django.contrib.auth.models import User
 from .profile_detail import ProfileData
 
 # Create your views here.
 
 
 def user_login(request):
+    """
+    User login
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -42,6 +45,11 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
+    """
+    Redirect users to specified dashboard
+    :param request:
+    :return:
+    """
     print('session data : ', request.session.keys())
     try:
         user_profile = UserProfile.objects.get(user_id=request.user.id)
@@ -69,10 +77,20 @@ def dashboard(request):
 
 
 def register(request):
+    """
+    Render register page (landing page for registration)
+    :param request:
+    :return:
+    """
     return render(request, 'account/register.html')
 
 
 def user_register(request):
+    """
+    User registration
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         user_profile_form = UserProfile(request.POST)
@@ -98,6 +116,11 @@ def user_register(request):
 
 
 def shop_register(request):
+    """
+    Shop registration
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         shop_profile_form = ShopProfileCreationForm(request.POST)
@@ -141,6 +164,11 @@ def shop_register(request):
 
 @login_required
 def edit(request):
+    """
+    Edit profile
+    :param request:
+    :return:
+    """
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user, data=request.POST)
         profile_form = UserProfileEditForm(
@@ -163,7 +191,3 @@ def edit(request):
                   'account/edit.html',
                   {'user_form': user_form,
                    'profile_form': profile_form})
-
-
-def test_function(input):
-    pass

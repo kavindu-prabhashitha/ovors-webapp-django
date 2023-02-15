@@ -1,4 +1,4 @@
-{% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
 {% load crispy_forms_tags %}
 {% block title %}
     {% load static %}
@@ -13,10 +13,10 @@
                 <h3 class="my-2">Edit Profile Details</h3>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ u_form|crispy }}
-                    {{ p_form|crispy }}
+                    {{ s_form|crispy }}
+
                     <input type="submit" value="Edit Details" class="btn btn-primary">
-                    <a class="btn btn-danger" href="{% url 'user_profile' %}">Cancel</a>
+                    <a class="btn btn-danger" href="{% url 'shop_profile' %}">Cancel</a>
                 </form>
 
             </div>

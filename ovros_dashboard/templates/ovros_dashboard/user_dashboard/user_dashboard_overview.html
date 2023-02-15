@@ -23,7 +23,7 @@
                             <span class="badge rounded-pill text-bg-primary">Booking</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'user_payments' %}">
+                        <a class="nav-link active" aria-current="page" href="{% url 'user_payments_view' %}">
                             <span class="badge rounded-pill text-bg-primary">Payment</span></a>
                     </li>
 {#                    <li class="nav-item">#}
@@ -69,7 +69,7 @@
                         <p class="card-text">Payments</p>
                     </div>
                     <div class="card-footer">
-                        <h3>23</h3>
+                        <h3>{{ payment_count }}</h3>
                     </div>
                 </div>
             </div>

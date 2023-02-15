@@ -1,5 +1,6 @@
 from django.db import models
-from ovros_user_module.models import ShopProfile
+from ovros_user_module.models import ShopProfile, UserProfile
+from ovros_booking.models import ServiceBooking
 
 
 class ShopPaymentDetail(models.Model):
@@ -13,3 +14,10 @@ class ShopPaymentDetail(models.Model):
 
     def __str__(self):
         return f"shop : {self.shop_profile.shop_name} bank: {self.bank_name} account: {self.account_no}"
+
+
+class ShopPaymentProceed(models.Model):
+    payment_slip = models.ImageField(upload_to='users/payment', blank=False, )
+    payment_note = models.CharField(max_length=250, blank=True)
+    payment_user_pro_id = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    payment_booking_id = models.ForeignKey(ServiceBooking, on_delete=models.CASCADE)

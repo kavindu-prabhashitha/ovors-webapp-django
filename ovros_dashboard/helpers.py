@@ -25,3 +25,14 @@ def save_pdf(params: dict):
     # if pdf.err:
     #     return '', False
 
+
+def generate_pdf(params: dict, template_name, file_name):
+    print("Params : ", params)
+    t_location = 'report_templates/'+template_name
+    r_template = get_template(t_location)
+    html = r_template.render(params)
+    response = BytesIO()
+    pisa.pisaDocument(BytesIO(html.encode('UTF-8')), response)
+    response.seek(0)
+    f_name = file_name+'_' + str(uuid.uuid4())[:6] + ".pdf"
+    return FileResponse(response, as_attachment=True, filename=f_name)

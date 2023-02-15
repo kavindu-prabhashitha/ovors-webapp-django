@@ -30,10 +30,7 @@ def add_booking(request, service_id):
             booked_service = service_booking.save()
             print(f'profile id : {user_profile_id}, booking_id : {booked_service}')
             messages.success(request, "Booking Added Successfully , status : PENDING")
-            return render(request,
-                          'ovros_dashboard/user_dashboard/user_dashboard_overview.html',
-                          {'section': 'dashboard'}
-                          )
+            return redirect('user_overview')
     else:
         print("Current user profile id : ", user_profile_id)
         print("Current user id : ", user_user_id)
@@ -49,6 +46,11 @@ def add_booking(request, service_id):
 
 @login_required
 def view_user_bookings(request):
+    """
+    View user bookings. List Service bookings related to specific user
+    :param request:
+    :return:
+    """
     user_id = request.session['profile_data']['profile_data']['user_id']
     profile_id = request.session['profile_data']['profile_data']['profile_id']
     bookings = ServiceBooking.objects.filter(user_id=profile_id)
@@ -62,6 +64,12 @@ def view_user_bookings(request):
 
 @login_required()
 def cancel_user_booking(request, booking_id):
+    """
+    Cancel Bookings
+    :param request:
+    :param booking_id:
+    :return:
+    """
     ServiceBooking.objects.filter(id=booking_id).delete()
     messages.warning(request, "Booking Cancelled Success...")
     return redirect('view_booking')

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Service,ServicePart,PartForService
+from .models import Service, ServicePart, PartForService
 
 
 class ServiceCreationForm(forms.ModelForm):

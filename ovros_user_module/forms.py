@@ -66,8 +66,8 @@ class ShopProfileCreationForm(forms.ModelForm):
         fields = ('shop_name',
                   'shop_address_no',
                   'shop_address_street',
-                  'shop_address_city',
                   'shop_address_district',
+                  'shop_address_city',
                   'shop_contact')
 
     def clean(self):
