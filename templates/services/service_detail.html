@@ -67,6 +67,12 @@
                                                          src="{% static 'icons/bike_icon.png' %}">
                                                 {% endif %}
 
+                                                {% if service.is_for_long_vehicle %}
+                                                    <img height="40px" width="40px" class="bi"
+                                                         src="{% static 'icons/long_vehicle_icon.png' %}">
+                                                {% endif %}
+
+
                                             </div>
                                         </li>
                                     </ul>

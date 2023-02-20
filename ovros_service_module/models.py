@@ -21,6 +21,7 @@ class Service(models.Model):
     is_for_suv = models.BooleanField(verbose_name="Available for suv", default=False)
     is_for_lorry = models.BooleanField(verbose_name="Available for lorry", default=False)
     is_for_bike = models.BooleanField(verbose_name="Available for bike", default=False)
+    is_for_long_vehicle = models.BooleanField(verbose_name="Available for bike", default=False)
     service_availability = models.BooleanField(
         verbose_name="Service availability",
         default=False,
