@@ -1,10 +1,11 @@
 VEHICLE_TYPE = (
-    ('NON', 'Non'),
+    ('NON', 'Select Vehicle'),
     ('CAR', 'Car'),
     ('VAN', 'Van'),
     ('BIKE', 'Bike'),
     ('SUV', 'Suv'),
-    ('TRUCK', 'Truck')
+    ('TRUCK', 'Truck'),
+    ('LONG', 'Long Vehicle')
 )
 
 BOOKING_STATUS = (
