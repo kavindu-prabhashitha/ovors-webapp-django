@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import ShopProfile, UserProfile
 
-
 USER_ROLES = [
     ('admin', 'Admin'),
     ('shop', 'Shop'),
@@ -64,6 +63,7 @@ class ShopProfileCreationForm(forms.ModelForm):
     class Meta:
         model = ShopProfile
         fields = ('shop_name',
+                  'shop_email',
                   'shop_address_no',
                   'shop_address_street',
                   'shop_address_district',

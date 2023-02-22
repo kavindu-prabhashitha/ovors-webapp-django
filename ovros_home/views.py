@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from ovros_service_module.models import Service
+from ovros_user_module.models import ShopProfile
 from .forms import ServiceSearchForm, ServiceSearchForm01, ServiceSearchForm02
 
 
@@ -96,3 +97,19 @@ def search(request):
 
     else:
         return render(request, 'home/index.html')
+
+
+def shops(request):
+    all_shops = ShopProfile.objects.all()
+    return render(request, "shops/shop_list.html", {
+        "shops_profiles": all_shops
+    })
+
+
+def shop_detail(request, shop_id):
+    shop_d = ShopProfile.objects.get(id=shop_id)
+    shop_services = Service.objects.filter(shop=shop_id)
+    return render(request, "shops/shop_detail.html", {
+        "profile": shop_d,
+        "shop_services": shop_services
+    })

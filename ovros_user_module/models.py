@@ -14,6 +14,8 @@ class ShopProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     user_role = models.CharField('Type', max_length=40, choices=Types.choices, default=Types.USER_SHOP)
     shop_name = models.CharField(max_length=100, help_text="Service Shop name")
+    shop_profile_img = models.ImageField(upload_to='shops/profile_images', null=True, blank=True,
+                                         default="shops/shop_profile_default.jpg")
     shop_address_no = models.CharField(
         max_length=200,
         help_text="Service Shop address Number",
@@ -33,6 +35,7 @@ class ShopProfile(models.Model):
         help_text="Service Shop address district",
     )
     shop_contact = models.CharField(max_length=10, help_text="eg: 07xxxxxxxx")
+    shop_email = models.CharField(max_length=100, help_text="shop email address", blank=True)
 
     def get_full_address(self):
         return f'No {self.shop_address_no} , ' \
