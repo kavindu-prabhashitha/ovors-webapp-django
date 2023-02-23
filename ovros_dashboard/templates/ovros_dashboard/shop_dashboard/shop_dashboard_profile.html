@@ -12,7 +12,8 @@
             <div class="col-lg-4"></div>
             <div class="col-lg-4 text-center">
                 <div class="card">
-                    <img src="{% static 'images/shopprofile_default.jpg' %}" class="card-img-top">
+{#                    <img src="{% static 'images/shopprofile_default.jpg' %}" class="card-img-top">#}
+                    <img src="{{ profile.shop_profile_img.url }}" class="card-img-top">
                     <div class="card-body">
                         <div class="list-group">
                             <ul class="list-group list-group-flush">

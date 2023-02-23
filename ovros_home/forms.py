@@ -16,4 +16,4 @@ class ServiceSearchForm01(forms.Form):
 
 class ServiceSearchForm02(forms.Form):
     search_by_vehicle = forms.ChoiceField(required=False, choices=VEHICLE_TYPE, initial=VEHICLE_TYPE[0])
-    search_by_Keyword = forms.CharField(required=False, max_length=50)
+    search_by_service = forms.CharField(required=False, max_length=50)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from ovros_home.views import home, services
+from ovros_home.views import home, services, shops, shop_detail
 from ovros_user_module import urls as account_urls
 from ovros_dashboard import urls as dashboard_urls
 from ovros_home.views import search
@@ -17,6 +17,8 @@ admin.site.index_title = 'Ovros Admin Dashboard'
 urlpatterns = [
     path('', home, name='home'),
     path('services/', services, name='services'),
+    path('shops/', shops, name='shops'),
+    path('shops/<int:shop_id>', shop_detail, name='shop_detail'),
     path('search/', search, name='home_search'),
     path('admin/', admin.site.urls),
     path('account/', include(account_urls)),
