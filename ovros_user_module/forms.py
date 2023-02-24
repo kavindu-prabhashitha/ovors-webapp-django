@@ -64,6 +64,7 @@ class ShopProfileCreationForm(forms.ModelForm):
         model = ShopProfile
         fields = ('shop_name',
                   'shop_email',
+                  'shop_profile_img',
                   'shop_address_no',
                   'shop_address_street',
                   'shop_address_district',

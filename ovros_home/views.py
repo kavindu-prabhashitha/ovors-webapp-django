@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from ovros_service_module.models import Service
 from ovros_user_module.models import ShopProfile
-from .forms import ServiceSearchForm, ServiceSearchForm01, ServiceSearchForm02
-
+from .forms import ServiceSearchForm, ServiceSearchForm01, ServiceSearchForm02, ServiceSearchByShop
+from django.contrib import messages
 
 def home(request):
     """
@@ -101,9 +101,27 @@ def search(request):
 
 def shops(request):
     all_shops = ShopProfile.objects.all()
-    return render(request, "shops/shop_list.html", {
-        "shops_profiles": all_shops
-    })
+    if request.method == "POST":
+        form = ServiceSearchByShop(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            key_word = cd['search_by_shop']
+            print("Shop Search value = ", cd['search_by_shop'])
+            if len(key_word) == 0:
+                all_shops = ShopProfile.objects.all()
+            else:
+                all_shops = all_shops.filter(shop_name__icontains=key_word)
+                if all_shops.count() == 0:
+                    messages.warning(request, f"No Shops found contains the name '{key_word}'")
+                    all_shops = ShopProfile.objects.all()
+            return render(request, "shops/shop_list.html", {"shops_profiles": all_shops, 'form': form})
+
+    else:
+        form = ServiceSearchByShop()
+        return render(request, "shops/shop_list.html", {
+            "shops_profiles": all_shops,
+            'form': form
+        })
 
 
 def shop_detail(request, shop_id):

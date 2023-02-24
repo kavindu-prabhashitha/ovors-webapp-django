@@ -67,7 +67,7 @@ def shop_service_ongoing(request):
         booking_rec.save()
 
     shop = ShopProfile.objects.get(user_id=user_id)
-    shop_service_bookings = ServiceBooking.objects.filter(service__shop_id=shop.id)
+    shop_service_bookings = ServiceBooking.objects.filter(service__shop_id=shop.id).reverse()
     service_status_chng_form = ServiceStatusChangeForm()
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_service_ongoing.html',
@@ -162,6 +162,7 @@ def shop_service_edit(request, service_id):
             service_rec.is_for_car = cd['is_for_car']
             service_rec.is_for_suv = cd['is_for_suv']
             service_rec.is_for_lorry = cd['is_for_lorry']
+            service_rec.is_for_long_vehicle = cd['is_for_long_vehicle']
 
             service_rec.save()
             messages.success(request, "Service Updated ...")
@@ -178,6 +179,7 @@ def shop_service_edit(request, service_id):
                 'is_for_car': service_rec.is_for_car,
                 'is_for_suv': service_rec.is_for_suv,
                 'is_for_lorry': service_rec.is_for_lorry,
+                'is_for_long_vehicle': service_rec.is_for_long_vehicle,
         }
 
         service_edit_form = ServiceEditForm(initial=initial_rec_dic)
@@ -195,6 +197,7 @@ def check_service_edit_permission(service, user_id, user_role):
         return False
 
 
+@login_required()
 def shop_payments(request):
     shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
     user_id = request.user.id
@@ -210,6 +213,7 @@ def shop_payments(request):
     })
 
 
+@login_required()
 def shop_payments_view(request):
     user_id = request.user.id
     shop = ShopProfile.objects.get(user_id=user_id)
@@ -223,6 +227,7 @@ def shop_payments_view(request):
                   })
 
 
+@login_required()
 def shop_payments_verify(request):
     # booking_id = 0
     if request.method == 'POST' and ('booking_id_pv' in request.POST):
@@ -258,10 +263,12 @@ def shop_payments_verify(request):
     return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_payment_verify.html')
 
 
+@login_required()
 def shop_reports(request):
-    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_report.html', {'section': 'dashboard'})
+    return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_report_generate.html', {'section': 'dashboard'})
 
 
+@login_required()
 def shop_profile(request):
     user_id = request.session['profile_data']['profile_data']['user_id']
     shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
@@ -316,6 +323,7 @@ def shop_profile(request):
                    'profile': profile})
 
 
+@login_required()
 def shop_profile_edit(request):
     user_id = request.session['profile_data']['profile_data']['user_id']
     profile_id = request.session['profile_data']['profile_data']['profile_id']
@@ -323,7 +331,7 @@ def shop_profile_edit(request):
     profile = ShopProfile.objects.get(id=profile_id)
 
     if request.method == 'POST':
-        s_form = ShopProfileCreationForm(request.POST)
+        s_form = ShopProfileCreationForm(request.POST, request.FILES or None)
         if s_form.is_valid():
             c_data = s_form.cleaned_data
             print(c_data)
@@ -332,6 +340,8 @@ def shop_profile_edit(request):
             profile.shop_address_city = c_data['shop_address_city']
             profile.shop_address_district = c_data['shop_address_district']
             profile.shop_contact = c_data['shop_contact']
+            if 'shop_profile_img' in request.FILES:
+                profile.shop_profile_img = c_data['shop_profile_img']
             profile.save()
             messages.success(request, "Shop Profile Updated..")
             return redirect('shop_profile')
@@ -348,7 +358,8 @@ def shop_profile_edit(request):
             "shop_address_street": profile.shop_address_street,
             'shop_address_city': profile.shop_address_city,
             'shop_address_district': profile.shop_address_district,
-            'shop_contact': profile.shop_contact
+            'shop_contact': profile.shop_contact,
+            'shop_profile_img': profile.shop_profile_img,
 
         }
         s_form = ShopProfileCreationForm(initial=intial_dict)
@@ -389,10 +400,12 @@ def user_booking(request):
                    })
 
 
+@login_required()
 def user_payment(request):
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment.html', {'section': 'dashboard'})
 
 
+@login_required()
 def user_payment_view(request):
     pro_id = request.session['profile_data']['profile_data']['profile_id']
     if request.method == 'POST' and ('proceed_payment' in request.POST):
@@ -441,6 +454,7 @@ def user_payment_view(request):
         })
 
 
+@login_required()
 def user_payment_proceed(request):
     booking_id = request.POST['booking_id']
     print('Booking id from payment proceed : ', booking_id)
@@ -451,6 +465,7 @@ def user_favorites(request):
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_favorites.html', {'section': 'dashboard'})
 
 
+@login_required()
 def user_profile(request):
     print('profile data in profile view :', request.session['profile_data']['profile_data'])
     user_id = request.session['profile_data']['profile_data']['user_id']
@@ -465,6 +480,7 @@ def user_profile(request):
                    'profile': profile})
 
 
+@login_required()
 def user_profile_edit(request):
     user_id = request.session['profile_data']['profile_data']['user_id']
     profile_id = request.session['profile_data']['profile_data']['profile_id']
@@ -508,6 +524,7 @@ def user_profile_edit(request):
                       {'section': 'dashboard', 'u_form': u_form, 'p_form': p_form})
 
 
+@login_required()
 def generate_booking_detail(request, booking_id):
     booking = ServiceBooking.objects.get(id=booking_id)
 

@@ -17,3 +17,7 @@ class ServiceSearchForm01(forms.Form):
 class ServiceSearchForm02(forms.Form):
     search_by_vehicle = forms.ChoiceField(required=False, choices=VEHICLE_TYPE, initial=VEHICLE_TYPE[0])
     search_by_service = forms.CharField(required=False, max_length=50)
+
+
+class ServiceSearchByShop(forms.Form):
+    search_by_shop = forms.CharField(label="Search by Shop Name", required=False, max_length=100,)
