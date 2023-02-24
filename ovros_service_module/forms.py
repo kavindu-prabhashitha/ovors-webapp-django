@@ -18,6 +18,7 @@ class ServiceCreationForm(forms.ModelForm):
                   'is_for_van',
                   'is_for_lorry',
                   'is_for_bike',
+                  'is_for_long_vehicle',
                   )
         widgets = {
 
@@ -40,7 +41,8 @@ class ServiceEditForm(forms.ModelForm):
             'is_for_van',
             'is_for_car',
             'is_for_suv',
-            'is_for_lorry'
+            'is_for_lorry',
+            'is_for_long_vehicle'
         )
 
         widgets = {

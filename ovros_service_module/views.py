@@ -35,6 +35,7 @@ def service_add(request):
                     new_service.is_for_van = cd['is_for_van']
                     new_service.is_for_lorry = cd['is_for_lorry']
                     new_service.is_for_bike = cd['is_for_bike']
+                    new_service.is_for_long_vehicle = cd['is_for_long_vehicle']
                     if form.cleaned_data['service_image']:
                         new_service.service_image = form.cleaned_data['service_image']
                     else:

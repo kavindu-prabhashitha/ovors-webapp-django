@@ -10,7 +10,8 @@
                 <div class="col-md-5 text-center text-md-start" style="height: 100%;">
                     <h1>
                         <div class="display-3">Get Your Vehicle Repaired</div>
-                        <p class="lead my-1 text-muted">Let us help you find the best vehicle repair services you're looking for.</p>
+                        <p class="lead my-1 text-muted">Let us help you find the best vehicle repair services you're
+                            looking for.</p>
                     </h1>
 
                     <hr>
@@ -31,12 +32,36 @@
                 </div>
                 <div class="col-md-5 text-center d-none d-md-block">
                     <!-- tooltip -->
-                    <span class="tt" data-bs-placement="bottom" title="OvROS">
-            <img class="img-fluid" src="{% static 'images/hero_img.png' %}" alt="ebook">
-          </span>
+                    {#                    <span class="tt" data-bs-placement="bottom" title="OvROS">#}
+                    {#            <img class="img-fluid" src="{% static 'images/site_hero _def.jpg' %}" alt="ebook">#}
+                    {#          </span>#}
+                    <div id="carouselExampleAutoplaying" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/site_hero _def.jpg' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/services.jpeg' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/hero_img.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                                data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                                data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+
     </section>
     <!-- Header Section End -->
 

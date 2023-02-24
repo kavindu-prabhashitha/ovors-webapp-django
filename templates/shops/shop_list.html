@@ -10,6 +10,34 @@
 
     <div class="container">
         <div class="row my-5 g-3">
+            <div class="col-12 col-md-6 col-lg-4"></div>
+            <div class="col-12 col-md-6 col-lg-4">
+             <div class="accordion" id="accordionShopSearch">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Search  &nbsp;&nbsp; <i class="bi bi-search"></i>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                         data-bs-parent="#accordionShopSearch">
+                        <div class="accordion-body">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form | crispy }}
+                            <input class="btn btn-success" type="submit" value="Search">
+                        </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4"></div>
+
+        </div>
+        <div class="row my-5 g-3">
             {% for profile in shops_profiles %}
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card">
@@ -35,7 +63,7 @@
                             </div>
                         </div>
                         <div class="card-footer text-center">
-                            <a class="btn btn-primary" href="{% url 'shop_detail' profile.id%}">View Details</a>
+                            <a class="btn btn-primary" href="{% url 'shop_detail' profile.id %}">View Details</a>
                         </div>
                     </div>
                 </div>
