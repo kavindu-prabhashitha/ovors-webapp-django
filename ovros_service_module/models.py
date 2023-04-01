@@ -12,7 +12,8 @@ SERVICE_AVAILABILITY = (
 class Service(models.Model):
     shop = models.ForeignKey(to=ShopProfile, on_delete=models.CASCADE)
     service_name = models.CharField(max_length=100)
-    service_image = models.ImageField(upload_to='images/service_img', blank=True)
+    service_image = models.ImageField(upload_to='images/service_img', blank=True,
+                                      default='images/service_img/service_default_img.jpg')
     service_description = models.CharField(max_length=500, default='', blank=True)
     service_price = models.DecimalField(max_digits=10, decimal_places=2)
     service_duration = models.CharField(max_length=5)
@@ -21,7 +22,7 @@ class Service(models.Model):
     is_for_suv = models.BooleanField(verbose_name="Available for suv", default=False)
     is_for_lorry = models.BooleanField(verbose_name="Available for lorry", default=False)
     is_for_bike = models.BooleanField(verbose_name="Available for bike", default=False)
-    is_for_long_vehicle = models.BooleanField(verbose_name="Available for bike", default=False)
+    is_for_long_vehicle = models.BooleanField(verbose_name="Available for Long Vehicle", default=False)
     service_availability = models.BooleanField(
         verbose_name="Service availability",
         default=False,

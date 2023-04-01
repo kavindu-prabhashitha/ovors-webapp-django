@@ -38,9 +38,6 @@ def service_add(request):
                     new_service.is_for_long_vehicle = cd['is_for_long_vehicle']
                     if form.cleaned_data['service_image']:
                         new_service.service_image = form.cleaned_data['service_image']
-                    else:
-                        default_file_path = 'images/service_img/card-header-default.jpg'
-                        new_service.service_image = default_file_path
                     new_service.save()
                     return redirect('shop_services_list')
 

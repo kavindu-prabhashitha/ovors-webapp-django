@@ -51,29 +51,28 @@ def dashboard(request):
     :return:
     """
     print('session data : ', request.session.keys())
-    try:
-        user_profile = UserProfile.objects.get(user_id=request.user.id)
-    except UserProfile.DoesNotExist:
-        user_profile = ShopProfile.objects.get(user_id=request.user.id)
+    print('is_super user ', request.user.is_superuser)
+    if not request.user.is_superuser:
+        try:
+            user_profile = UserProfile.objects.get(user_id=request.user.id)
+        except UserProfile.DoesNotExist:
+            user_profile = ShopProfile.objects.get(user_id=request.user.id)
 
-    profile_data = ProfileData(request)
+        profile_data = ProfileData(request)
 
-    if user_profile.user_role == "USER_CUSTOMER":
-        profile_data.add(request.user.id, user_profile.id, 'USER_CUSTOMER')
-        print('user customer profile data : ', request.session['profile_data'])
-        return redirect('user_overview')
+        if user_profile.user_role == "USER_CUSTOMER":
+            profile_data.add(request.user.id, user_profile.id, 'USER_CUSTOMER')
+            return redirect('user_overview')
 
-    if user_profile.user_role == "USER_ADMIN":
-        profile_data.add(request.user.id, user_profile.id, 'USER_ADMIN')
-        print('user admin profile data : ', request.session['profile_data'])
+        if user_profile.user_role == "USER_ADMIN":
+            profile_data.add(request.user.id, user_profile.id, 'USER_ADMIN')
+            return redirect('admin:login')
+
+        if user_profile.user_role == "USER_SHOP":
+            profile_data.add(request.user.id, user_profile.id, 'USER_SHOP')
+            return redirect('shop_overview')
+    else:
         return redirect('admin:login')
-
-    if user_profile.user_role == "USER_SHOP":
-        profile_data.add(request.user.id, user_profile.id, 'USER_SHOP')
-        print('user profile data : ', request.session['profile_data'])
-        return redirect('shop_overview')
-
-    return login_required()
 
 
 def register(request):
@@ -110,6 +109,8 @@ def user_register(request):
             user_profile.photo = default_file_path
             return render(request,
                           'account/register_done.html', {'new_user': new_user, })
+        else:
+            return render(request, 'account/user_register.html', {'user_form': user_form})
     else:
         user_form = UserRegistrationForm()
         return render(request, 'account/user_register.html', {'user_form': user_form})

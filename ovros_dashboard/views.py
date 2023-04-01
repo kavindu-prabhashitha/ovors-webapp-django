@@ -371,6 +371,11 @@ def shop_profile_edit(request):
 
 @login_required()
 def user_overview(request):
+    """
+    User Dashboard Overview
+    :param request:
+    :return:
+    """
     user_id = request.session['profile_data']['profile_data']['user_id']
     profile_id =  request.session['profile_data']['profile_data']['profile_id']
     booking_count = ServiceBooking.objects.filter(user_id=user_id).count()
@@ -379,14 +384,19 @@ def user_overview(request):
                   {'section': 'dashboard',
                    'booking_count': booking_count,
                    'payment_count': payment_count,
+                   'user': User.objects.get(id=user_id)
                    })
 
 
 @login_required()
 def user_booking(request):
+    """
+    User booking Main Page
+    :param request:
+    :return:
+    """
     user_profile_id = request.session['profile_data']['profile_data']['profile_id']
     bookings = ServiceBooking.objects.filter(user_id=user_profile_id)
-    print("User Id : ", user_profile_id)
     pending_bookings = bookings.filter(booking_status="PENDING").count()
     approved_bookings = bookings.filter(booking_status="APPROVED").count()
     canceled_bookings = bookings.filter(booking_status="CANCELED").count()
@@ -402,17 +412,32 @@ def user_booking(request):
 
 @login_required()
 def user_payment(request):
+    """
+    Loads User Payment page
+    :param request:
+    :return:
+    """
     return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment.html', {'section': 'dashboard'})
 
 
 @login_required()
 def user_payment_view(request):
+    """
+    User Payment List ( Payment Status )
+    :param request:
+    :return:
+    """
     pro_id = request.session['profile_data']['profile_data']['profile_id']
     if request.method == 'POST' and ('proceed_payment' in request.POST):
         print("payment proceed form")
-        p_form = PaymentProceedForm(request)
+        p_form = PaymentProceedForm(request.POST, request.FILES or None)
         profile_id = pro_id
+        # cd = p_form.cleaned_data
+        # print("form_data : ", cd)
         if p_form.is_valid():
+            cd = p_form.cleaned_data
+            print("form_data : ", cd)
+            print("payment proceed form is valid")
             if request.POST['proceed_payment'] == '1':
                 if "payment_slip" in request.FILES:
                     slip = request.FILES['payment_slip']
@@ -433,6 +458,9 @@ def user_payment_view(request):
                     spp.save()
                     messages.success(request, "Payment details submitted successfully..")
                     return redirect('user_payments_view')
+        else:
+            messages.warning(request, "Payment Not Success")
+            return redirect('user_payments_view')
 
     if request.method == 'POST':
         booking_id = request.POST['booking_id']

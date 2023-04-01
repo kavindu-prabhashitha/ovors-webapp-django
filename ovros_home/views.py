@@ -4,6 +4,7 @@ from ovros_user_module.models import ShopProfile
 from .forms import ServiceSearchForm, ServiceSearchForm01, ServiceSearchForm02, ServiceSearchByShop
 from django.contrib import messages
 
+
 def home(request):
     """
     Landing page of the ovros (Online Vehicle Repairing Ordering System)
@@ -131,3 +132,7 @@ def shop_detail(request, shop_id):
         "profile": shop_d,
         "shop_services": shop_services
     })
+
+
+def dashboard_new(request):
+    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_overview.html')
