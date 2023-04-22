@@ -136,3 +136,7 @@ def shop_detail(request, shop_id):
 
 def dashboard_new(request):
     return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_overview.html')
+
+
+def dashboard_new_user_booking(request):
+    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_booking_view.html')
