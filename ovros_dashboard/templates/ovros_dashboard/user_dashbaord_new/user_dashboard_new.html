@@ -13,7 +13,11 @@
       content="width=device-width,initial-scale=1,viewport-fit=cover"
     />
     <meta name="color-scheme" content="dark light" />
-    <title>Ovros-User Dashboard</title>
+    <title>
+      {% block title %}
+Ovros-User-Payment Dashboard
+{% endblock %}
+    </title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/utilities.css' %}" />
     <link rel="preconnect" href="https://fonts.googleapis.com/" />
@@ -66,8 +70,8 @@
                 ><div class="avatar-parent-child">
                   <img
                     alt="..."
-                    src="img/people/img-profile.jpg"
-                    class="avatar avatar- rounded-circle"
+                    src="{% static 'images/defaultProfilePic.jpg' %}"
+                    class="avatar avatar-rounded-circle"
                   />
                   <span
                     class="avatar-child avatar-badge bg-success"
@@ -162,46 +166,15 @@
                   <ul class="nav nav-sm flex-column">
                     <li class="nav-item">
                       <a
-                        href="pages/integrations/applications.html"
+                        href="{% url 'dashboard_new_user_reports' %}"
                         class="nav-link"
-                        >Applications</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        href="pages/integrations/manage-apps.html"
-                        class="nav-link"
-                        >Manage Apps</a
+                        >overview</a
                       >
                     </li>
                   </ul>
                 </div>
               </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  href="#sidebar-user"
-                  data-bs-toggle="collapse"
-                  role="button"
-                  aria-expanded="false"
-                  aria-controls="sidebar-user"
-                  ><i class="bi bi-people"></i> User</a
-                >
-                <div class="collapse" id="sidebar-user">
-                  <ul class="nav nav-sm flex-column">
-                    <li class="nav-item">
-                      <a href="#" class="nav-link"
-                        >Profile</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link"
-                        >Table View</a
-                      >
-                    </li>
-                  </ul>
-                </div>
-              </li>
+
               <li class="nav-item">
                 <a
                   class="nav-link"
@@ -215,30 +188,8 @@
                 <div class="collapse" id="sidebar-settings">
                   <ul class="nav nav-sm flex-column">
                     <li class="nav-item">
-                      <a href="pages/settings/general.html" class="nav-link"
-                        >General</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a href="pages/settings/security.html" class="nav-link"
-                        >Security</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a href="pages/settings/team.html" class="nav-link"
-                        >Team</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a href="pages/settings/billing.html" class="nav-link"
-                        >Billing</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        href="pages/settings/notifications.html"
-                        class="nav-link"
-                        >Notifications</a
+                      <a href="{% url 'dashboard_new_user_profiles' %}" class="nav-link"
+                        >View Profile</a
                       >
                     </li>
                   </ul>
@@ -260,7 +211,7 @@
                   <span class="me-3"
                     ><img
                       alt="..."
-                      src="img/people/img-profile.jpg"
+                      src="{% static 'images/defaultProfilePic.jpg' %}"
                       class="avatar avatar-sm rounded-circle"
                     /> </span
                   ><span class="flex-fill text-start text-sm font-semibold"
@@ -430,7 +381,7 @@
                       <div
                         class="avatar avatar-sm bg-warning rounded-circle text-white"
                       >
-                        <img alt="..." src="img/people/img-profile.jpg" />
+                        <img alt="..." src="{% static 'images/defaultProfilePic.jpg' %}" />
                       </div>
                     </div>
                     <div class="d-none d-sm-block ms-3">

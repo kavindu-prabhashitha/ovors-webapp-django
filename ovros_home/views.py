@@ -140,3 +140,15 @@ def dashboard_new(request):
 
 def dashboard_new_user_booking(request):
     return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_booking_view.html')
+
+
+def dashboard_new_user_payments(request):
+    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_payment.html')
+
+
+def dashboard_new_user_reports(request):
+    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_reports.html')
+
+
+def dashboard_new_user_profile(request):
+    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_profile.html')
