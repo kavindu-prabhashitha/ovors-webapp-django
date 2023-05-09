@@ -1,0 +1,67 @@
+{% extends 'base_new.html' %}
+{% load static %}
+{% block title %}
+    shop detail
+{% endblock %}
+
+{% block main_body %}
+
+    <!-- BREADCRUMB -->
+    <nav class="bg-gray-200">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb breadcrumb-scroll">
+              <li class="breadcrumb-item">
+                <a href="{% url 'home' %}" class="text-gray-700"> ovros </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">shops</li>
+            </ol>
+          </div>
+        </div>
+        <!-- / .row -->
+      </div>
+      <!-- / .container -->
+    </nav>
+
+    <!-- CONTENT -->
+    <section>
+      <!-- Content -->
+      <div class="container d-flex flex-column">
+        <div
+          class="row align-items-center justify-content-between gx-0 max-vh-100"
+        >
+          <div class="col-12 col-md-5 align-self-stretch">
+            <!-- Image (mobile) -->
+            <img
+              src="{% static 'main/img/photos/photo-5.jpg' %}"
+              class="d-md-none img-cover"
+              alt="..."
+            />
+
+            <!-- Image -->
+            <div
+              class="d-none d-md-block vw-50 h-100 float-end bg-cover"
+              style="background-image: url({% static 'main/img/covers/cover-5.jpg' %})"
+            ></div>
+          </div>
+          <div class="col-12 col-md-6 py-8 py-md-11">
+            <!-- Heading -->
+            <h2 class="fw-bold mb-2">Shop Name</h2>
+
+            <!-- Text -->
+            <p class="fs-lg text-muted mb-0">
+              Our goal is to be as helpful as possible.
+            </p>
+
+            <!-- Divider -->
+            <hr class="hr-sm my-6 my-md-8 mx-auto bg-gray-300" />
+          </div>
+        </div>
+        <!-- / .row -->
+      </div>
+    </section>
+
+
+{% endblock %}

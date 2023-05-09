@@ -26,18 +26,23 @@ from ovros_payment_module.forms import PaymentProceedForm
 from ovros_payment_module.models import ShopPaymentProceed
 
 
+@login_required()
 def shop_overview(request):
-    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    shop_profile_id = get_profile_id(request)
     shop_booking_count = ServiceBooking.objects.filter(service__shop_id=shop_profile_id).count()
     shop_payments_count = ShopPaymentProceed.objects.filter(payment_booking_id__service__shop_id=shop_profile_id).count()
     no_of_services = Service.objects.count()
-    return render(request,
-                  'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
-                  {'section': 'dashboard',
-                   'no_of_services': no_of_services,
-                   'no_of_bookings': shop_booking_count,
-                   'no_of_payments': shop_payments_count
-                   })
+    user_role = get_user_role(request)
+    if user_role == "USER_SHOP":
+        return render(request,
+                      'ovros_dashboard/shop_dashboard/shop_dashboard_overview.html',
+                      {'section': 'dashboard',
+                       'no_of_services': no_of_services,
+                       'no_of_bookings': shop_booking_count,
+                       'no_of_payments': shop_payments_count
+                       })
+    else:
+        return redirect('login')
 
 
 @login_required()
@@ -47,12 +52,17 @@ def shop_services(request):
     shop = ShopProfile.objects.get(user_id=user_id)
     shop_id = shop.id
     no_of_services = Service.objects.filter(shop_id=shop_id).count()
-    return render(request,
-                  'ovros_dashboard/shop_dashboard/shop_dashboard_services.html',
-                  {'section': 'dashboard',
-                   'no_of_services': no_of_services })
+    user_role = get_user_role(request)
+    if user_role == "USER_SHOP":
+        return render(request,
+                      'ovros_dashboard/shop_dashboard/shop_dashboard_services.html',
+                      {'section': 'dashboard',
+                       'no_of_services': no_of_services })
+    else:
+        return redirect('login')
 
 
+@login_required()
 def shop_service_ongoing(request):
     current_user = request.user
     user_id = current_user.id
@@ -114,7 +124,7 @@ def shop_bookings_view(request):
 
         booking_rec.save()
 
-    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    shop_profile_id = get_profile_id(request)
     shop_booking_list = ServiceBooking.objects.filter(service__shop_id=shop_profile_id)
     book_status_chng_form = BookingStatusChangeForm()
     book_time_chng_form = ServiceBookingTimeAdd()
@@ -138,8 +148,8 @@ def shop_services_list(request):
 
 
 def shop_service_edit(request, service_id):
-    shop_profile_id = request.session['profile_data']['profile_data']['profile_id']
-    shop_profile_role = request.session['profile_data']['profile_data']['profile_role']
+    shop_profile_id = get_profile_id(request)
+    shop_profile_role = get_user_role(request)
     service_rec = Service.objects.get(id=service_id)
     old_img = service_rec.service_image
 
@@ -563,3 +573,12 @@ def generate_booking_detail(request, booking_id):
     file_res = save_pdf(params)
     return file_res
 
+
+def get_user_role(request):
+    user_role = request.session['profile_data']['profile_data']['profile_role']
+    return user_role
+
+
+def get_profile_id(request):
+    user_profile_id = request.session['profile_data']['profile_data']['profile_id']
+    return user_profile_id

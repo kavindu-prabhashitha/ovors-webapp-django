@@ -40,7 +40,7 @@ def user_login(request):
                 return HttpResponse("Invalid login")
     else:
         form = LoginForm()
-    return render(request, 'registration/login.html', {'form': form})
+    return render(request, 'registration/login_old.html', {'form': form})
 
 
 @login_required

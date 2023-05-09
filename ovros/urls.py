@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from ovros_home.views import (home,
                               services,
+                              service_detail,
                               shops,
                               shop_detail,
                               dashboard_new,
@@ -24,6 +25,7 @@ admin.site.site_title = 'Ovros administration'
 admin.site.index_title = 'Ovros Admin Dashboard'
 
 urlpatterns = [
+    # path('', home, name='home'),
     path('', home, name='home'),
 
     path('dashboard_new/', dashboard_new, name='dashboard_new'),
@@ -33,6 +35,7 @@ urlpatterns = [
     path('dashboard_new/user/profile', dashboard_new_user_profile, name='dashboard_new_user_profiles'),
 
     path('services/', services, name='services'),
+    path('services/<int:service_id>', service_detail, name='service_detail_new'),
     path('shops/', shops, name='shops'),
     path('shops/<int:shop_id>', shop_detail, name='shop_detail'),
     path('search/', search, name='home_search'),
@@ -46,3 +49,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

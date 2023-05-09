@@ -12,7 +12,7 @@ def home(request):
     :return:
     """
     search_form = ServiceSearchForm()
-    return render(request, 'home/index.html', {'form': search_form})
+    return render(request, 'home/index_new.html', {'form': search_form})
 
 
 def services(request):
@@ -28,11 +28,38 @@ def services(request):
     search_form02 = ServiceSearchForm02()
     all_services = Service.objects.all()
 
-    return render(request, 'services/service_list.html', {
+    # return render(request, 'services/service_list.html', {
+    #     'services': all_services,
+    #     'form01': search_form01,
+    #     'form02': search_form02,
+    # })
+
+    return render(request, 'services/service_list_new.html', {
         'services': all_services,
         'form01': search_form01,
         'form02': search_form02,
     })
+
+
+def service_detail(request, service_id):
+    """
+    Return service details for selected service
+    :param request:
+    :param service_id:
+    :return:
+    """
+    # if request.user.is_authenticated:
+    #     user_profile_role = request.session['profile_data']['profile_data']['profile_role']
+    #     print(service_id, '  ', user_profile_role)
+    # else:
+    #     user_profile_role = "USER_CUSTOMER"
+    service = Service.objects.get(id=service_id)
+    #
+    # return render(request, 'services/service_detail.html',
+    #               {'service': service,
+    #                'user_role': user_profile_role
+    #                })
+    return render(request, 'services/service_detail_new.html', {'service': service})
 
 
 def search(request):
@@ -119,19 +146,25 @@ def shops(request):
 
     else:
         form = ServiceSearchByShop()
-        return render(request, "shops/shop_list.html", {
+        # return render(request, "shops/shop_list.html", {
+        #     "shops_profiles": all_shops,
+        #     'form': form
+        # })
+        return render(request, "shops/shop_list_new.html", {
             "shops_profiles": all_shops,
             'form': form
         })
 
 
 def shop_detail(request, shop_id):
-    shop_d = ShopProfile.objects.get(id=shop_id)
-    shop_services = Service.objects.filter(shop=shop_id)
-    return render(request, "shops/shop_detail.html", {
-        "profile": shop_d,
-        "shop_services": shop_services
-    })
+    # shop_d = ShopProfile.objects.get(id=shop_id)
+    # shop_services = Service.objects.filter(shop=shop_id)
+    # return render(request, "shops/shop_detail.html", {
+    #     "profile": shop_d,
+    #     "shop_services": shop_services
+    # })
+
+    return render(request, "shops/shop_detail_new.html")
 
 
 def dashboard_new(request):
@@ -152,3 +185,4 @@ def dashboard_new_user_reports(request):
 
 def dashboard_new_user_profile(request):
     return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_profile.html')
+

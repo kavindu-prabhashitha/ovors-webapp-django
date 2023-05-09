@@ -1,42 +1,47 @@
-{% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% extends 'base_new.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
+
 {% block title %}
-    Create an account
+    Ovros Services
 {% endblock %}
 
-{% block content %}
+{% block main_body %}
 
-    <div class="container">
-    <div class="row mt-5">
-        <div class="col"></div>
 
-        <div class="col">
-            <div class="card text-center" style="width: 18rem;">
-                <img src="{% static 'images/services.jpeg' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">
-                        Register now as a user and schedule vehicle repairs at your convenience.  place this text instead of the placement text you have above.
-                    </p>
-                    <a href="{% url 'user_register' %}" class="btn btn-success">Register as a User</a>
+        <!-- CONTENT -->
+        <section>
+            <div class="container d-flex flex-column">
+              <div class="row align-items-center justify-content-center gx-0 min-vh-100">
+                <div class="col-8 col-md-6 col-lg-7 offset-md-1 order-md-2 ">
+
+                  <!-- Image -->
+                    <img src="{% static 'main/img/illustrations/illustration-2.png' %}" alt="..." class="img-fluid">
+
+
                 </div>
-            </div>
-        </div>
+                <div class="col-12 col-md-5 col-lg-4 order-md-1 ">
 
-        <div class="col">
-            <div class="card text-center" style="width: 18rem;">
-                <img src="{% static 'images/vector_shop.jpg' %}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <p class="card-text">
-                        Register your service centre now to streamline your business by allowing customers
-                        to book vehicle repair services online.
-                    </p>
-                    <a href="{% url 'shop_register' %}" class="btn btn-info">Register as a Service centre</a>
+                  <!-- Heading -->
+                  <h1 class="mb-0 fw-bold text-center">
+                    Sign Up
+                  </h1>
+
+                  <!-- Text -->
+                  <p class="mb-6 text-center text-muted">
+                    You deserve a better way to service.
+                  </p>
+
+                  <a href="{% url 'user_register' %}" class="btn w-100 btn-primary">User Account</a>
+                  <div class="mb-2"></div>
+                  <a href="{% url 'shop_register' %}" class="btn w-100 btn-primary">Shop Account</a>
+                  <div class="mb-10"></div>
+
+
                 </div>
-            </div>
-        </div>
+              </div> <!-- / .row -->
+            </div> <!-- / .container -->
+          </section>
 
-        <div class="col"></div>
-    </div>
-    </div>
+
 {% endblock %}

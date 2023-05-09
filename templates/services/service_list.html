@@ -79,10 +79,12 @@
                         <div class="card">
                             <div class="card-body text-center">
                                 {% if service.service_image is None %}
-                                    <img src="{% static 'images/service_vector.jpg' %}" class="card-img-top"
+                                    <img src="{% static 'images/img-800x800-2.jpg' %}" class="card-img-top"
                                          alt="...">
                                 {% else %}
-                                    <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
+{#                                    <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">#}
+                                    <img src="{% static 'images/img-800x800-2.jpg' %}" class="card-img-top"
+                                         alt="...">
                                 {% endif %}
                                 <div class="card-body">
                                     <div class="list-group">
