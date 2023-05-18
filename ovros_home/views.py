@@ -157,14 +157,14 @@ def shops(request):
 
 
 def shop_detail(request, shop_id):
-    # shop_d = ShopProfile.objects.get(id=shop_id)
-    # shop_services = Service.objects.filter(shop=shop_id)
-    # return render(request, "shops/shop_detail.html", {
-    #     "profile": shop_d,
-    #     "shop_services": shop_services
-    # })
+    shop_d = ShopProfile.objects.get(id=shop_id)
+    shop_services = Service.objects.filter(shop=shop_id)
+    return render(request, "shops/shop_detail.html", {
+        "profile": shop_d,
+        "shop_services": shop_services
+    })
 
-    return render(request, "shops/shop_detail_new.html")
+   # return render(request, "shops/shop_detail_new.html")
 
 
 def dashboard_new(request):

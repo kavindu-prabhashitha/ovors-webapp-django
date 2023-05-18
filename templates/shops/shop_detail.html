@@ -1,138 +1,70 @@
-{% extends 'base.html' %}
+{% extends 'base_new.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
-
 {% block title %}
-    Ovros Services
+    shop detail
 {% endblock %}
 
-{% block content %}
-    <div class="container">
-        <div class="row my-5 g-3">
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <img src="{{ profile.shop_profile_img.url }}" class="card-img-top"
-                             alt="shop_profile_img">
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-8">
-                <div class="card">
-                    <div class="card-body text-center">
-                        <h5 class="card-title"><strong>{{ profile.shop_name }}</strong></h5>
-                        <div class="card-body ">
-                            <div class="list-group">
-                                <ul class="list-group list-group-flush">
-                                    {% if profile.shop_email != "" %}
-                                        <li class="list-group-item">
-                                            <strong>Email :</strong><br>
-                                            {{ profile.shop_email }}</li>
-                                    {% endif %}
+{% block main_body %}
 
-                                    <li class="list-group-item"><strong>Contact : </strong>{{ profile.shop_contact }}
-                                    </li>
-                                    <li class="list-group-item"><strong>Address : </strong>
-                                        {{ profile.get_full_address }}</li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+    <!-- BREADCRUMB -->
+    <nav class="bg-gray-200">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb breadcrumb-scroll">
+              <li class="breadcrumb-item">
+                <a href="{% url 'home' %}" class="text-gray-700"> ovros </a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">shops</li>
+            </ol>
+          </div>
         </div>
-        <div class="row my-5 g-3">
-            <h3>Available Services ></h3>
+        <!-- / .row -->
+      </div>
+      <!-- / .container -->
+    </nav>
+
+    <!-- CONTENT -->
+    <section>
+      <!-- Content -->
+      <div class="container d-flex flex-column">
+        <div
+          class="row align-items-center justify-content-between gx-0 max-vh-100"
+        >
+          <div class="col-12 col-md-5 align-self-stretch">
+            <!-- Image (mobile) -->
+            <img
+              src="{{profile.shop_profile_img.url}}"
+              class="d-md-none img-cover"
+              alt="..."
+            />
+
+            <!-- Image -->
+            <div
+              class="d-none d-md-block vw-50 h-100 float-end bg-cover"
+              style="background-image: url({% static 'main/img/covers/cover-5.jpg' %})"
+            ></div>
+          </div>
+          <div class="col-12 col-md-6 py-8 py-md-11">
+            <!-- Heading -->
+            <h2 class="fw-bold mb-2">{{ profile.shop_name}}</h2>
+
+            <!-- Text -->
+            <p class="fs-lg text-muted mb-0">
+                {{ profile.get_full_address}}
+            </p>
+                          <p class="fs-lg text-muted mb-0">
+                {{ profile.shop_contact}}
+            </p>
+
+            <!-- Divider -->
+            <hr class="hr-sm my-6 my-md-8 mx-auto bg-gray-300" />
+          </div>
         </div>
+        <!-- / .row -->
+      </div>
+    </section>
 
-        <div class="row my-5 g-3">
-            <div class="container">
-            {% if shop_services.count == 0 %}
-                No services yet
-                {% else %}
 
-                {% for service in shop_services %}
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                {% if service.service_image is None %}
-                                    <img src="{% static 'images/service_vector.jpg' %}" class="card-img-top"
-                                         alt="...">
-                                {% else %}
-                                    <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
-                                {% endif %}
-                                <div class="card-body">
-                                    <div class="list-group">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <h4>{{ service.service_name }}</h4>
-
-                                            </li>
-                                            <li class="list-group-item">
-                                                <strong>Description :</strong><br>
-                                                {{ service.service_description  | slice:":100" }} <a
-                                                    href="{% url 'service_detail' service.id %}">read more...</a></li>
-                                            <li class="list-group-item">
-                                                <strong>Shop :</strong><br>
-                                                {{ service.shop.shop_name }}</li>
-                                            <li class="list-group-item"><strong>Price
-                                                : </strong><span>Rs.</span>{{ service.service_price }}</li>
-                                            <li class="list-group-item"><strong>Avg Duration </strong>
-                                                : {{ service.service_duration }} minutes
-                                            </li>
-                                            <li class="list-group-item"><strong>Location </strong>
-                                                : {{ service.shop.get_full_address }}
-                                            </li>
-                                            <li class="list-group-item"><strong>Available Vehicles </strong>
-                                                <div>
-                                                    {% if service.is_for_car %}
-                                                        <img height="40px" width="40px"
-                                                             src="{% static 'icons/car_icon.png' %}">
-                                                    {% endif %}
-                                                    {% if service.is_for_van %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/van_icon.png' %}">
-                                                    {% endif %}
-
-                                                    {% if service.is_for_suv %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/suv_icon.png' %}">
-                                                    {% endif %}
-
-                                                    {% if service.is_for_lorry %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/lorry_icon.png' %}">
-                                                    {% endif %}
-
-                                                    {% if service.is_for_bike %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/bike_icon.png' %}">
-                                                    {% endif %}
-                                                    {% if service.is_for_long_vehicle %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/long_vehicle_icon.png' %}">
-                                                    {% endif %}
-
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                </div>
-                                <div class="card-footer">
-                                    <a href="{% url 'service_detail' service.id %}" class="btn btn-primary ">View
-                                        Details</a>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-            </div>
-        </div>
-    </div>
 {% endblock %}
