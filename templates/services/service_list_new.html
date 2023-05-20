@@ -1,6 +1,6 @@
 {% extends 'base_new.html' %}
 {% load static %}
-{% block title %}
+{% block title %}{% load crispy_forms_tags %}
     Ovros-Services
 {% endblock %}
 
@@ -29,47 +29,86 @@
         </div> <!-- / .container -->
     </nav>
 
-    <!-- SEARCH -->
-    <section class="py-6">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
+    {# Search services#}
+    <div class="container">
+        <div class="row my-5">
+            <div class="col-lg-1 col-md-4"></div>
+            <div class="col-lg-10 col-md-4">
+                <div class="accordion rounded shadow" id="accordion_search_service">
+                    <div class="accordion-item">
+                        <h4 class="accordion-header"  id="headingOne">
+                            <button class="accordion-button" style="padding: 0 10px " type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                <span class="input-group-text border-0 ">
+                                     <i class="fe fe-search"></i>
+                                 </span>
+                                Search for services
+                                <span style="flex: 1 1 auto;"></span>
+                                <span class="input-group-text border-0 py-0 ps-1 pe-3">
+                                <!-- Text -->
+                                    <span class="h6 text-uppercase text-muted d-none d-md-block mb-0 me-5">
+                                             {{ services.count}} RESULTS FOUND
+                                    </span>
 
-                    <!-- Form -->
-                    <form class="rounded shadow">
-                        <div class="input-group input-group-lg">
 
-                            <!-- Text -->
-                            <span class="input-group-text border-0 pe-1">
-                  <i class="fe fe-search"></i>
-                </span>
+                        </span>
+                            </button>
 
-                            <!-- Input -->
-                            <input type="text" class="form-control border-0 px-1" aria-label="Search for services"
-                                   placeholder="Search for services..." value="">
+                        </h4>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <form role="search" method="get" action="{% url 'home_search' %}"
+                                      class="rounded shadow">
+                                    <div class="container">
+                                        <div class="row mt-5 ">
+                                            <div class="col-lg-2 col-md-4">
 
-                            <!-- Text -->
-                            <span class="input-group-text border-0 py-0 ps-1 pe-3">
 
-                  <!-- Text -->
-                  <span class="h6 text-uppercase text-muted d-none d-md-block mb-0 me-5">
-                    4 results
-                  </span>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
 
-                                <!-- Button -->
-                  <button type="submit" class="btn btn-sm btn-primary">
-                    Search
-                  </button>
 
-                </span>
+                                                {{ form01|crispy }}
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                {{ form02 | crispy }}
+                                            </div>
+                                            <div class="col-lg-2 col-md-4"></div>
+                                        </div>
+                                        <div class="row  justify-content-center ">
+                                            <div class="col-lg-8 col-md-4 ">
+                                                <button class="btn btn-primary mb-2" type="submit">Search
+                                                    Service
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
 
+                            </div>
                         </div>
-                    </form>
-
+                    </div>
                 </div>
-            </div> <!-- / .row -->
+            </div>
+            <div class="col-lg-1 col-md-4"></div>
         </div>
-    </section>
+    </div>
+
+            {% if services.count == 0 %}
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-lg-3 col-md-4"></div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <h3>Oophss.. No Services Found !</h3>
+                        <img alt="services not found" class="card-img-top" src="{% static 'images/search_not_found.jpg' %}">
+                    </div>
+                    <div class="col-lg-3 col-md-4"></div>
+                </div>
+
+            </div>
+        {% endif %}
 
     <!-- ARTICLES -->
     <section>
@@ -110,7 +149,7 @@
 
                                 <!-- Text -->
                                 <p class="mb-0 text-muted">
-                                    {{ service.service_description | truncatewords:15}}
+                                    {{ service.service_description | truncatewords:15 }}
                                 </p>
 
                             </a>
@@ -123,35 +162,35 @@
 
                                 <!-- Avatar -->
                                 <div class="avatar avatar-sm me-2">
-                                <div style="display: inline-flex;">
-                                    {% if service.is_for_car %}
-                                        <img  class="avatar-img rounded-circle" style="margin-right: 4px"
-                                             src="{% static 'icons/car_icon.png' %}">
-                                    {% endif %}
-                                    {% if service.is_for_van %}
-                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
-                                             src="{% static 'icons/van_icon.png' %}">
-                                    {% endif %}
+                                    <div style="display: inline-flex;">
+                                        {% if service.is_for_car %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/car_icon.png' %}">
+                                        {% endif %}
+                                        {% if service.is_for_van %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/van_icon.png' %}">
+                                        {% endif %}
 
-                                    {% if service.is_for_suv %}
-                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
-                                             src="{% static 'icons/suv_icon.png' %}">
-                                    {% endif %}
+                                        {% if service.is_for_suv %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/suv_icon.png' %}">
+                                        {% endif %}
 
-                                    {% if service.is_for_lorry %}
-                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
-                                             src="{% static 'icons/lorry_icon.png' %}">
-                                    {% endif %}
+                                        {% if service.is_for_lorry %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/lorry_icon.png' %}">
+                                        {% endif %}
 
-                                    {% if service.is_for_bike %}
-                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
-                                             src="{% static 'icons/bike_icon.png' %}">
-                                    {% endif %}
-                                    {% if service.is_for_long_vehicle %}
-                                        <img  class="avatar-img rounded-circle" style="margin-right: 4px"
-                                             src="{% static 'icons/long_vehicle_icon.png' %}">
-                                    {% endif %}
-</div>
+                                        {% if service.is_for_bike %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/bike_icon.png' %}">
+                                        {% endif %}
+                                        {% if service.is_for_long_vehicle %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/long_vehicle_icon.png' %}">
+                                        {% endif %}
+                                    </div>
                                 </div>
 
 
