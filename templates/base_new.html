@@ -101,6 +101,20 @@
 
     {% endblock %}
 
+    {% if messages %}
+    <div class="container-fluid ">
+        {% for message in messages %}
+
+            <div class="alert {{ message.tags }} alert-dismissible" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+            </div>
+
+        {% endfor %}
+    </div>
+{% endif %}
+
     {% block main_body %}
 
     {% endblock %}
@@ -114,11 +128,10 @@
           <div class="col-12 col-md-4 col-lg-3">
 
             <!-- Brand -->
-            <img src="{% static 'main/img/brand.svg' %}" alt="..." class="footer-brand img-fluid mb-2">
-
+<h1>oVroS</h1>
             <!-- Text -->
             <p class="text-gray-700 mb-2">
-              A better way to build.
+              A better way to service.
             </p>
 
             <!-- Social -->
@@ -190,6 +203,4 @@
   <script src="{% static 'main/js/theme.bundle.js' %}"></script>
 
   </body>
-
-<!-- Mirrored from landkit.goodthemes.co/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 24 Apr 2023 07:21:25 GMT -->
 </html>

@@ -117,7 +117,7 @@ def search(request):
         print("found results : ", all_services.count())
         search_form01 = ServiceSearchForm01()
         search_form02 = ServiceSearchForm02()
-        return render(request, 'services/service_list.html', {
+        return render(request, 'services/service_list_new.html', {
             'services': all_services,
             'form01': search_form01,
             'form02': search_form02,
@@ -133,7 +133,9 @@ def shops(request):
         form = ServiceSearchByShop(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
+
             key_word = cd['search_by_shop']
+            print(key_word)
             print("Shop Search value = ", cd['search_by_shop'])
             if len(key_word) == 0:
                 all_shops = ShopProfile.objects.all()
@@ -142,7 +144,7 @@ def shops(request):
                 if all_shops.count() == 0:
                     messages.warning(request, f"No Shops found contains the name '{key_word}'")
                     all_shops = ShopProfile.objects.all()
-            return render(request, "shops/shop_list.html", {"shops_profiles": all_shops, 'form': form})
+            return render(request, "shops/shop_list_new.html", {"shops_profiles": all_shops, 'form': form})
 
     else:
         form = ServiceSearchByShop()
