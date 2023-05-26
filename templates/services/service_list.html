@@ -1,33 +1,75 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
-
-{% block title %}
-    Ovros Services
+{% block title %}{% load crispy_forms_tags %}
+    Ovros-Services
 {% endblock %}
 
-{% block content %}
+{% block main_body %}
+
+    <!-- BREADCRUMB -->
+    <nav class="bg-gray-200">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Breadcrumb -->
+                    <ol class="breadcrumb breadcrumb-scroll">
+                        <li class="breadcrumb-item">
+                            <a href="index-2.html" class="text-gray-700">
+                                ovros
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            services
+                        </li>
+                    </ol>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </nav>
+
+    {# Search services#}
     <div class="container">
-        <div class="row mt-5">
-            <div class="col-lg-2 col-md-4"></div>
-            <div class="col-lg-8 col-md-4">
-                <div class="accordion" id="accordion_search_service">
+        <div class="row my-5">
+            <div class="col-lg-1 col-md-4"></div>
+            <div class="col-lg-10 col-md-4">
+                <div class="accordion rounded shadow" id="accordion_search_service">
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        <h4 class="accordion-header"  id="headingOne">
+                            <button class="accordion-button" style="padding: 0 10px " type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseOne"
                                     aria-expanded="true" aria-controls="collapseOne">
-                                Search <i class="bi bi-search mx-4"></i>
+                                <span class="input-group-text border-0 ">
+                                     <i class="fe fe-search"></i>
+                                 </span>
+                                Search for services
+                                <span style="flex: 1 1 auto;"></span>
+                                <span class="input-group-text border-0 py-0 ps-1 pe-3">
+                                <!-- Text -->
+                                    <span class="h6 text-uppercase text-muted d-none d-md-block mb-0 me-5">
+                                             {{ services.count}} RESULTS FOUND
+                                    </span>
+
+
+                        </span>
                             </button>
-                        </h2>
+
+                        </h4>
                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
                              data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <form role="search" method="get" action="{% url 'home_search' %}">
+                                <form role="search" method="get" action="{% url 'home_search' %}"
+                                      class="rounded shadow">
                                     <div class="container">
                                         <div class="row mt-5 ">
-                                            <div class="col-lg-2 col-md-4"></div>
+                                            <div class="col-lg-2 col-md-4">
+
+
+                                            </div>
                                             <div class="col-lg-4 col-md-4">
+
+
                                                 {{ form01|crispy }}
                                             </div>
                                             <div class="col-lg-4 col-md-4">
@@ -36,8 +78,8 @@
                                             <div class="col-lg-2 col-md-4"></div>
                                         </div>
                                         <div class="row  justify-content-center ">
-                                            <div class="col-lg-8 col-md-4 align-items-center">
-                                                <button class="btn btn-success text-nowrap" type="submit">Search
+                                            <div class="col-lg-8 col-md-4 ">
+                                                <button class="btn btn-primary mb-2" type="submit">Search
                                                     Service
                                                 </button>
                                             </div>
@@ -50,20 +92,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-4"></div>
+            <div class="col-lg-1 col-md-4"></div>
         </div>
     </div>
 
-    <!-- Service Section Start -->
-    <section id="ovros-service">
-
-        {% if services.count == 0 %}
+            {% if services.count == 0 %}
             <div class="container">
                 <div class="row mt-5">
                     <div class="col-lg-3 col-md-4"></div>
                     <div class="col-12 col-md-6 col-lg-6">
                         <h3>Oophss.. No Services Found !</h3>
-                        <img class="card-img-top" src="{% static 'images/search_not_found.jpg' %}">
+                        <img alt="services not found" class="card-img-top" src="{% static 'images/search_not_found.jpg' %}">
                     </div>
                     <div class="col-lg-3 col-md-4"></div>
                 </div>
@@ -71,93 +110,126 @@
             </div>
         {% endif %}
 
-
+    <!-- ARTICLES -->
+    <section>
         <div class="container">
-            <div class="row my-5 g-3">
+            <div class="row">
                 {% for service in services %}
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                {% if service.service_image is None %}
-                                    <img src="{% static 'images/img-800x800-2.jpg' %}" class="card-img-top"
-                                         alt="...">
-                                {% else %}
-{#                                    <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">#}
-                                    <img src="{% static 'images/img-800x800-2.jpg' %}" class="card-img-top"
-                                         alt="...">
-                                {% endif %}
-                                <div class="card-body">
-                                    <div class="list-group">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item">
-                                                <h4>{{ service.service_name }}</h4>
+                    <div class="col-12 col-md-6 col-lg-4 d-flex">
 
-                                            </li>
-                                            <li class="list-group-item">
-                                                <strong>Description :</strong><br>
-                                                {{ service.service_description  | slice:":100" }} <a
-                                                    href="{% url 'service_detail' service.id %}">read more...</a></li>
-                                            <li class="list-group-item">
-                                                <strong>Shop :</strong><br>
-                                                {{ service.shop.shop_name }}</li>
-                                            <li class="list-group-item"><strong>Price
-                                                : </strong><span>Rs.</span>{{ service.service_price }}</li>
-                                            <li class="list-group-item"><strong>Avg Duration </strong>
-                                                : {{ service.service_duration }} minutes
-                                            </li>
-                                            <li class="list-group-item"><strong>Location </strong>
-                                                : {{ service.shop.get_full_address }}
-                                            </li>
-                                            <li class="list-group-item"><strong>Available Vehicles </strong>
-                                                <div>
-                                                    {% if service.is_for_car %}
-                                                        <img height="40px" width="40px"
-                                                             src="{% static 'icons/car_icon.png' %}">
-                                                    {% endif %}
-                                                    {% if service.is_for_van %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/van_icon.png' %}">
-                                                    {% endif %}
+                        <!-- Card -->
+                        <div class="card mb-6 shadow-light-lg lift lift-lg">
 
-                                                    {% if service.is_for_suv %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/suv_icon.png' %}">
-                                                    {% endif %}
+                            <!-- Image -->
+                            <a class="card-img-top" href="{% url 'service_detail_new' service.id %}">
 
-                                                    {% if service.is_for_lorry %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/lorry_icon.png' %}">
-                                                    {% endif %}
+                                <!-- Image -->
+                                <img src="{{ service.service_image.url }}" alt="..." class="card-img-top">
 
-                                                    {% if service.is_for_bike %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/bike_icon.png' %}">
-                                                    {% endif %}
-                                                    {% if service.is_for_long_vehicle %}
-                                                        <img height="40px" width="40px" class="bi"
-                                                             src="{% static 'icons/long_vehicle_icon.png' %}">
-                                                    {% endif %}
-
-                                                </div>
-                                            </li>
-                                        </ul>
+                                <!-- Shape -->
+                                <div class="position-relative">
+                                    <div class="shape shape-bottom shape-fluid-x text-white">
+                                        <svg viewBox="0 0 2880 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M2160 0C1440 240 720 240 720 240H0v240h2880V0h-720z"
+                                                  fill="currentColor"/>
+                                        </svg>
                                     </div>
-
                                 </div>
-                                <div class="card-footer">
-                                    <a href="{% url 'service_detail' service.id %}" class="btn btn-primary ">View
-                                        Details</a>
 
+                            </a>
+
+                            <!-- Body -->
+                            <a class="card-body" href="{% url 'service_detail_new' service.id %}">
+
+                                <!-- Heading -->
+                                <h3>
+                                    {{ service.service_name }}
+                                </h3>
+
+                                <!-- Text -->
+                                <p class="mb-0 text-muted">
+                                    {{ service.service_description | truncatewords:15 }}
+                                </p>
+
+                            </a>
+
+                            <!-- Meta -->
+                            <a class="card-meta mt-auto" href="#!">
+
+                                <!-- Divider -->
+                                <hr class="card-meta-divider">
+
+                                <!-- Avatar -->
+                                <div class="avatar avatar-sm me-2">
+                                    <div style="display: inline-flex;">
+                                        {% if service.is_for_car %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/car_icon.png' %}">
+                                        {% endif %}
+                                        {% if service.is_for_van %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/van_icon.png' %}">
+                                        {% endif %}
+
+                                        {% if service.is_for_suv %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/suv_icon.png' %}">
+                                        {% endif %}
+
+                                        {% if service.is_for_lorry %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/lorry_icon.png' %}">
+                                        {% endif %}
+
+                                        {% if service.is_for_bike %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/bike_icon.png' %}">
+                                        {% endif %}
+                                        {% if service.is_for_long_vehicle %}
+                                            <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                                 src="{% static 'icons/long_vehicle_icon.png' %}">
+                                        {% endif %}
+                                    </div>
                                 </div>
-                            </div>
+
+
+                            </a>
+
                         </div>
+
                     </div>
                 {% endfor %}
-            </div>
-        </div>
 
+
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
     </section>
-    <!-- Service Section End -->
+
+    <!-- MORE -->
+    <section class="py-7 py-md-10">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9 col-lg-8 col-xl-7">
+
+                    <!-- Button -->
+                    <a href="#!" class="btn w-100 btn-outline-gray-300 d-flex align-items-center">
+                        <span class="mx-auto">Load more</span> <i class="fe fe-arrow-right"></i>
+                    </a>
+
+                </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- SHAPE -->
+    <div class="position-relative">
+        <div class="shape shape-bottom shape-fluid-x text-gray-200">
+            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/>
+            </svg>
+        </div>
+    </div>
+
 
 {% endblock %}
-

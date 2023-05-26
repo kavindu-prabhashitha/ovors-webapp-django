@@ -1,112 +1,135 @@
-{% extends 'ovros_dashboard/user_dashboard/user_dashboard_bookings.html' %}
-{% load crispy_forms_tags %}
+{% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
+{% load static %}
 {% block title %}
-    {% load static %}
-    User-Bookings
+User Dashboard Overview
 {% endblock %}
 
+{% block nav_booking_active %}
+active
+{% endblock %}
 
 {% block dashboard_content %}
-    {% if bookings.count == 0 %}
-        <div class="container">
-            <div class="row mt-5">
-                <div class="col-lg-3 col-md-4"></div>
-                <div class="col-12 col-md-6 col-lg-6">
-                    <h3>Oophss.. No Bookings yet !</h3>
-                    <img class="card-img-top" src="{% static 'images/search_not_found.jpg' %}">
+
+     <main class="py-6 bg-surface-secondary">
+          <header>
+            <div class="container-fluid">
+              <div class="border-bottom pt-6 pb-6">
+                <div class="row align-items-center">
+                  <div class="col-sm col-12">
+                    <h1 class="h2 ls-tight">View Bookings</h1>
+                  </div>
+                  <div class="col-sm-auto col-12 mt-4 mt-sm-0 me-5">
+                    <div class="hstack gap-2 justify-content-sm-end">
+
+                      <a
+                        href="{% url 'user_bookings' %}"
+                        class="btn btn-sm btn-primary"
+
+                        ><span class="pe-2"
+                          ><i class="bi bi-plus-square-dotted"></i> </span
+                        ><span>Back</span></a
+                      >
+                    </div>
+                  </div>
                 </div>
-                <div class="col-lg-3 col-md-4"></div>
+              </div>
             </div>
-
-        </div>
-    {% else %}
-
-        <div class="container text-center">
-            <div class="row my-5">
-                <h3>User Dashboard View Booking</h3>
-            </div>
-            <div class="row my-5 g-3">
+          </header>
+          <div class="container-fluid">
+            <div class="row g-4 mb-8 mt-1">
                 {% for booking in bookings %}
-                    <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <div class="card-header">
-                                # {{ forloop.counter }}
-                                {% if booking.booking_status == 'PENDING' %}
-                                    <span class="badge rounded-pill text-bg-warning">{{ booking.booking_status }}</span>
-                                {% endif %}
-                                {% if booking.booking_status == 'APPROVED' %}
-                                    <span class="badge rounded-pill text-bg-success">{{ booking.booking_status }}</span>
-                                {% endif %}
-                                {% if booking.booking_status == 'CANCELED' %}
-                                    <span class="badge rounded-pill text-bg-danger">{{ booking.booking_status }}</span>
-                                {% endif %}
-                            </div>
-                            <div class="card-body">
-                                <div class="list-group">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>Shop</strong>
-                                            : {{ booking.service.shop.shop_name }}</li>
-                                        <li class="list-group-item"><strong>Service</strong>
-                                            : {{ booking.service.service_name }}</li>
-                                        <li class="list-group-item"><strong>Price</strong>
-                                            : <span>Rs.</span>{{ booking.service.service_price }}</li>
-                                        <li class="list-group-item"><strong>Date</strong>
-                                            : {{ booking.booking_date }}</li>
-                                        <li class="list-group-item"><strong>Time</strong>
-                                            :
-                                            {% if booking.booking_time == None %}
-                                                <span class="badge rounded-pill text-bg-danger">Not Allocated</span>
+                     <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-header mb-0">
+                    <p class="text-muted text-sm">#{{ booking.id }}</p>
+                  </div>
+                  <div class="card-body">
+                    <div
+                      class="d-flex align-items-center justify-content-between mb-5"
+                    >
+                      <div class="me-4">
+                        <div
+                          class="icon icon-shape rounded-4 bg-secondary bg-opacity-40 text-lg text-heading"
+                        >
+                          <i class="bi bi-folder-fill"></i>
+                        </div>
+                      </div>
+                      <div>
+
+                      </div>
+                    </div>
+                    <h6 class="h5 font-semibold mb-2">Shop Name : {{ booking.service.shop.shop_name }}</h6>
+                    <div class="d-block">
+                      <p class="text-muted text-sm">service name : {{ booking.service.service_name }}</p>
+                      <p class="text-muted text-sm">Price : {{ booking.service.service_price }}</p>
+                      <p class="text-muted text-sm">date : {{ booking.booking_date }}</p>
+                      <p class="text-muted text-sm">time :
+                          {% if booking.booking_time == None %}
+                                                <span class="badge rounded-pill text-bg-info">Not Allocated</span>
                                                 {% else %}
                                                 {{ booking.booking_time }}
                                             {% endif %}
+                      </p>
 
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-footer">
+                    </div>
+                  </div>
+                  <div class="card-footer">
                                 {% if not booking.booking_status == "APPROVED" %}
-                                    <a href="#" class="btn btn-danger" data-bs-toggle="modal"
+                                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                                        data-bs-target="#id_{{ forloop.counter }}">Cancel
                                         Booking</a>
                                 {% endif %}
 
                                 {% if booking.booking_status == 'APPROVED' %}
-                                    <a href="{% url 'user_print_booking_pdf' booking.id %}" class="btn btn-info">Print
+                                    <a href="{% url 'user_print_booking_pdf' booking.id %}" class="btn btn-sm btn-info">Print
                                         Booking Detail</a>
                                 {% endif %}
                             </div>
-                        </div>
-                        <div class="modal fade" id="id_{{ forloop.counter }}" tabindex="-1"
-                             aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Service Booking for {{ booking.service.shop.shop_name }}
-                                            with service name {{ booking.service.service_name }}
-                                            on {{ booking.booking_date }} at {{ booking.booking_date }} will be
-                                            cancelled.</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                        </button>
-                                        <a type="button" href="{% url 'cancel_booking' booking.id %}"
-                                           class="btn btn-danger">Cancel Booking</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+              </div>
                 {% endfor %}
+
+              <div class="col-xl-3 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div
+                      class="d-flex align-items-center justify-content-between mb-5"
+                    >
+                      <div class="me-4">
+                        <div
+                          class="icon icon-shape rounded-4 bg-secondary bg-opacity-40 text-lg text-heading"
+                        >
+                          <i class="bi bi-folder-fill"></i>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="avatar-group">
+                          <a
+                            href="#"
+                            class="avatar avatar-sm bg-primary rounded-circle text-white border border-2 border-solid border-card"
+                            >AE </a
+                          ><a
+                            href="#"
+                            class="avatar avatar-sm bg-tertiary rounded-circle text-white border border-2 border-solid border-card"
+                            >MJ </a
+                          ><a
+                            href="#"
+                            class="avatar avatar-sm rounded-circle text-white border border-2 border-solid border-card"
+                            ><img alt="..." src="../../img/people/img-1.jpg"
+                          /></a>
+                        </div>
+                      </div>
+                    </div>
+                    <h6 class="h5 font-semibold mb-5">Marketing stuff</h6>
+                    <div class="d-flex justify-content-between">
+                      <span class="text-muted text-sm">1200 files</span>
+                      <span class="text-muted text-sm">25 GB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
+          </div>
+        </main>
 
-
-    {% endif %}
 {% endblock %}

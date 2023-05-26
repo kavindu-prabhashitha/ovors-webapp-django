@@ -12,7 +12,7 @@ def home(request):
     :return:
     """
     search_form = ServiceSearchForm()
-    return render(request, 'home/index_new.html', {'form': search_form})
+    return render(request, 'home/index.html', {'form': search_form})
 
 
 def services(request):
@@ -34,7 +34,7 @@ def services(request):
     #     'form02': search_form02,
     # })
 
-    return render(request, 'services/service_list_new.html', {
+    return render(request, 'services/service_list.html', {
         'services': all_services,
         'form01': search_form01,
         'form02': search_form02,
@@ -59,7 +59,7 @@ def service_detail(request, service_id):
     #               {'service': service,
     #                'user_role': user_profile_role
     #                })
-    return render(request, 'services/service_detail_new.html', {'service': service})
+    return render(request, 'services/service_detail.html', {'service': service})
 
 
 def search(request):
@@ -117,7 +117,7 @@ def search(request):
         print("found results : ", all_services.count())
         search_form01 = ServiceSearchForm01()
         search_form02 = ServiceSearchForm02()
-        return render(request, 'services/service_list_new.html', {
+        return render(request, 'services/service_list.html', {
             'services': all_services,
             'form01': search_form01,
             'form02': search_form02,
@@ -144,7 +144,7 @@ def shops(request):
                 if all_shops.count() == 0:
                     messages.warning(request, f"No Shops found contains the name '{key_word}'")
                     all_shops = ShopProfile.objects.all()
-            return render(request, "shops/shop_list_new.html", {"shops_profiles": all_shops, 'form': form})
+            return render(request, "shops/shop_list.html", {"shops_profiles": all_shops, 'form': form})
 
     else:
         form = ServiceSearchByShop()
@@ -152,7 +152,7 @@ def shops(request):
         #     "shops_profiles": all_shops,
         #     'form': form
         # })
-        return render(request, "shops/shop_list_new.html", {
+        return render(request, "shops/shop_list.html", {
             "shops_profiles": all_shops,
             'form': form
         })

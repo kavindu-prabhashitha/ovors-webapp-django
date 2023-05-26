@@ -1,64 +1,444 @@
 {% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
+{% load static %}
 {% block title %}
-    {% load static %}
-    User-profile
+OvROS-User Profile
 {% endblock %}
 
-{% block support_navbar_content %}
-    <nav class="navbar bg-body-tertiary">
-        <div class="container-fluid">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'user_overview' %}"><i
-                            class="bi bi-arrow-left"></i> Back</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-{% endblock %}
 
-{% block content %}
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4 text-center">
-                <div class="card">
-                    <div class="text-center mt-3">
+{% block dashboard_content %}
 
-                            <img src="{% static 'images/defaultProfilePic.jpg' %}" class="card-img-top">
-
-                    </div>
-
-                    <div class="card-body">
-                        <div class="list-group">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <h4><strong>{{ profile_d.first_name }}</strong></h4>
-
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Email :</strong><br>
-                                    {{ profile_d.email }}</li>
-                                <li class="list-group-item"><strong>Contact : </strong>{{ profile.contact_number }}</li>
-
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a class="btn btn-primary" href="{% url 'user_profile_edit' %}">Edit Details &raquo;</a>
-                        <a class="btn btn-success" href="{% url 'password_change' %}">Change password &raquo;</a>
-                    </div>
+        <header class="bg-surface-secondary">
+          <div
+            class="bg-cover"
+            style="
+              height: 300px;
+              background-image: url({% static 'images/defaultProfileBackground.jpeg' %});
+              background-position: center center;
+            "
+          ></div>
+          <div class="container-fluid max-w-screen-xl">
+            <div class="row g-0">
+              <div class="col-auto">
+                <a
+                  href="#"
+                  class="avatar w-40 h-40 border border-body border-4 rounded-circle shadow mt-n16"
+                  ><img
+                    alt="..."
+                    src="{% static 'images/defaultProfilePic.jpg' %}"
+                    class="rounded-circle"
+                /></a>
+              </div>
+              <div class="col ps-4 pt-4">
+                <h6 class="text-xs text-uppercase text-muted mb-1">
+                  OvRos Customer
+                </h6>
+                <h1 class="h2">Tahlia Mooney</h1>
+                <div class="d-flex gap-2 flex-wrap mt-3 d-none d-sm-block">
+                  <a
+                    href="#"
+                    class="bg-white bg-opacity-50 bg-opacity-100-hover border rounded px-3 py-1 font-semibold text-heading text-xs"
+                    >Book Services</a
+                  >
                 </div>
-
-
+              </div>
+              <div
+                class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3 hstack gap-2 mt-4 mt-sm-0"
+              >
+                <a href="#" class="btn btn-sm btn-square btn-neutral"
+                  ><i class="bi bi-envelope"></i> </a
+                ><a href="#" class="btn btn-sm btn-square btn-neutral"
+                  ><i class="bi bi-bell-fill"></i> </a
+                ><a
+                  href="{% url 'user_profile_edit' %}"
+                  class="btn btn-sm btn-primary d-block d-md-inline-block ms-auto ms-md-0"
+                  >Edit Profile</a
+                >
+              </div>
             </div>
-            <div class="col-lg-4"></div>
-        </div>
-
-    </div>
-
-
-
+            <ul class="nav nav-tabs overflow-x ms-1 mt-4">
+              <li class="nav-item">
+                <a href="#!" class="nav-link active font-bold">My profile</a>
+              </li>
+{#              <li class="nav-item">#}
+{#                <a href="#!" class="nav-link">Settings</a>#}
+{#              </li>#}
+{#              <li class="nav-item">#}
+{#                <a href="#!" class="nav-link">Integrations</a>#}
+{#              </li>#}
+{#              <li class="nav-item">#}
+{#                <a href="#!" class="nav-link">Security</a>#}
+{#              </li>#}
+            </ul>
+          </div>
+        </header>
+        <main class="py-6 bg-surface-secondary">
+          <div class="container-fluid max-w-screen-xl">
+            <div class="row g-6">
+              <div class="col-xl-8">
+                <div class="vstack gap-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="mb-3">Biography</h5>
+                      <p class="text-sm lh-relaxed mb-4">
+                        Personal profiles are the perfect way for you to grab
+                        their attention and persuade recruiters to continue
+                        reading your CV because you’re telling them from the off
+                        exactly why they should hire you. Of course, you’ll need
+                        to know how to write an effective statement first, but
+                        we’ll get on to that in a bit.
+                      </p>
+                      <p class="text-sm lh-loose mb-4">
+                        When we strive to become better than we are everything
+                        around us becomes better too. This is a wider card with
+                        supporting text below. Personal profiles are the perfect
+                        way for you to grab their attention and persuade
+                        recruiters to continue reading your CV because you’re
+                        telling them from the off exactly why they should hire
+                        you. Of course, you’ll need to know how to write an
+                        effective statement first, but we’ll get on to that in a
+                        bit.
+                      </p>
+                      <a href="#" class="link-primary font-semibold text-sm"
+                        >Read more</a
+                      >
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="mb-6">Recent Activity</h5>
+                      <div
+                        class="list-group list-group-flush list-group-borderless ms-4"
+                      >
+                        <div class="list-group-item px-2 py-0">
+                          <div class="border-start">
+                            <div class="d-flex ms-n6 pb-6">
+                              <div class="flex-none me-3">
+                                <div
+                                  class="icon icon-shape text-base w-12 h-12 bg-soft-primary text-primary rounded-circle"
+                                >
+                                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                                </div>
+                              </div>
+                              <div>
+                                <small class="d-block mb-1 text-muted"
+                                  >2 hrs ago</small
+                                >
+                                <div>
+                                  You've uploaded
+                                  <span class="font-bold"
+                                    >documentation.pdf</span
+                                  >
+                                  to the
+                                  <span class="font-bold">Webpixels</span>
+                                  project
+                                </div>
+                                <div class="d-flex gap-2 mt-2">
+                                  <div
+                                    class="position-relative bg-light border border-dashed border-warning-hover rounded-pill"
+                                  >
+                                    <div
+                                      class="py-2 px-3 d-flex align-items-center"
+                                    >
+                                      <div class="me-2">
+                                        <i class="bi bi-image text-warning"></i>
+                                      </div>
+                                      <div class="flex-fill">
+                                        <a
+                                          href="#"
+                                          class="d-block font-semibold text-xs text-muted text-warning-hover stretched-link"
+                                          >documentation.pdf</a
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item px-2 py-0">
+                          <div class="border-start">
+                            <div class="d-flex ms-n6 pb-6">
+                              <div class="flex-none me-3">
+                                <div
+                                  class="icon icon-shape text-base w-12 h-12 bg-soft-primary text-primary rounded-circle"
+                                >
+                                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                                </div>
+                              </div>
+                              <div class="flex-fill">
+                                <small class="d-block mb-1 text-muted"
+                                  >4 hrs ago</small
+                                >
+                                <div class="text-sm">
+                                  <span class="text-heading text-sm font-bold"
+                                    >Mike</span
+                                  >
+                                  added a new comment to your task:
+                                </div>
+                                <div class="mt-2">
+                                  <p class="text-sm text-muted">
+                                    On the other hand, we denounce with
+                                    righteous indignation and dislike men who
+                                    are so beguiled and demoralized by the
+                                    charms of pleasure of the moment, so blinded
+                                    by desire, that they cannot foresee.
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item px-2 py-0">
+                          <div class="border-start">
+                            <div class="d-flex ms-n6 pb-6">
+                              <div class="flex-none me-3">
+                                <div
+                                  class="icon icon-shape text-base w-12 h-12 bg-soft-primary text-primary rounded-circle"
+                                >
+                                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                                </div>
+                              </div>
+                              <div class="flex-fill">
+                                <small class="d-block mb-1 text-muted"
+                                  >4 hrs ago</small
+                                >
+                                <div class="text-sm">
+                                  Heather added
+                                  <span class="font-bold">4 images</span> to the
+                                  <span class="font-bold">Team</span> album:
+                                </div>
+                                <div class="mt-2 d-flex gap-2 scrollable-x">
+                                  <div class="col-auto">
+                                    <img
+                                      alt="..."
+                                      src="../../img/media/img-3.jpg"
+                                      class="rounded w-auto h-16"
+                                    />
+                                  </div>
+                                  <div class="col-auto">
+                                    <img
+                                      alt="..."
+                                      src="../../img/media/img-4.jpg"
+                                      class="rounded w-auto h-16"
+                                    />
+                                  </div>
+                                  <div class="col-auto">
+                                    <img
+                                      alt="..."
+                                      src="../../img/media/img-5.jpg"
+                                      class="rounded w-auto h-16"
+                                    />
+                                  </div>
+                                  <div class="col-auto">
+                                    <img
+                                      alt="..."
+                                      src="../../img/media/img-6.jpg"
+                                      class="rounded w-auto h-16"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item px-2 py-0">
+                          <div class="border-start">
+                            <div class="d-flex ms-n6 pb-6">
+                              <div class="flex-none me-3">
+                                <div
+                                  class="icon icon-shape text-base w-12 h-12 bg-soft-primary text-primary rounded-circle"
+                                >
+                                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                                </div>
+                              </div>
+                              <div class="flex-fill">
+                                <small class="d-block mb-1 text-muted"
+                                  >4 hrs ago</small
+                                >
+                                <div class="text-sm">
+                                  Heather added
+                                  <span class="font-bold">Anna</span> to the
+                                  <span class="font-bold">Clever</span> team.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item px-2 py-0">
+                          <div class="border-start">
+                            <div class="d-flex ms-n6 pb-6">
+                              <div class="flex-none me-3">
+                                <div
+                                  class="icon icon-shape text-base w-12 h-12 bg-soft-primary text-primary rounded-circle"
+                                >
+                                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                                </div>
+                              </div>
+                              <div class="flex-fill">
+                                <small class="d-block mb-1 text-muted"
+                                  >4 hrs ago</small
+                                >
+                                <div class="text-sm">
+                                  Heather created the tags
+                                  <div class="d-inline-block mx-1">
+                                    <a
+                                      href="#"
+                                      class="badge rounded-pill bg-danger bg-opacity-20 bg-opacity-100-hover text-danger text-white-hover"
+                                      >Bugs</a
+                                    >
+                                    <a
+                                      href="#"
+                                      class="badge rounded-pill bg-success bg-opacity-20 bg-opacity-100-hover text-success text-white-hover"
+                                      >Showcase</a
+                                    >
+                                  </div>
+                                  for the
+                                  <span class="font-bold">Clever</span> project
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="list-group-item px-2 py-0">
+                          <div>
+                            <div class="d-flex ms-n6 pb-6">
+                              <div class="flex-none me-3">
+                                <div
+                                  class="icon icon-shape text-base w-12 h-12 bg-soft-primary text-primary rounded-circle"
+                                >
+                                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                                </div>
+                              </div>
+                              <div class="flex-fill">
+                                <small class="d-block mb-1 text-muted"
+                                  >2 hrs ago</small
+                                >
+                                <div>
+                                  You've uploaded
+                                  <span class="font-bold"
+                                    >documentation.pdf</span
+                                  >
+                                  to the
+                                  <span class="font-bold">Webpixels</span>
+                                  project
+                                </div>
+                                <div class="mt-2 scrollable-x overflow-hidden">
+                                  <div
+                                    class="d-inline-block position-relative bg-light border border-dashed border-tertiary-hover rounded-pill"
+                                  >
+                                    <div
+                                      class="py-2 px-3 d-flex align-items-center"
+                                    >
+                                      <div class="me-2">
+                                        <i
+                                          class="bi bi-image text-tertiary"
+                                        ></i>
+                                      </div>
+                                      <div class="flex-fill">
+                                        <a
+                                          href="#"
+                                          class="d-block font-semibold text-xs text-muted text-tertiary-hover stretched-link"
+                                          >design.fig</a
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div
+                                    class="d-inline-block position-relative bg-light border border-dashed border-warning-hover rounded-pill"
+                                  >
+                                    <div
+                                      class="py-2 px-3 d-flex align-items-center"
+                                    >
+                                      <div class="me-2">
+                                        <i class="bi bi-image text-warning"></i>
+                                      </div>
+                                      <div class="flex-fill">
+                                        <a
+                                          href="#"
+                                          class="d-block font-semibold text-xs text-muted text-warning-hover stretched-link"
+                                          >readme.md</a
+                                        >
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4">
+                <div class="vstack gap-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="mb-4">Location</h5>
+                      <div class="d-flex align-items-center">
+                        <i class="bi bi-geo-alt-fill me-2 text-muted"></i>
+                        <a
+                          href="#"
+                          class="text-sm text-heading text-primary-hover"
+                          >San Francisco, California</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="mb-4">Social</h5>
+                      <div class="vstack gap-4">
+                        <div class="d-flex align-items-center">
+                          <i class="bi bi-globe me-2 text-muted"></i>
+                          <a
+                            href="#"
+                            class="text-sm text-heading text-primary-hover"
+                            >mywebsite.com</a
+                          >
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <i class="bi bi-journal-album me-2 text-muted"></i>
+                          <a
+                            href="#"
+                            class="text-sm text-heading text-primary-hover"
+                            >clever.mywebsite.com</a
+                          >
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <i class="bi bi-github me-2 text-muted"></i>
+                          <a
+                            href="#"
+                            class="text-sm text-heading text-primary-hover"
+                            >GitHub</a
+                          >
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <i class="bi bi-dribbble me-2 text-muted"></i>
+                          <a
+                            href="#"
+                            class="text-sm text-heading text-primary-hover"
+                            >Dribbble</a
+                          >
+                        </div>
+                        <div class="d-flex align-items-center">
+                          <i class="bi bi-twitter me-2 text-muted"></i>
+                          <a
+                            href="#"
+                            class="text-sm text-heading text-primary-hover"
+                            >Twitter</a
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
 
 
 {% endblock %}

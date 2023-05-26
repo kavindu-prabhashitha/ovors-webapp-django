@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Ovros Services
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-lg-2 col-md-4"></div>
+            <div class="col-lg-8 col-md-4">
+                <div class="accordion" id="accordion_search_service">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                Search <i class="bi bi-search mx-4"></i>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                             data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <form role="search" method="get" action="{% url 'home_search' %}">
+                                    <div class="container">
+                                        <div class="row mt-5 ">
+                                            <div class="col-lg-2 col-md-4"></div>
+                                            <div class="col-lg-4 col-md-4">
+                                                {{ form01|crispy }}
+                                            </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                {{ form02 | crispy }}
+                                            </div>
+                                            <div class="col-lg-2 col-md-4"></div>
+                                        </div>
+                                        <div class="row  justify-content-center ">
+                                            <div class="col-lg-8 col-md-4 align-items-center">
+                                                <button class="btn btn-success text-nowrap" type="submit">Search
+                                                    Service
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4"></div>
+        </div>
+    </div>
+
+    <!-- Service Section Start -->
+    <section id="ovros-service">
+
+        {% if services.count == 0 %}
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-lg-3 col-md-4"></div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <h3>Oophss.. No Services Found !</h3>
+                        <img class="card-img-top" src="{% static 'images/search_not_found.jpg' %}">
+                    </div>
+                    <div class="col-lg-3 col-md-4"></div>
+                </div>
+
+            </div>
+        {% endif %}
+
+
+        <div class="container">
+            <div class="row my-5 g-3">
+                {% for service in services %}
+                    <div class="col-12 col-md-6 col-lg-4">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                {% if service.service_image is None %}
+                                    <img src="{% static 'images/img-800x800-2.jpg' %}" class="card-img-top"
+                                         alt="...">
+                                {% else %}
+{#                                    <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">#}
+                                    <img src="{% static 'images/img-800x800-2.jpg' %}" class="card-img-top"
+                                         alt="...">
+                                {% endif %}
+                                <div class="card-body">
+                                    <div class="list-group">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <h4>{{ service.service_name }}</h4>
+
+                                            </li>
+                                            <li class="list-group-item">
+                                                <strong>Description :</strong><br>
+                                                {{ service.service_description  | slice:":100" }} <a
+                                                    href="{% url 'service_detail' service.id %}">read more...</a></li>
+                                            <li class="list-group-item">
+                                                <strong>Shop :</strong><br>
+                                                {{ service.shop.shop_name }}</li>
+                                            <li class="list-group-item"><strong>Price
+                                                : </strong><span>Rs.</span>{{ service.service_price }}</li>
+                                            <li class="list-group-item"><strong>Avg Duration </strong>
+                                                : {{ service.service_duration }} minutes
+                                            </li>
+                                            <li class="list-group-item"><strong>Location </strong>
+                                                : {{ service.shop.get_full_address }}
+                                            </li>
+                                            <li class="list-group-item"><strong>Available Vehicles </strong>
+                                                <div>
+                                                    {% if service.is_for_car %}
+                                                        <img height="40px" width="40px"
+                                                             src="{% static 'icons/car_icon.png' %}">
+                                                    {% endif %}
+                                                    {% if service.is_for_van %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/van_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_suv %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/suv_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_lorry %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/lorry_icon.png' %}">
+                                                    {% endif %}
+
+                                                    {% if service.is_for_bike %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/bike_icon.png' %}">
+                                                    {% endif %}
+                                                    {% if service.is_for_long_vehicle %}
+                                                        <img height="40px" width="40px" class="bi"
+                                                             src="{% static 'icons/long_vehicle_icon.png' %}">
+                                                    {% endif %}
+
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="card-footer">
+                                    <a href="{% url 'service_detail' service.id %}" class="btn btn-primary ">View
+                                        Details</a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+    <!-- Service Section End -->
+
+{% endblock %}
+

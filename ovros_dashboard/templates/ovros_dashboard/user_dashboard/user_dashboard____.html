@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    User Dashboard
+{% endblock %}
+
+
+{% block dashboard %}
+    <!-- Navigation Bar - Dashboard start -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample"
+         aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title " id="offcanvasExampleLabel">User Dashboard</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="text-center">
+                    <img class="card-image-top" src="{% static 'images/logo.png' %}" style="width: 150px;height: 150px">
+<p>USER DASHBOARD</p>
+            {% block user_profile_details %}
+
+            {% endblock %}
+        </div>
+        <div class="offcanvas-body">
+
+            <div class="d-grid gap-2">
+                <a class="btn btn-primary" href="{% url 'user_overview' %}"><i class="bi bi-speedometer"></i> Overview</a>
+                <a class="btn btn-primary" href="{% url 'user_bookings' %}"><i class="bi bi-amd"></i> Bookings</a>
+                <a class="btn btn-primary" href="{% url 'user_payments_view' %}"><i class="bi bi-cash-coin"></i> Payment</a>
+                <a class="btn btn-primary" href="{% url 'user_generate_report' %}"><i class="bi bi-star"></i> Report</a>
+            </div>
+
+            <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="bi bi-person-circle"></i> Profile
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'user_profile' %}">View Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'user_profile_edit' %}">Edit Profile Details</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- Navigation bar Dashboard end -->
+
+
+{% block dashboard_content %}
+{% endblock %}
+
+{% endblock %}
+

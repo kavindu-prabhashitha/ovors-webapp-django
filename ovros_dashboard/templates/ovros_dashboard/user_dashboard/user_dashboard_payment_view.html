@@ -1,183 +1,226 @@
-{% extends 'ovros_dashboard/user_dashboard/user_dashboard_payment.html' %}
-{% load crispy_forms_tags %}
+{% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
+{% load static %}
 {% block title %}
-    {% load static %}
-    User-Payment-View
+User Dashboard Overview
 {% endblock %}
 
+{% block nav_payment_active %}
+active
+{% endblock %}
 
 {% block dashboard_content %}
 
-    <div class="container text-center">
-        <div class="row my-5">
-            <h3>User Dashboard View Payments</h3>
-        </div>
-        <div class="row">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-2"></div>
-                    <div class="col-12 col-md-6 col-lg-8">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Booking id</th>
-                                <th scope="col">User Contact</th>
-                                <th scope="col">Service Name</th>
-                                <th scope="col">Vehicle</th>
-                                <th scope="col">Payment Status</th>
-                                <th scope="col">Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for shop_booking in user_bookings %}
-                                <tr>
-                                    <th scope="row">{{ forloop.counter }}</th>
-                                    <td>{{ shop_booking.id }}</td>
-                                    <td>{{ shop_booking.user.contact_number }}</td>
-                                    <td>{{ shop_booking.service.service_name }}</td>
+            <div class="container-fluid">
+                <div class="row g-6 mb-6 mt-1">
 
-                                    <td>{{ shop_booking.vehicle }}</td>
-                                    <td>
-                                        {% if shop_booking.payment_status == "PAYMENT_PENDING" %}
-                                            <span class="badge rounded-pill text-bg-warning">
-                            {{ shop_booking.payment_status }}
-                        </span>
-                                        {% endif %}
-                                        {% if shop_booking.payment_status == "PAYMENT_PROCESSING" %}
-                                            <span class="badge rounded-pill text-bg-info">
-                            {{ shop_booking.payment_status }}
-                        </span>
-                                        {% endif %}
-                                        {% if shop_booking.payment_status == "PAYMENT_COMPLETED" %}
-                                            <span class="badge rounded-pill text-bg-success">
-                            {{ shop_booking.payment_status }}
-                        </span>
-                                        {% endif %}
+                  <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col">
+                            <span
+                              class="h6 font-semibold text-muted text-sm d-block mb-2"
+                              >Payments</span
+                            >
+                            <span class="h3 font-bold mb-0">{{ user_bookings.count }}</span>
+                          </div>
+                          <div class="col-auto">
+                            <div
+                              class="icon icon-shape bg-primary text-white text-lg rounded-circle"
+                            >
+                              <i class="bi bi-credit-card"></i>
+                            </div>
+                          </div>
+                        </div>
 
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#id_py_user{{ forloop.counter }}">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <!-- Modal -->
-                                <div class="modal fade" id="id_py_user{{ forloop.counter }}" tabindex="-1"
-                                     aria-labelledby="exampleModalLabel"
-                                     aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Booking Details</h1>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                        aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        Service Details
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="list-group">
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item"><strong>Booking id : </strong>
-                                                                    {{ shop_booking.id }}
-                                                                </li>
-                                                                <li class="list-group-item"><strong>Shop</strong>
-                                                                    : {{ shop_booking.service.shop.shop_name }}
-                                                                    | {{ shop_booking.service.service_name }}</li>
-                                                                <li class="list-group-item"><strong>Price</strong>
-                                                                    :
-                                                                     <span class="badge rounded-pill text-bg-info">
-                                                                    <span>Rs.</span>{{ shop_booking.service.service_price }}
-                                                                     </span>
-                                                                </li>
-                                                                <li class="list-group-item"><strong>Date and
-                                                                    Time</strong>
-                                                                    : {{ shop_booking.booking_date }}
-                                                                    | {{ shop_booking.booking_time }}</li>
-                                                                <li class="list-group-item">
-                                                                    <form method="post"
-                                                                          id="form_id_py_st_user{{ forloop.counter }}">
-                                                                        {% csrf_token %}
-                                                                        <input type="hidden" name="booking_id"
-                                                                               value="{{ shop_booking.id }}">
-                                                                        {{ action_form| crispy }}
-                                                                    </form>
-
-                                                                </li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-header">
-                                                        Service shop Payment Details
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <div class="list-group">
-                                                            <ul class="list-group list-group-flush">
-                                                                <li class="list-group-item"><strong>Bank Name</strong>
-                                                                    : {{ shop_booking.service.shop.shoppaymentdetail.bank_name }}
-                                                                </li>
-                                                                <li class="list-group-item"><strong>Account
-                                                                    Number</strong>
-                                                                    : {{ shop_booking.service.shop.shoppaymentdetail.account_no }}
-                                                                </li>
-
-                                                                <li class="list-group-item"><strong>Branch name</strong>
-                                                                    :
-                                                                    {{ shop_booking.service.shop.shoppaymentdetail.bank_branch }}
-                                                                </li>
-
-                                                                <li class="list-group-item">
-                                                                    <form method="post""
-                                                                          id="form_id_py_st_user{{ forloop.counter }}">
-                                                                        {% csrf_token %}
-                                                                        <input type="hidden" name="booking_id"
-                                                                               value="{{ shop_booking.id }}">
-                                                                        {{ action_form| crispy }}
-                                                                    </form>
-
-                                                                </li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        To proceed payment you have to pay the above-mentioned fee through mobile app or bank and upload the slip.
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="button" class="btn btn-success"
-                                                        onclick="update_booking_payment_status({{ forloop.counter }})">
-                                                    Proceed Payment
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                            </tbody>
-                        </table>
+                      </div>
                     </div>
-                    <div class="col-12 col-md-6 col-lg-2"></div>
-                </div>
-            </div>
+                  </div>
 
-            <script>
+                </div>
+              </div>
+
+
+              <div class="container-fluid">
+                <div class="vstack gap-4">
+                  <div class="d-flex flex-column flex-md-row gap-3 justify-content-between">
+                    <div class="d-flex gap-3">
+                      <div class="input-group input-group-sm input-group-inline">
+                        <span class="input-group-text pe-2"><i class="bi bi-search"></i> </span><input
+                          type="text"
+                          class="form-control"
+                          placeholder="Search"
+                          aria-label="Search"
+                        />
+                      </div>
+                      <div>
+                        <a class="btn btn-sm px-3 btn-neutral d-flex align-items-center">
+                          <span>Search</span>
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="card">
+                    <div class="card-header border-bottom d-flex align-items-center">
+                      <h5 class="me-auto">All Available Payments</h5>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-hover table-nowrap">
+                        <thead class="table-light">
+                          <tr>
+                            <th scope="col">Number</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Vehicle</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">Status</th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for shop_booking in user_bookings %}
+                          <tr>
+                            <td>
+                              <img alt="..." src="{% static 'dashboard/img/social/airbnb.svg' %}" class="avatar avatar-sm rounded-circle me-2"/>
+                              <a class="text-sm" href="#">{{ shop_booking.id }}</a>
+                            </td>
+                            <td>{{ shop_booking.booking_date }}</td>
+                            <td>
+                                <span class="badge badge-lg badge-dot"><i class="bg-warning"></i>{{ shop_booking.vehicle }}</span>
+                            </td>
+                            <td>
+                              <div class="avatar-group">
+                                <p>{{ shop_booking.user.contact_number }}</p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <span class="badge badge-pill bg-soft-success text-success me-2"><i class="bi bi-gear me-1"></i>{{ shop_booking.booking_status }} </span>
+                              </div>
+                            </td>
+                            <td class="text-end">
+                                <a
+                                href="#id_py_user{{ forloop.counter }}"
+                                class="btn btn-sm btn-success border-base"
+                                data-bs-toggle="modal"
+                                ><span class="pe-2"
+                                  ><i class="bi bi-view-list"></i> </span
+                                ><span>Proceed Payment</span> </a
+                              >
+                              <button
+                                type="button"
+                                class="btn btn-sm btn-square btn-neutral text-danger-hover"
+                              >
+                                <i class="bi bi-trash"></i>
+                              </button>
+                            </td>
+                          </tr>
+
+
+                <!-- MODEL OVERLAY -->
+            <div
+            class="modal fade"
+            id="id_py_user{{ forloop.counter }}"
+            tabindex="-1"
+            aria-labelledby="modalExport"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content shadow-3">
+                <div class="modal-header">
+                  <div
+                    class="icon icon-shape rounded-3 bg-soft-primary text-primary text-lg me-4"
+                  >
+                    <i class="bi bi-globe"></i>
+                  </div>
+                  <div>
+                    <h5 class="mb-1">Payment Details</h5>
+                    <small class="d-block text-xs text-muted"
+                      >payment detail related to booking</small
+                    >
+                  </div>
+                  <div class="ms-auto">
+
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <div class="d-flex align-items-center mb-5">
+                    <div>
+                      <p class="text-sm">
+                        Booking ID :
+                      </p>
+                      <p class="text-sm">
+                        Shop Name :
+                      </p>
+                      <p class="text-sm">
+                        Service Price :
+                      </p>
+                      <p class="text-sm">
+                        Date and Time :
+                      </p>
+                      <p class="mt-4"></p>
+                      <p class="text-heading ">
+                        Service Shop Payment Details
+                      </p>
+                      <p class="text-sm">
+                        Bank Name :
+                      </p>
+                      <p class="text-sm">
+                        Bank Account Name :
+                      </p>
+                      <p class="text-sm">
+                        Bank Branch Name :
+                      </p>
+                      <p class="text-sm mt-4" >
+                        To proceed payment you have to pay the above-mentioned fee through mobile app or bank and upload the slip
+                      </p>
+                    </div>
+                    <div class="ms-auto">
+
+                    </div>
+
+                  </div>
+
+                </div>
+                <div class="modal-footer">
+
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-neutral"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-sm btn-success">
+                    Proceed Payment
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+            <!-- END OF MODEL OVERLAY -->
+
+
+{% endfor %}
+
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="card-footer border-0 py-5">
+                      <span class="text-muted text-sm"
+                        >Showing 10 items out of 250 results found</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+                <script>
                 function update_booking_payment_status(form_id) {
                     let form = document.getElementById('form_id_py_st_user' + form_id);
                     form.submit();
                 }
             </script>
 
-            <div class="col"></div>
-        </div>
-    </div>
+
 {% endblock %}

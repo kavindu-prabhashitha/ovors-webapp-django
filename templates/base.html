@@ -1,32 +1,132 @@
+<!doctype html>
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
 
+<!-- Mirrored from landkit.goodthemes.co/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 24 Apr 2023 07:21:25 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=utf-8"/><!-- /Added by HTTrack -->
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- CSS only -->
-    <link rel="icon" type="image/x-icon" href="{% static 'images/ovros_logo_tab.png' %}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/dashboard/css/style.css" type="text/css">
-    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'main/favicon/favicon.ico' %}" type="image/x-icon"/>
+
+    <!-- Map CSS -->
+    <!-- <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" /> -->
+
+    <!-- Libs CSS -->
+    <link rel="stylesheet" href="{% static 'main/css/libs.bundle.css' %}"/>
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="{% static 'main/css/theme.bundle.css' %}"/>
+
+    <!-- Title -->
+    <title>
+        {% block title %}
+            OvROS
+        {% endblock %}
+    </title>
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-156446909-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+        gtag("config", "UA-156446909-2");
+
+    </script>
 </head>
-
 <body>
-<!-- Navigation Bar -->
-{% include 'home/navbar.html' %}
-<!-- Navigation bar end -->
 
-{% block support_navbar_content %}
+
+{% block main_navbar %}
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+
+            <!-- Brand -->
+            <a class="navbar-brand" href="index-2.html">
+                <!-- <img src="assets/img/brand.svg" class="navbar-brand-img" alt="..."> -->
+                <h1>oVroS</h1>
+            </a>
+
+
+            <!-- Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+
+                <!-- Toggler -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fe fe-x"></i>
+                </button>
+
+                <!-- Navigation -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" id="navbarHome" href="{% url 'home' %}" aria-haspopup="true"
+                           aria-expanded="false">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" id="navbarServices" href="{% url 'services' %}" aria-haspopup="true"
+                           aria-expanded="false">
+                            Services
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" id="navbarShops" href="{% url 'shops' %}" aria-haspopup="true"
+                           aria-expanded="false">
+                            Shops
+                        </a>
+                    </li>
+                </ul>
+
+                {% if not request.user.is_authenticated %}
+                    <!-- Button -->
+                    <a class="navbar-btn btn btn-sm btn-primary lift ms-auto" href="{% url 'login' %}">
+                        Login
+                    </a>
+                {% endif %}
+
+                {% if request.user.is_authenticated %}
+
+                    <a class="navbar-btn btn btn-sm btn-primary lift ms-auto" href="{% url 'logout' %}"> Logout</a>
+
+                {% endif %}
+                {% if not request.user.is_authenticated %}
+
+                    <a href="{% url 'register' %}" class="btn btn-sm btn-secondary">Register</a>
+
+                {% endif %}
+
+                {% if request.user.is_authenticated %}
+
+                    <a href="{% url 'dashboard' %}" class="btn btn-sm btn-success ms-1">Dashboard</a>
+
+                {% endif %}
+            </div>
+
+        </div>
+    </nav>
 
 {% endblock %}
 
 {% if messages %}
-    <div class="container-fluid p-6 ">
+    <div class="container-fluid ">
         {% for message in messages %}
 
             <div class="alert {{ message.tags }} alert-dismissible" role="alert">
@@ -39,69 +139,96 @@
     </div>
 {% endif %}
 
-
-{% block home_content %}
-
-{% endblock %}
-
-{% block content %}
-
-{% endblock %}
-
-{% block dashboard %}
+{% block main_body %}
 
 {% endblock %}
 
 
+{% block main_footer %}
+    <!-- FOOTER -->
+    <footer class="py-8 py-md-11 bg-gray-200">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-4 col-lg-3">
 
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-        crossorigin="anonymous"></script>
-<script>
-    const tooltips = document.querySelectorAll('.tt')
-    tooltips.forEach(t => {
-        new bootstrap.Tooltip(t)
-    })
-</script>
+                    <!-- Brand -->
+                    <h1>oVroS</h1>
+                    <!-- Text -->
+                    <p class="text-gray-700 mb-2">
+                        A better way to service.
+                    </p>
 
-<script>
-    function save_user_data(uid, u_role, pro_id) {
-        console.log("Saving User Data");
-        let user_id = uid;
-        let profile_id = pro_id;
-        let user_role = u_role;
+                    <!-- Social -->
+                    <ul class="list-unstyled list-inline list-social mb-6 mb-md-0">
+                        <li class="list-inline-item list-social-item me-3">
+                            <a href="#!" class="text-decoration-none">
+                                <img src="{% static 'main/img/icons/social/instagram.svg' %}" class="list-social-icon"
+                                     alt="...">
+                            </a>
+                        </li>
+                        <li class="list-inline-item list-social-item me-3">
+                            <a href="#!" class="text-decoration-none">
+                                <img src="{% static 'main/img/icons/social/facebook.svg' %}" class="list-social-icon"
+                                     alt="...">
+                            </a>
+                        </li>
+                        <li class="list-inline-item list-social-item me-3">
+                            <a href="#!" class="text-decoration-none">
+                                <img src="{% static 'main/img/icons/social/twitter.svg' %}" class="list-social-icon"
+                                     alt="...">
+                            </a>
+                        </li>
+                        <li class="list-inline-item list-social-item">
+                            <a href="#!" class="text-decoration-none">
+                                <img src="{% static 'main/img/icons/social/pinterest.svg' %}" class="list-social-icon"
+                                     alt="...">
+                            </a>
+                        </li>
+                    </ul>
 
-        localStorage.setItem("user_id", user_id + '');
-        localStorage.setItem('user_role', user_role + '');
-        localStorage.setItem('profile_id', profile_id + '');
-    }
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
 
-    function get_user_id() {
-        return localStorage.getItem('user_id');
-    }
+                    <!-- Heading -->
+                    <h6 class="fw-bold text-uppercase text-gray-700">
+                        Home
+                    </h6>
 
-    function get_user_role() {
-        return localStorage.getItem('user_role');
-    }
+                </div>
+                <div class="col-6 col-md-4 col-lg-2">
 
-    function get_profile_id() {
-        return localStorage.getItem('profile_id');
-    }
+                    <!-- Heading -->
+                    <h6 class="fw-bold text-uppercase text-gray-700">
+                        Services
+                    </h6>
 
-    function remove_user_data() {
-        localStorage.removeItem('user_id');
-        localStorage.removeItem('user_role');
-        localStorage.removeItem('profile_id');
-    }
-</script>
+                </div>
+                <div class="col-6 col-md-4 offset-md-4 col-lg-2 offset-lg-0">
 
-<footer>
-    <div class="container text-center mt-3">
-            © 2023 All rights reserved. OvROS ® is a registered service under J R Battery Shop
-    </div>
-</footer>
+                    <!-- Heading -->
+                    <h6 class="fw-bold text-uppercase text-gray-700">
+                        Shops
+                    </h6>
+
+
+                </div>
+
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </footer>
+
+{% endblock %}
+
+
+<!-- JAVASCRIPT -->
+<!-- Map JS -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+
+<!-- Vendor JS -->
+<script src="{% static 'main/js/vendor.bundle.js' %}"></script>
+
+<!-- Theme JS -->
+<script src="{% static 'main/js/theme.bundle.js' %}"></script>
 
 </body>
-
 </html>
