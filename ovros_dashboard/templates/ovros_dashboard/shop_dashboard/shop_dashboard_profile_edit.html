@@ -1,27 +1,78 @@
 {% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
 {% load crispy_forms_tags %}
+{% load static %}
 {% block title %}
-    {% load static %}
-    User-profile
+Shop Dashboard Overview
 {% endblock %}
 
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-4"></div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <h3 class="my-2">Edit Profile Details</h3>
+
+{% block dashboard_content %}
+
+            <header class="bg-surface-secondary">
+            <div
+              class="bg-cover"
+              style="
+                height: 300px;
+                background-image: url('{% static 'dashboard/img/covers/img-profile.jpg' %}');
+                background-position: center center;
+              "
+            ></div>
+            <div class="container-fluid max-w-screen-xl">
+              <div class="row g-0">
+
+                <div class="col ps-4 pt-4">
+                  <h6 class="text-xs text-uppercase text-muted mb-1">OVROS</h6>
+                  <h1 class="h2">Profile Edit</h1>
+                  <div class="d-flex gap-2 flex-wrap mt-3 d-none d-sm-block">
+                    <a
+                      href="#"
+                      class="bg-white bg-opacity-50 bg-opacity-100-hover border rounded px-3 py-1 font-semibold text-heading text-xs"
+                      >#SUV</a
+                    >
+                    <a
+                      href="#"
+                      class="bg-white bg-opacity-50 bg-opacity-100-hover border rounded px-3 py-1 font-semibold text-heading text-xs"
+                      >#SPORTS</a
+                    >
+                  </div>
+                </div>
+                <div
+                  class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3 hstack gap-2 mt-4 mt-sm-0"
+                >
+                  <a
+                    href="{% url 'shop_profile' %}"
+                    class="btn btn-sm btn-danger d-block d-md-inline-block ms-auto ms-md-0"
+                    >Cancel</a
+                  >
+
+                </div>
+              </div>
+
+            </div>
+          </header>
+        <main class=" bg-surface-secondary">
+
+            <div class="container-fluid max-w-screen-xl">
+                <div class="row g-6">
+                    <div class="col-12 col-md-6 col-lg-3"></div>
+            <div class="col-12 col-md-6 col-lg-6">
+
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ s_form|crispy }}
 
-                    <input type="submit" value="Edit Details" class="btn btn-primary">
-                    <a class="btn btn-danger" href="{% url 'shop_profile' %}">Cancel</a>
+                    <input type="submit" value="Edit Details" class="btn btn-sm btn-primary">
+                    <a class="btn btn-sm btn-danger" href="{% url 'shop_profile' %}">Cancel</a>
                 </form>
-
             </div>
-            <div class="col-12 col-md-6 col-lg-4"></div>
+                    <div class="col-12 col-md-6 col-lg-3"></div>
+                </div>
+            </div>
+
+        <div class="mb-6">
+
         </div>
-    </div>
+
+        </main>
 
 {% endblock %}

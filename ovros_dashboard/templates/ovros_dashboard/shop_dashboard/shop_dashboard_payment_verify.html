@@ -1,57 +1,61 @@
-{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard_payment.html' %}
+{% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %}
-    {% load static %}
-    Shop-Payment-verify
+    Shop Dashboard Payment view
+{% endblock %}
+
+{% block nav_payment_active %}
+    active
 {% endblock %}
 
 {% block dashboard_content %}
-    <div class="row mt-3">
-        <div class="col-12 col-md-6 col-lg-1"></div>
-        <div class="col-12 col-md-6 col-lg-5">
-            <div class="card">
-                <div class="card-header">
-                    Booking Details
-                </div>
-                <div class="card-body">
-                    <div class="list-group">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Booking id : </strong>
-                                {{ booking_data.id }}
-                            </li>
-                            <li class="list-group-item"><strong>Shop</strong>
-                                : {{ booking_data.service.shop.shop_name }}
-                                | {{ booking_data.service.service_name }}</li>
-                            <li class="list-group-item"><strong>Price</strong>
-                                :
-                                <span class="badge rounded-pill text-bg-info">
-                                                                    <span>Rs.</span>{{ booking_data.service.service_price }}
-                                                                     </span>
-                            </li>
-                            <li class="list-group-item"><strong>Date and
-                                Time</strong>
-                                : {{ booking_data.booking_date }}
-                                | {{ booking_data.booking_time }}</li>
-                        </ul>
-                    </div>
 
+    <main class="py-6 bg-surface-secondary">
+
+            <header>
+                <div class="container-fluid">
+                  <div class="border-bottom pt-6 pb-6">
+                    <div class="row align-items-center">
+                      <div class="col-sm col-12">
+                        <h1 class="h2 ls-tight">
+                            <a class="btn btn-sm me-2 btn-secondary" href="{%  url 'shop_payments_view' %}">
+                                <span><i class="bi bi-arrow-left "></i></span>
+                            </a> Verify Payment
+                        </h1>
+                      </div>
+
+                    </div>
+                  </div>
                 </div>
-                <div class="card-header">
-                    Service Details
-                </div>
-                <div class="card-body">
-                    <li class="list-group-item"><strong>Shop</strong>
-                        : {{ booking_data.service.shop.shop_name }}
-                        | {{ booking_data.service.service_name }}</li>
-                    <li class="list-group-item"><strong>Date and
-                        Time</strong>
-                        : {{ booking_data.booking_date }}
-                        | {{ booking_data.booking_time }}</li>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-5">
-            <div class="card">
+              </header>
+              <div class="container-fluid">
+                <div class="row g-6 mb-6 mt-1">
+                  <div class="col-xl-6">
+                    <div class="card ">
+                      <div class="card-header">
+                        <div class=" d-flex align-items-center">
+                          <h5 class="mb-0">Booking Details</h5>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <p>Booking ID : {{ booking_data.id }}</p>
+                        <p>Shop Name : {{ booking_data.service.shop.shop_name }}</p>
+                        <p>Price : <span>Rs.</span>{{ booking_data.service.service_price }}</p>
+                        <p>Date and Time : {{ booking_data.booking_date }}| {{ booking_data.booking_time }}</p>
+                      </div>
+                      <div class="card-header">
+                        <div class=" d-flex align-items-center">
+                            <h5 class="mb-0">Payment Details</h5>
+                          </div>
+                      </div>
+                      <div class="card-body">
+                        <p>Payment ID : {{ booking_data.id}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-5">
+                                <div class="card">
                 <div class="card-header">
                     Booking Proceed
                 </div>
@@ -86,7 +90,11 @@
                 {% endif %}
 
             </div>
-        </div>
-        <div class="col-12 col-md-6 col-lg-1"></div>
-    </div>
+                  </div>
+                </div>
+              </div>
+
+
+        </main>
+
 {% endblock %}
