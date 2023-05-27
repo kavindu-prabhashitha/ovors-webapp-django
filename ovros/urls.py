@@ -5,11 +5,6 @@ from ovros_home.views import (home,
                               service_detail,
                               shops,
                               shop_detail,
-                              dashboard_new,
-                              dashboard_new_user_booking,
-                              dashboard_new_user_payments,
-                              dashboard_new_user_reports,
-                              dashboard_new_user_profile,
                               )
 from ovros_user_module import urls as account_urls
 from ovros_dashboard import urls as dashboard_urls
@@ -27,13 +22,6 @@ admin.site.index_title = 'Ovros Admin Dashboard'
 urlpatterns = [
     # path('', home, name='home'),
     path('', home, name='home'),
-
-    path('dashboard_new/', dashboard_new, name='dashboard_new'),
-    path('dashboard_new/user/bookings', dashboard_new_user_booking, name='dashboard_new_user_bookings'),
-    path('dashboard_new/user/payments', dashboard_new_user_payments, name='dashboard_new_user_payments'),
-    path('dashboard_new/user/reports', dashboard_new_user_reports, name='dashboard_new_user_reports'),
-    path('dashboard_new/user/profile', dashboard_new_user_profile, name='dashboard_new_user_profiles'),
-
     path('services/', services, name='services'),
     path('services/<int:service_id>', service_detail, name='service_detail_new'),
     path('shops/', shops, name='shops'),

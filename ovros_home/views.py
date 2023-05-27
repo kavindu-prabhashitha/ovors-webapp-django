@@ -148,10 +148,6 @@ def shops(request):
 
     else:
         form = ServiceSearchByShop()
-        # return render(request, "shops/shop_list.html", {
-        #     "shops_profiles": all_shops,
-        #     'form': form
-        # })
         return render(request, "shops/shop_list.html", {
             "shops_profiles": all_shops,
             'form': form
@@ -165,26 +161,3 @@ def shop_detail(request, shop_id):
         "profile": shop_d,
         "shop_services": shop_services
     })
-
-   # return render(request, "shops/shop_detail_new.html")
-
-
-def dashboard_new(request):
-    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_overview.html')
-
-
-def dashboard_new_user_booking(request):
-    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_booking_view.html')
-
-
-def dashboard_new_user_payments(request):
-    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_payment.html')
-
-
-def dashboard_new_user_reports(request):
-    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_reports.html')
-
-
-def dashboard_new_user_profile(request):
-    return render(request, 'ovros_dashboard/user_dashbaord_new/user_dashboard_new_profile.html')
-

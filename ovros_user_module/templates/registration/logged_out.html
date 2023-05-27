@@ -3,7 +3,7 @@
     Logged-out
 {% endblock %}
 
-{% block content %}
+{% block main_body %}
 
     <section>
         <div class="container">
@@ -14,8 +14,9 @@
                     <h1>Logged out</h1>
                     <p>
                         You have been successfully logged out.
-                        You can <a class="btn btn-success" href="{% url 'login' %}">Log-in Again</a>
+
                     </p>
+                     <a class="btn btn-success btn-sm" href="{% url 'login' %}">Log-in Again</a>
                 </div>
                 <div class="col"></div>
             </div>
