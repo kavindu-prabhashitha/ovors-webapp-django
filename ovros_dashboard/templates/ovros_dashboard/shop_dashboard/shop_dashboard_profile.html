@@ -1,111 +1,162 @@
 {% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
-{% load crispy_forms_tags %}
+{% load static %}
 {% block title %}
-    {% load static %}
-    User-profile
+Shop Dashboard Overview
 {% endblock %}
 
-{% block content %}
 
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-lg-4"></div>
-            <div class="col-lg-4 text-center">
-                <div class="card">
-{#                    <img src="{% static 'images/shopprofile_default.jpg' %}" class="card-img-top">#}
-                    <img src="{{ profile.shop_profile_img.url }}" class="card-img-top">
-                    <div class="card-body">
-                        <div class="list-group">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    <h4><strong>{{ profile.shop_name }}</strong></h4>
+{% block dashboard_content %}
 
-                                </li>
-                                <li class="list-group-item">
-                                    <strong>Email :</strong><br>
-                                    {{ profile_d.email }}</li>
-                                <li class="list-group-item"><strong>Contact : </strong>{{ profile.shop_contact }}</li>
-                                <li class="list-group-item"><strong>Address : </strong>
-                                    {{ profile.get_full_address }}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <a class="btn btn-primary" href="{% url 'shop_profile_edit' %}">Edit Details</a>
-                        <a class="btn btn-success" href="{% url 'password_change' %}">Change password &raquo;</a>
-                    </div>
+            <header class="bg-surface-secondary">
+            <div
+              class="bg-cover"
+              style="
+                height: 300px;
+                background-image: url({% static 'dashboard/img/covers/img-profile.jpg' %});
+                background-position: center center;
+              "
+            ></div>
+            <div class="container-fluid max-w-screen-xl">
+              <div class="row g-0">
+
+                <div class="col ps-4 pt-4">
+                  <h6 class="text-xs text-uppercase text-muted mb-1">OVROS</h6>
+                  <h1 class="h2">{{ profile.shop_name}}</h1>
+                  <div class="d-flex gap-2 flex-wrap mt-3 d-none d-sm-block">
+                    <a
+                      href="#"
+                      class="bg-white bg-opacity-50 bg-opacity-100-hover border rounded px-3 py-1 font-semibold text-heading text-xs"
+                      >#SUV</a
+                    >
+                    <a
+                      href="#"
+                      class="bg-white bg-opacity-50 bg-opacity-100-hover border rounded px-3 py-1 font-semibold text-heading text-xs"
+                      >#SPORTS</a
+                    >
+                  </div>
                 </div>
+                <div
+                  class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3 hstack gap-2 mt-4 mt-sm-0"
+                >
+                  <a
+                    href="{%  url 'shop_profile_edit' %}"
+                    class="btn btn-sm btn-success d-block d-md-inline-block ms-auto ms-md-0"
+                    >Edit Profile</a
+                  >
+                  <a
+                  href="{% url 'password_change' %}"
+                  class="btn btn-sm btn-warning d-block d-md-inline-block ms-auto ms-md-0"
+                  >Change Password</a
+                >
+                </div>
+              </div>
+
             </div>
-            <div class="col-12 col-md-6 col-lg-4">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Payment Details
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                             data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                {% if bank_detail_availability %}
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            <strong>Bank Name :</strong>
-                                            {{ payment_detail.bank_name }}
-                                        </li>
-                                        <li class="list-group-item">
-                                            <strong>Branch Name :</strong>
-                                            {{ payment_detail.bank_branch }}</li>
-                                        <li class="list-group-item"><strong>Account Name
-                                            : </strong>{{ payment_detail.account_name }}</li>
-                                        <li class="list-group-item"><strong>Account Number : </strong>
-                                            {{ payment_detail.account_no }}</li>
-                                        <li class="list-group-item">
+          </header>
+        <main class=" bg-surface-secondary">
+            <div class="container-fluid max-w-screen-xl">
+                <div class="row g-6">
+                  <div class="col-xl-8">
+                    <div class="vstack gap-6">
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="mb-3">About</h5>
+                          <p class="text-sm lh-relaxed mb-4">
+                            Personal profiles are the perfect way for you to grab
+                            their attention and persuade recruiters to continue
+                            reading your CV because you’re telling them from the off
+                            exactly why they should hire you. Of course, you’ll need
+                            to know how to write an effective statement first, but
+                            we’ll get on to that in a bit.
+                          </p>
 
-                                        </li>
-                                    </ul>
-                                    <button class="btn btn-primary"
-                                            type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne02" aria-expanded="true"
-                                            aria-controls="collapseOne02"
+                          <a href="#" class="link-primary font-semibold text-sm"
+                            >Read more</a
+                          >
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="mb-4">Contact Details</h5>
+                        </div>
+                        <div class="card-body">
+                          <p>Email : {{ payment_detail.shop_profile.shop_email }}</p>
+                          <p>Contact : {{ profile.shop_contact }}</p>
+                          <p>Address : {{ profile.get_full_address }} </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-4">
+                    <div class="vstack gap-6">
+                      <div class="card">
+                        <div class="card-header">
+                          <h5 class="mb-4">Payment Details</h5>
 
-                                    >Edit Details >
-                                    </button>
-
-                                    </div>
-                                {% endif %}
-                            {% if not bank_detail_availability %}
-                                <form method="post">
-                                    {% csrf_token %}
-                                    {{ payment_add_form|crispy }}
-                                    <input type="hidden" name="edit_payment" value="0">
-                                    <input class="btn btn-primary" type="submit" value="Add Payment Details">
-                                </form>
-                            {% endif %}
-
-                            <div id="collapseOne02" class="accordion-collapse collapse"
-                                 aria-labelledby="headingOne">
-                                <div class="accordion-body">
-                                    <form method="post">
-                                        {% csrf_token %}
-                                        {{ payment_add_form|crispy }}
-                                        <input type="hidden" name="edit_payment" value="1">
-                                        <input class="btn btn-warning" type="submit" value="Edit Payment Details">
-                                    </form>
-                                </div>
+                        </div>
+                        <div class="card-body">
+                          <div class="align-items-center">
+                            <p>Bank Name : {{ payment_detail.bank_name }}</p>
+                            <p>Branch Name : {{ payment_detail.bank_branch }} </p>
+                            <p>Account Name : {{ payment_detail.account_name }} </p>
+                            <p>Account Number : <span class="badge bg-success">{{ payment_detail.account_no }}</span></p>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <a href="" class="btn btn-primary ">Edit Details</a>
+                      </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <h5 class="mb-4">Social</h5>
+                          <div class="vstack gap-4">
+                            <div class="d-flex align-items-center">
+                              <i class="bi bi-globe me-2 text-muted"></i>
+                              <a
+                                href="#"
+                                class="text-sm text-heading text-primary-hover"
+                                >mywebsite.com</a
+                              >
                             </div>
+                            <div class="d-flex align-items-center">
+                              <i class="bi bi-journal-album me-2 text-muted"></i>
+                              <a
+                                href="#"
+                                class="text-sm text-heading text-primary-hover"
+                                >clever.mywebsite.com</a
+                              >
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <i class="bi bi-github me-2 text-muted"></i>
+                              <a
+                                href="#"
+                                class="text-sm text-heading text-primary-hover"
+                                >GitHub</a
+                              >
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <i class="bi bi-dribbble me-2 text-muted"></i>
+                              <a
+                                href="#"
+                                class="text-sm text-heading text-primary-hover"
+                                >Dribbble</a
+                              >
+                            </div>
+                            <div class="d-flex align-items-center">
+                              <i class="bi bi-twitter me-2 text-muted"></i>
+                              <a
+                                href="#"
+                                class="text-sm text-heading text-primary-hover"
+                                >Twitter</a
+                              >
+                            </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-
-    </div>
-
-
-
-
+              </div>
+        </main>
 
 {% endblock %}

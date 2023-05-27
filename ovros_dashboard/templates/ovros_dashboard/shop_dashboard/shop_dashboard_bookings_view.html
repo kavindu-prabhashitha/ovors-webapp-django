@@ -1,153 +1,276 @@
 {% extends 'ovros_dashboard/shop_dashboard/shop_dashboard.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %}
-    {% load static %}
-    Shop-View-Bookings
+    Shop Dashboard Overview
 {% endblock %}
 
-{% block support_navbar_content %}
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Shop Dashboard Bookings >> </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"><span
-                                class="badge rounded-pill text-bg-primary">Add Booking</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'shop_bookings_view' %}"><span
-                                class="badge rounded-pill text-bg-primary">View Booking</span></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+{% block nav_booking_active %}
+    active
 {% endblock %}
 
 {% block dashboard_content %}
 
-    <div class="container text-center">
-        <div class="row my-5">
-            <h3>Shop Dashboard View Bookings</h3>
-        </div>
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-2"></div>
-            <div class="col-12 col-md-6 col-lg-8">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">User Contact</th>
-                        <th scope="col">Service</th>
-                        <th scope="col">Vehicle</th>
-                        <th scope="col">Booking Status</th>
-                        <th scope="col">Booking Time</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for shop_booking in shop_bookings %}
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td>{{ shop_booking.user.contact_number }}</td>
-                            <td>{{ shop_booking.service.service_name }}</td>
-                            <td>{{ shop_booking.vehicle }}</td>
-                            <td>
-                                {% if shop_booking.booking_status == "PENDING" %}
-                                    <span class="badge rounded-pill text-bg-warning">
-                            {{ shop_booking.booking_status }}
-                        </span>
-                                {% endif %}
-                                {% if shop_booking.booking_status == "APPROVED" %}
-                                    <span class="badge rounded-pill text-bg-success">
-                            {{ shop_booking.booking_status }}
-                        </span>
-                                {% endif %}
-                                {% if shop_booking.booking_status == "CANCELED" %}
-                                    <span class="badge rounded-pill text-bg-danger">
-                            {{ shop_booking.booking_status }}
-                        </span>
-                                {% endif %}
+    <main class="py-6 bg-surface-secondary">
 
-                            </td>
-                            <td>
-                                {% if shop_booking.booking_time == None %}
-                                    <span class="badge rounded-pill text-bg-danger">Not Assigned</span>
-                                {% else %}
-                                    {{ shop_booking.booking_time }}
-                                {% endif %}
+        <header>
+            <div class="container-fluid">
+                <div class="border-bottom pt-6 pb-6">
+                    <div class="row align-items-center">
+                        <div class="col-sm col-12">
+                            <h1 class="h2 ls-tight">Shop Service Bookings</h1>
+                        </div>
+                        <div class="col-sm-auto col-12 mt-4 mt-sm-0 me-5">
+                            <div class="hstack gap-2 justify-content-sm-end">
+                                <a
+                                        href="#"
+                                        class="btn btn-sm btn-primary"
+                                        data-bs-toggle="offcanvas"
+                                ><span class="pe-2"
+                                ><i class="bi bi-plus-square-dotted"></i> </span
+                                ><span>Add Booking</span></a
+                                >
+                                <a
+                                        href="{% url 'shop_bookings_view' %}"
+                                        class="btn btn-sm btn-primary"
+                                ><span class="pe-2"
+                                ><i class="bi bi-plus-square-dotted"></i> </span
+                                ><span>View Booking</span></a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#id_{{ forloop.counter }}">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <!-- Modal -->
-                        <div class="modal fade" id="id_{{ forloop.counter }}" tabindex="-1"
-                             aria-labelledby="exampleModalLabel"
-                             aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Booking Details</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
+
+        <div class="container-fluid">
+            <div class="row g-6 mb-6">
+
+                <div class="col-xl-3 col-sm-6 col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                            <span
+                                    class="h6 font-semibold text-muted text-sm d-block mb-2"
+                            >Total Bookings</span
+                            >
+                                    <span class="h3 font-bold mb-0">{{ shop_bookings.count }}</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div
+                                            class="icon icon-shape bg-primary text-white text-lg rounded-circle"
+                                    >
+                                        <i class="bi bi-credit-card"></i>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="card-body">
-                                            <div class="list-group">
-                                                <ul class="list-group list-group-flush">
-                                                    <li class="list-group-item"><strong>Shop</strong>
-                                                        : {{ shop_booking.service.shop.shop_name }}</li>
-                                                    <li class="list-group-item"><strong>Service</strong>
-                                                        : {{ shop_booking.service.service_name }}</li>
-                                                    <li class="list-group-item"><strong>Price</strong>
-                                                        : <span>Rs.</span>{{ shop_booking.service.service_price }}</li>
-                                                    <li class="list-group-item"><strong>Date</strong>
-                                                        : {{ shop_booking.booking_date }}</li>
-                                                    <li class="list-group-item">
-                                                        <form method="post" id="form_id_{{ forloop.counter }}">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <div class="container-fluid">
+            <div class="vstack gap-4">
+                <div
+                        class="d-flex flex-column flex-md-row gap-3 justify-content-between"
+                >
+                    <div class="d-flex gap-3">
+                        <div class="input-group input-group-sm input-group-inline">
+                        <span class="input-group-text pe-2"
+                        ><i class="bi bi-search"></i> </span
+                        ><input
+                                type="text"
+                                class="form-control"
+                                placeholder="Search"
+                                aria-label="Search"
+                        />
+                        </div>
+                        <div>
+                            <a
+                                    class="btn btn-sm px-3 btn-neutral d-flex align-items-center"
+                            >
+                                <span>search</span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <div
+                            class="card-header border-bottom d-flex align-items-center"
+                    >
+                        <h5 class="me-auto">All Available Bookings</h5>
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-nowrap">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">Number</th>
+                                <th scope="col">User Contact</th>
+                                <th scope="col">Service</th>
+                                <th scope="col">Service Status</th>
+                                <th scope="col">Booking Time</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for shop_booking in shop_bookings %}
+                            <tr>
+                                <td>
+                                    <img
+                                            alt="..."
+                                            src="{% static 'dashboard/img/social/amazon.svg' %}"
+                                            class="avatar avatar-sm rounded-circle me-2"
+                                    />
+                                    <a class="text-sm" href="#"
+                                    >{{ forloop.counter }}</a
+                                    >
+                                </td>
+                                <td>23-01-2022</td>
+                                <td>
+                              <span class="badge badge-lg badge-dot"
+                              ><i class="bg-warning"></i>{{ shop_booking.service.service_name }}</span
+                              >
+                                </td>
+                                <td>
+                                    <div class="avatar-group">
+                                        <p>{{ shop_booking.user.contact_number }}</p>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+
+                                    {% if shop_booking.booking_status == "PENDING" %}
+                                    <span class="badge rounded-pill text-bg-warning">
+                                    {{ shop_booking.booking_status }}
+                                    </span>
+                                    {% endif %}
+                                    {% if shop_booking.booking_status == "APPROVED" %}
+                                    <span class="badge rounded-pill text-bg-success">
+                                    {{ shop_booking.booking_status }}
+                                    </span>
+                                    {% endif %}
+                                    {% if shop_booking.booking_status == "CANCELED" %}
+                                    <span class="badge rounded-pill text-bg-danger">
+                                    {{ shop_booking.booking_status }}
+                                    </span>
+                                {% endif %}
+                                     </div>
+                                </td>
+                                <td class="text-end">
+                                    <button data-bs-toggle="modal"
+                                            data-bs-target="#id_{{ forloop.counter }}"
+                                            class="btn btn-sm btn-success border-base">
+                                        <span class="pe-2"><i class="bi bi-gear-wide-connected"></i>
+                                        </span><span>Actions</span> </button>
+                                    <button type="button" class="btn btn-sm btn-square btn-danger text-danger-hover">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <!-- MODEL OVERLAY -->
+                            <div
+                                    class="modal fade"
+                                    id="id_{{ forloop.counter }}"
+                                    tabindex="-1"
+                                    aria-labelledby="modalExport"
+                                    aria-hidden="true"
+                            >
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content shadow-3">
+                                        <div class="modal-header">
+                                            <div class="icon icon-shape rounded-3 bg-soft-primary text-primary text-lg me-4">
+                                                <i class="bi bi-globe"></i>
+                                            </div>
+                                            <div>
+                                                <h5 class="mb-1">Booking Details</h5>
+                                                <small class="d-block text-xs text-muted">
+                                                    booking details related to your booking
+                                                </small>
+                                            </div>
+                                            <div class="ms-auto">
+
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="d-flex align-items-center mb-5">
+                                                <div>
+                                                    <p class="text-sm">
+                                                        Shop Name : {{ shop_booking.service.shop.shop_name }}
+                                                    </p>
+                                                    <p class="text-sm">
+                                                        Service : {{ shop_booking.service.service_name }}
+                                                    </p>
+                                                    <p class="text-sm">
+                                                        Date : {{ shop_booking.booking_date }}
+                                                    </p>
+                                                    <p class="text-sm">
+                                                        Price : {{ shop_booking.service.service_price }}
+                                                    </p>
+                                                    <hr>
+                                                    <p class="text-sm">
+                                                    <form method="post" id="form_id_{{ forloop.counter }}">
                                                             {% csrf_token %}
                                                             <input type="hidden" name="booking_id"
                                                                    value="{{ shop_booking.id }}">
                                                             {{ action_form| crispy }}
                                                             {{ action_form_booking_time | crispy }}
                                                         </form>
-                                                    </li>
-                                                </ul>
+                                                    </p>
+                                                </div>
+
                                             </div>
+
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary"
-                                                onclick="update_booking({{ forloop.counter }})">Update Booking
-                                        </button>
+                                        <div class="modal-footer">
+                                            <div class="me-auto">
+
+                                            </div>
+                                            <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-neutral"
+                                                    data-bs-dismiss="modal"
+                                            >
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-success" onclick="update_booking({{ forloop.counter }})">
+                                                Update Booking
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-12 col-md-6 col-lg-2"></div>
-        </div>
-    </div>
+                            <!-- END OF MODEL OVERLAY -->
 
-    <script>
+{% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer border-0 py-5">
+                      <span class="text-muted text-sm"
+                      >Showing 10 items out of 250 results found</span
+                      >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+        <script>
         function update_booking(form_id){
             let form = document.getElementById('form_id_' + form_id);
             form.submit();
         }
     </script>
+
 {% endblock %}

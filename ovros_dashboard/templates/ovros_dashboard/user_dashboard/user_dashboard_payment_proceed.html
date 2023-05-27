@@ -1,13 +1,16 @@
-{% extends 'ovros_dashboard/user_dashboard/user_dashboard_payment.html' %}
-{% load crispy_forms_tags %}
+{% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
 {% load static %}
 {% block title %}
-    User-Payment-Proceed
+User Dashboard Payment Proceed
 {% endblock %}
 
+{% block nav_payment_active %}
+active
+{% endblock %}
 
 {% block dashboard_content %}
-    <div class="row mt-3">
+
+     <div class="row mt-3">
         <div class="col-1 col-md-6 col-lg-1"></div>
         <div class="col-10 col-md-6 col-lg-5">
             <div class="card">
@@ -88,4 +91,5 @@
         </div>
         <div class="col-1 col-md-6 col-lg-1"></div>
     </div>
+
 {% endblock %}

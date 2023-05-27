@@ -9,20 +9,21 @@
 {% block dashboard_content %}
 
     <div class="container ">
-                    <div class="row my-2 text-center">
+                    <div class="row mt-2 mb-4 ">
                     <h3>Add Service</h3>
                 </div>
         <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-md-6 col-lg-4">
                         <img class="card-img-top" src="{% static 'images/service_v2.jpg' %}" alt="user_module">
+                        <img class="card-img-top" src="{% static 'images/service_vector.jpg' %}" alt="user_module">
                     </div>
                     <div class="col-12 col-md-6 col-lg-6">
                        <form method="post" enctype="multipart/form-data">
                            {% csrf_token %}
                            {{ form | crispy }}
                            <input id="user_role" type="hidden" name="user_role"  >
-                           <p><input class="btn btn-primary" type="submit" value="Add Service">
-                               <a class="btn btn-danger" href="{% url 'shop_overview' %}">Cancel</a>
+                           <p><input class="btn btn-sm btn-primary" type="submit" value="Add Service">
+                               <a class="btn btn-sm btn-danger" href="{% url 'shop_overview' %}">Cancel</a>
                            </p>
 
                        </form>
@@ -35,15 +36,4 @@
         </div>
     </div>
 
-    <script>
-        function updateUserRole(){
-            let userRoleVal = get_user_role();
-             document.getElementById("user_role").value = userRoleVal;
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-            console.log("insert user data to form")
-            updateUserRole();
-        });
-    </script>
 {% endblock %}

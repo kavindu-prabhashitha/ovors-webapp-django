@@ -1,73 +1,178 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
-
 {% block title %}
-    Ovros Services
+    Ovros-Shops
 {% endblock %}
 
-{% block content %}
+{% block main_body %}
 
-    <div class="container">
-        <div class="row my-5 g-3">
-            <div class="col-12 col-md-6 col-lg-4"></div>
-            <div class="col-12 col-md-6 col-lg-4">
-             <div class="accordion" id="accordionShopSearch">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Search  &nbsp;&nbsp; <i class="bi bi-search"></i>
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                         data-bs-parent="#accordionShopSearch">
-                        <div class="accordion-body">
-                        <form method="post">
-                            {% csrf_token %}
-                            {{ form | crispy }}
-                            <input class="btn btn-success" type="submit" value="Search">
-                        </form>
-                        </div>
-                    </div>
+    <!-- BREADCRUMB -->
+    <nav class="bg-gray-200">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+
+                    <!-- Breadcrumb -->
+                    <ol class="breadcrumb breadcrumb-scroll">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'home' %}" class="text-gray-700">
+                                ovros
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">
+                            shops
+                        </li>
+                    </ol>
+
                 </div>
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </nav>
 
-            </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-4"></div>
+    <!-- SEARCH -->
+    <section class="py-6">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
 
+                    <!-- Form -->
+                    <form class="rounded shadow" method="post">
+                        {% csrf_token %}
+                        <div class="input-group input-group-lg">
+
+                            <!-- Text -->
+                            <span class="input-group-text border-0 pe-1">
+                  <i class="fe fe-search"></i>
+                </span>
+
+                            <!-- Input -->
+                            <input type="text" name="{{ form.search_by_shop.html_name }}"
+                                   class="form-control border-0 px-1" aria-label="Search for services"
+                                   placeholder="Search for shops..." value="">
+
+                            <!-- Text -->
+                            <span class="input-group-text border-0 py-0 ps-1 pe-3">
+
+                  <!-- Text -->
+                  <span class="h6 text-uppercase text-muted d-none d-md-block mb-0 me-5">
+                    {{ shops_profiles.count }} results
+                  </span>
+
+                                <!-- Button -->
+                  <button type="submit" class="btn btn-sm btn-primary">
+                    Search
+                  </button>
+
+                </span>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div> <!-- / .row -->
         </div>
-        <div class="row my-5 g-3">
-            {% for profile in shops_profiles %}
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <img src="{{ profile.shop_profile_img.url }}" class="card-img-top">
-                        <div class="card-body">
-                            <div class="list-group">
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        <h4><strong>{{ profile.shop_name }}</strong></h4>
+    </section>
 
-                                    </li>
-                                    {% if profile.shop_email != "" %}
-                                        <li class="list-group-item">
-                                            <strong>Email :</strong><br>
-                                            {{ profile.shop_email }}</li>
-                                    {% endif %}
+    <section>
+        {% if shops_profiles.count == 0 %}
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-lg-3 col-md-4"></div>
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <h3>Oophss.. No Services Found !</h3>
+                        <img alt="services not found" class="card-img-top"
+                             src="{% static 'images/search_not_found.jpg' %}">
+                    </div>
+                    <div class="col-lg-3 col-md-4"></div>
+                </div>
 
-                                    <li class="list-group-item"><strong>Contact : </strong>{{ profile.shop_contact }}
-                                    </li>
-                                    <li class="list-group-item"><strong>Address : </strong>
-                                        {{ profile.get_full_address }}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="card-footer text-center">
-                            <a class="btn btn-primary" href="{% url 'shop_detail' profile.id %}">View Details</a>
+            </div>
+        {% endif %}
+    </section>
+
+    <!-- ARTICLES -->
+    <section>
+        <div class="container">
+            <div class="row">
+                {% for profile in shops_profiles %}
+                    <div class="col-12 col-md-6 col-lg-4 d-flex">
+
+                        <!-- Card -->
+                        <div class="card mb-6 shadow-light-lg lift lift-lg">
+
+                            <!-- Image -->
+                            <a class="card-img-top" href="{% url 'shop_detail' profile.id %}">
+
+                                <!-- Image -->
+                                <img src="{{ profile.shop_profile_img.url }}" alt="..." class="card-img-top">
+
+                                <!-- Shape -->
+                                <div class="position-relative">
+                                    <div class="shape shape-bottom shape-fluid-x text-white">
+                                        <svg viewBox="0 0 2880 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M2160 0C1440 240 720 240 720 240H0v240h2880V0h-720z"
+                                                  fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                </div>
+
+                            </a>
+                            <!-- Body -->
+                            <a class="card-body" href="{% url 'shop_detail' profile.id %}">
+
+                                <!-- Heading -->
+                                <h3>
+                                    {{ profile.shop_name }}
+                                </h3>
+                                <!-- Text -->
+                                <p class="mb-0 text-muted">
+                                    {{ profile.get_shop_address_district_display }}
+                                </p>
+                                <p class="mb-0 text-muted">
+                                    {{ profile.shop_contact }}
+                                </p>
+                                </p>
+                                <p class="mb-0 text-muted">
+                                    {{ profile.get_full_address }}
+                                </p>
+
+                            </a>
+                            <!-- Meta -->
+                            <a class="card-meta mt-auto" href="{% url 'shop_detail' profile.id %}">
+                                <!-- Divider -->
+                                <hr class="card-meta-divider">
+                            </a>
                         </div>
                     </div>
+                {% endfor %}
+
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- MORE -->
+    <section class="py-7 py-md-10">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9 col-lg-8 col-xl-7">
+
+                    <!-- Button -->
+                    <a href="#!" class="btn w-100 btn-outline-gray-300 d-flex align-items-center">
+                        <span class="mx-auto">Load more</span> <i class="fe fe-arrow-right"></i>
+                    </a>
+
                 </div>
-            {% endfor %}
+            </div> <!-- / .row -->
+        </div> <!-- / .container -->
+    </section>
+
+    <!-- SHAPE -->
+    <div class="position-relative">
+        <div class="shape shape-bottom shape-fluid-x text-gray-200">
+            <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/>
+            </svg>
         </div>
     </div>
 

@@ -1,15 +1,58 @@
 {% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
+{% load static %}
 {% load crispy_forms_tags %}
 {% block title %}
-    {% load static %}
-    User-profile
+User Dashboard Profile Edit
 {% endblock %}
 
-{% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-6 col-lg-4"></div>
-            <div class="col-12 col-md-6 col-lg-4">
+
+{% block nav_report_active %}
+active
+{% endblock %}
+
+{% block dashboard_content %}
+
+    <header>
+          <div class="container-fluid mb-3">
+            <div class="border-bottom pt-6 pb-6">
+              <div class="row align-items-center">
+                <div class="col-sm col-12">
+                  <h1 class="h2 ls-tight">Profile Edit</h1>
+                </div>
+                <div class="col-sm-auto col-12 mt-4 mt-sm-0 me-5">
+                  <div class="hstack gap-2 justify-content-sm-end">
+                    <a
+                      href="{% url 'user_profile' %}"
+                      class="btn btn-sm btn-info"
+
+                      ><span class="pe-2"
+                        ><i class="bi bi-plus-square-dotted"></i> </span
+                      ><span>Cancel</span></a
+                    >
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="container-fluid max-w-screen-xl">
+          <div class="row g-6">
+            <div class="col-xl-4">
+              <div class="card shadow-4-hover">
+                <div class="p-2">
+                  <a href="#" class="d-block"
+                    ><img
+                      class="img-fluid rounded-2"
+                      alt="..."
+                      src="{% static 'dashboard/img/media/img-800x800-4.jpg' %}"
+                  /></a>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-xl-6 justify-content-center">
+
                 <h3 class="my-2">Edit Profile Details</h3>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -19,9 +62,9 @@
                     <a class="btn btn-danger" href="{% url 'user_profile' %}">Cancel</a>
                 </form>
 
+
             </div>
-            <div class="col-12 col-md-6 col-lg-4"></div>
-        </div>
-    </div>
+          </div>
+          </div>
 
 {% endblock %}

@@ -1,95 +1,133 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block title %}
-    Ovros Services
+service details
 {% endblock %}
 
-{% block content %}
+{% block main_body %}
 
-    <!-- Service Section Start -->
-    <section id="ovros-service">
-        <div class="container">
-            <div class="row my-5 g-3">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            {% if service.service_image is None %}
-                                <img src="{% static 'images/card-header-default.jpg' %}" class="card-img-top"
-                                     alt="...">
-                            {% else %}
-                                <img src="{{ service.service_image.url }}" class="card-img-top" alt="...">
-                            {% endif %}
-                        </div>
-                    </div>
+    <!-- ARTICLES -->
+    <section class="pt-1 pt-md-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Heading -->
+            <h2 class="mb-0">
+                {{ service.service_name}}
+            </h2>
+
+            <!--  -->
+            <p class="mb-5 text-muted">
+                #{{ service.shop.shop_name}}
+            </p>
+
+          </div>
+        </div> <!-- / .row -->
+        <div class="row">
+          <div class="col-12">
+
+            <!-- Card -->
+            <div class="card card-row shadow-light-lg mb-6">
+              <div class="row gx-0">
+                <div class="col-12">
+
+                  <!-- Badge -->
+                  <span class="badge rounded-pill bg-gray-600 badge-float badge-float-outside">
+                    <span class="h6 text-uppercase">Featured</span>
+                  </span>
+
                 </div>
-                <div class="col-12 col-md-6 col-lg-8">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">{{ service.service_name }}</h5>
-                            <div class="card-body ">
-                                <div class="list-group">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item"><strong>Duration</strong>
-                                            : {{ service.service_duration }} min
-                                        </li>
-                                        <li class="list-group-item"><strong>Shop
-                                            : </strong>{{ service.shop.shop_name }}</li>
-                                        <li class="list-group-item"><strong>Description
-                                            :</strong> <br>{{ service.service_description }}</li>
-                                        <li class="list-group-item"><strong>Price
-                                            :</strong> <span>Rs.</span>{{ service.service_price }}</li>
-                                        <li class="list-group-item"><strong>Location
-                                            :</strong> {{ service.shop.get_full_address }}</li>
-                                        <li class="list-group-item"><strong>Available Vehicles </strong>
-                                            <div>
-                                                {% if service.is_for_car %}
-                                                    <img height="40px" width="40px"
-                                                         src="{% static 'icons/car_icon.png' %}">
-                                                {% endif %}
-                                                {% if service.is_for_van %}
-                                                    <img height="40px" width="40px" class="bi"
-                                                         src="{% static 'icons/van_icon.png' %}">
-                                                {% endif %}
-
-                                                {% if service.is_for_suv %}
-                                                    <img height="40px" width="40px" class="bi"
-                                                         src="{% static 'icons/suv_icon.png' %}">
-                                                {% endif %}
-
-                                                {% if service.is_for_lorry %}
-                                                    <img height="40px" width="40px" class="bi"
-                                                         src="{% static 'icons/lorry_icon.png' %}">
-                                                {% endif %}
-
-                                                {% if service.is_for_bike %}
-                                                    <img height="40px" width="40px" class="bi"
-                                                         src="{% static 'icons/bike_icon.png' %}">
-                                                {% endif %}
-
-                                                {% if service.is_for_long_vehicle %}
-                                                    <img height="40px" width="40px" class="bi"
-                                                         src="{% static 'icons/long_vehicle_icon.png' %}">
-                                                {% endif %}
+{#                <a class="col-12 col-md-6 order-md-2 bg-cover card-img-end" style="background-image: url({% static 'main/img/photos/photo-27.jpg'  %});" href="#!">#}
+                <a class="col-12 col-md-6 order-md-2 bg-cover card-img-end" style="background-image: url({{ service.service_image.url }});" href="#!">
 
 
-                                            </div>
-                                        </li>
-                                    </ul>
+                  <!-- Image (placeholder) -->
+                  <img src="{% static 'main/img/photos/photo-27.jpg'  %}" alt="..." class="img-fluid d-md-none invisible">
+
+                  <!-- Shape -->
+                  <div class="shape shape-start shape-fluid-y text-white d-none d-md-block">
+                    <svg viewBox="0 0 112 690" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 0h62.759v172C38.62 384 112 517 112 517v173H0V0z" fill="currentColor"/></svg>
+                  </div>
+
+                </a>
+                <div class="col-12 col-md-6 order-md-1">
+
+                  <!-- Body -->
+                  <a class="card-body" href="#!">
+
+                                                                            <!-- Avatar -->
+                                <div class="avatar avatar-sm me-2">
+                                <div style="display: inline-flex;">
+                                    {% if service.is_for_car %}
+                                        <img  class="avatar-img rounded-circle" style="margin-right: 4px"
+                                             src="{% static 'icons/car_icon.png' %}">
+                                    {% endif %}
+                                    {% if service.is_for_van %}
+                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                             src="{% static 'icons/van_icon.png' %}">
+                                    {% endif %}
+
+                                    {% if service.is_for_suv %}
+                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                             src="{% static 'icons/suv_icon.png' %}">
+                                    {% endif %}
+
+                                    {% if service.is_for_lorry %}
+                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                             src="{% static 'icons/lorry_icon.png' %}">
+                                    {% endif %}
+
+                                    {% if service.is_for_bike %}
+                                        <img class="avatar-img rounded-circle" style="margin-right: 4px"
+                                             src="{% static 'icons/bike_icon.png' %}">
+                                    {% endif %}
+                                    {% if service.is_for_long_vehicle %}
+                                        <img  class="avatar-img rounded-circle" style="margin-right: 4px"
+                                             src="{% static 'icons/long_vehicle_icon.png' %}">
+                                    {% endif %}
+</div>
                                 </div>
-                            </div>
+                    <!-- Divider -->
+                    <hr class="card-meta-divider">
 
-                            {% if user_role == "USER_CUSTOMER" %}
-                                <a href="{% url 'add_booking' service.id %}" class="btn btn-info ">Book Service</a>
-                            {% endif %}
-                        </div>
-                    </div>
+
+
+                    <!-- Text -->
+                    <p class="mb-0 text-muted">
+                        {{service.service_description}}                    </p>
+                  </a>
+
+                  <!-- Meta -->
+                  <a class="card-meta" href="#!">
+
+                    <!-- Divider -->
+                    <hr class="card-meta-divider">
+
+
+
+                    <!-- Date -->
+                    <p class="h6 text-uppercase text-muted mb-0 ms-auto">
+                      <time datetime="2019-05-31">May 31</time>
+                    </p>
+
+                  </a>
+
                 </div>
+
+              </div> <!-- / .row -->
             </div>
-        </div>
 
-
+          </div>
+        </div> <!-- / .row -->
+      </div> <!-- / .container -->
     </section>
-    <!-- Service Section End -->
+
+    <!-- SHAPE -->
+    <div class="position-relative">
+      <div class="shape shape-bottom shape-fluid-x text-gray-200">
+        <svg viewBox="0 0 2880 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/></svg>      </div>
+    </div>
 
 {% endblock %}
