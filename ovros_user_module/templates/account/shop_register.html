@@ -9,75 +9,78 @@
 {% block main_body %}
 
 
-      <!-- HEADER -->
-  <header class="bg-dark pt-7 pb-7 d-none d-md-block">
-    <div class="container-md">
-      <div class="row align-items-center">
-        <div class="col">
-          <!-- Heading -->
-          <h1 class="fw-bold text-white mb-2">Shop Account Creation</h1>
-          <!-- Text -->
-          <p class="fs-lg text-white-75 mb-0">Shop user details</p>
+    <!-- HEADER -->
+    <header class="bg-dark pt-7 pb-7 d-none d-md-block">
+        <div class="container-md">
+            <div class="row align-items-center">
+                <div class="col">
+                    <!-- Heading -->
+                    <h1 class="fw-bold text-white mb-2">Shop Account Creation</h1>
+                    <!-- Text -->
+                    <p class="fs-lg text-white-75 mb-0">Shop user details</p>
+                </div>
+                <div class="col-auto">
+                    <!-- Button -->
+                    <a class="btn btn-sm btn-gray-300-20" href="{% url 'home' %}"> Cancel </a>
+                </div>
+            </div>
+            <!-- / .row -->
         </div>
-        <div class="col-auto">
-          <!-- Button -->
-          <a class="btn btn-sm btn-gray-300-20" href="{% url 'home' %}"> Cancel </a>
-        </div>
-      </div>
-      <!-- / .row -->
-    </div>
-    <!-- / .container -->
-  </header>
+        <!-- / .container -->
+    </header>
 
-  <!-- MAIN -->
-  <main class="pb-8 pb-md-1 mt-md-n6">
-    <div class="container-md">
-      <div class="row">
+    <!-- MAIN -->
+    <main class="pb-8 pb-md-1 mt-md-n6">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-12 col-md-2"></div>
+                <div class="col-12 col-md-8">
+                    <!-- Card -->
+                    <div class="card card-bleed shadow-light-lg mb-6">
+                        <div class="card-header bg-secondary">
+                            <!-- Heading -->
+                            <h4 class="mb-0 fw-bold">User Information</h4>
+                        </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="card-body">
+                                <!-- Form -->
+
+                                {{ user_form|crispy }}
+
+                            </div>
+                            <div class="card-header bg-secondary">
+                                <!-- Heading -->
+                                <h4 class="mb-0 fw-bold">Shop Information</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ shop_profile|crispy }}
+                                <!-- Button -->
+                                <button class="btn w-100 btn-primary" type="submit">
+                                    Create Shop Account
+                                </button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-12 col-md-2"></div>
-        <div class="col-12 col-md-8">
-          <!-- Card -->
-          <div class="card card-bleed shadow-light-lg mb-6">
-            <div class="card-header bg-secondary">
-              <!-- Heading -->
-              <h4 class="mb-0 fw-bold">User Information</h4>
-            </div>
-            <div class="card-body">
-              <!-- Form -->
-              <form>
-               {{ user_form|crispy }}
-              </form>
-            </div>
-            <div class="card-header bg-secondary">
-              <!-- Heading -->
-              <h4 class="mb-0 fw-bold">Shop Information</h4>
-            </div>
-            <div class="card-body">
-                {{ shop_profile|crispy }}
-                <!-- Button -->
-                <button class="btn w-100 btn-primary" type="submit">
-                  Create Shop Account
-                </button>
-
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-      <div class="col-12 col-md-2"></div>
-    </div>
-    <!-- / .row -->
-    </div>
-    <!-- / .container -->
-  </main>
+        <!-- / .row -->
+        </div>
+        <!-- / .container -->
+    </main>
 
-  <!-- CURVE -->
-  <div class="position-relative">
-    <div class="shape shape-bottom shape-fluid-x text-dark">
-      <svg viewBox="0 0 2880 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor" />
-      </svg>
+    <!-- CURVE -->
+    <div class="position-relative">
+        <div class="shape shape-bottom shape-fluid-x text-dark">
+            <svg viewBox="0 0 2880 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 48h2880V0h-720C1442.5 52 720 0 720 0H0v48z" fill="currentColor"/>
+            </svg>
+        </div>
     </div>
-  </div>
 
 
 
