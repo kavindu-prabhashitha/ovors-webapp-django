@@ -45,9 +45,12 @@ active
                     ><img
                       class="img-fluid rounded-2"
                       alt="..."
-                      src="{% static 'dashboard/img/media/img-800x800-4.jpg' %}"
+                      src="{{ profile_data.photo.url }}"
                   /></a>
                 </div>
+                  <div class="card-footer">
+                      <span class="badge bg-warning">current profile image</span>
+                  </div>
 
               </div>
             </div>

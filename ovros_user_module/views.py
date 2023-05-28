@@ -40,7 +40,7 @@ def user_login(request):
                 return HttpResponse("Invalid login")
     else:
         form = LoginForm()
-    return render(request, 'registration/login_old.html', {'form': form})
+    return render(request, 'registration/login.html', {'form': form})
 
 
 @login_required
@@ -50,8 +50,8 @@ def dashboard(request):
     :param request:
     :return:
     """
-    print('session data : ', request.session.keys())
-    print('is_super user ', request.user.is_superuser)
+    #print('session data : ', request.session.keys())
+    #print('is_super user ', request.user.is_superuser)
     if not request.user.is_superuser:
         try:
             user_profile = UserProfile.objects.get(user_id=request.user.id)
@@ -90,11 +90,14 @@ def user_register(request):
     :param request:
     :return:
     """
+    print("User reg start")
     if request.method == 'POST':
+        print("User reg inside post")
         user_form = UserRegistrationForm(request.POST)
-        user_profile_form = UserProfile(request.POST)
-        if user_form.is_valid():
+        user_profile_form = UserProfileEditForm(data=request.POST, files=request.FILES or None)
+        if user_form.is_valid() and user_profile_form.is_valid():
             # create a new user object but avoid saving it yet
+            profile_cd = user_profile_form.cleaned_data
             new_user = user_form.save(commit=False)
             # set the chosen password
             new_user.set_password(
@@ -105,15 +108,29 @@ def user_register(request):
             # create the user profile
             user_profile = UserProfile.objects.create(user=new_user)
             user_profile.user_role = 'USER_CUSTOMER'
-            default_file_path = 'users/defaultProfilePic.jpg'
-            user_profile.photo = default_file_path
+            #default_file_path = 'users/defaultProfilePic.jpg'
+            #user_profile.photo = default_file_path
+            messages.success(request, "User Registration Success")
+            user_profile.photo = profile_cd['photo']
+            user_profile.contact_number = profile_cd['contact_number']
+            user_profile.save()
+            print("User reg success ")
             return render(request,
-                          'account/register_done.html', {'new_user': new_user, })
+                          'account/register_done.html',
+                          {'new_user': new_user})
         else:
-            return render(request, 'account/user_register.html', {'user_form': user_form})
-    else:
+            print("User reg failed")
+            messages.error(request, "User Registration Failed")
+            return render(request, 'account/user_register.html',
+                          {'user_form': user_form,
+                           'user_profile_form': user_profile_form})
+    elif request.method == "GET":
+        print("User reg GET, started")
         user_form = UserRegistrationForm()
-        return render(request, 'account/user_register.html', {'user_form': user_form})
+        user_profile_form = UserProfileEditForm()
+        return render(request, 'account/user_register.html',
+                      {'user_form': user_form,
+                       'user_profile_form': user_profile_form})
 
 
 def shop_register(request):
@@ -145,7 +162,6 @@ def shop_register(request):
             shop.save()
             return redirect('login')
         else:
-            # return redirect('shop_register')
             return render(request, 'account/shop_register.html', {
                 'user_form': user_form, 'shop_profile': shop_profile_form})
     else:

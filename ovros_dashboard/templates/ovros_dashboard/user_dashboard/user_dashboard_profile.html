@@ -24,7 +24,7 @@ OvROS-User Profile
                   class="avatar w-40 h-40 border border-body border-4 rounded-circle shadow mt-n16"
                   ><img
                     alt="..."
-                    src="{% static 'images/defaultProfilePic.jpg' %}"
+                    src="{{profile.photo.url}}"
                     class="rounded-circle"
                 /></a>
               </div>
@@ -32,7 +32,7 @@ OvROS-User Profile
                 <h6 class="text-xs text-uppercase text-muted mb-1">
                   OvRos Customer
                 </h6>
-                <h1 class="h2">Tahlia Mooney</h1>
+                <h1 class="h2">{{ profile.user.first_name}}</h1>
                 <div class="d-flex gap-2 flex-wrap mt-3 d-none d-sm-block">
                   <a
                     href="#"
