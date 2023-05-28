@@ -8,13 +8,33 @@
 
 {% block dashboard_content %}
 
-    <div class="container ">
-                    <div class="row my-2 text-center">
-                    <h3>Edit Service</h3>
+            <header>
+            <div class="container-fluid">
+                <div class="border-bottom pt-3 pb-3">
+                    <div class="row align-items-center">
+                        <div class="col-sm col-12">
+                            <h1 class="h2 ls-tight">Edit services</h1>
+                        </div>
+                        <div class="col-sm-auto col-12 mt-4 mt-sm-0 me-5">
+
+                        </div>
+                    </div>
                 </div>
+            </div>
+        </header>
+
+
+    <div class="container ">
         <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6">
-                        <img class="card-img-top" src="{% static 'images/service_v2.jpg' %}" alt="user_module">
+                    <div class="col-12 col-md-6 col-lg-4">
+                        {% if current_service.service_image %}
+                            <img class="card-img-top" src="{{ current_service.service_image.url }}" alt="user_module">
+                            <span class="badge bg-warning">CURRENT IMAGE</span>
+                        {% else %}
+                            <img class="card-img-top" src="{% static 'images/services.jpeg' %}" alt="user_module">
+                            <p>No Service Image Found</p>
+                        {% endif %}
+
                     </div>
                     <div class="col-12 col-md-6 col-lg-6">
                        <form method="post" enctype="multipart/form-data">
