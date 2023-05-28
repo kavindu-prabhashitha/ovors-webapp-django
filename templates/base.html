@@ -75,19 +75,19 @@
 
                 <!-- Navigation -->
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item ">
+                    <li class="nav-item {% block main_site_nav_home_active %}{% endblock %}">
                         <a class="nav-link" id="navbarHome" href="{% url 'home' %}" aria-haspopup="true"
                            aria-expanded="false">
                             Home
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item {% block main_site_nav_services_active %}{% endblock %}">
                         <a class="nav-link" id="navbarServices" href="{% url 'services' %}" aria-haspopup="true"
                            aria-expanded="false">
                             Services
                         </a>
                     </li>
-                    <li class="nav-item ">
+                    <li class="nav-item {% block main_site_nav_shop_active %}{% endblock %}">
                         <a class="nav-link" id="navbarShops" href="{% url 'shops' %}" aria-haspopup="true"
                            aria-expanded="false">
                             Shops
