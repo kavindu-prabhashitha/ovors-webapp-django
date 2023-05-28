@@ -32,6 +32,7 @@ def shop_overview(request):
     shop_booking_count = ServiceBooking.objects.filter(service__shop_id=shop_profile_id).count()
     shop_payments_count = ShopPaymentProceed.objects.filter(payment_booking_id__service__shop_id=shop_profile_id).count()
     no_of_services = Service.objects.filter(shop_id=shop_profile_id).count()
+    shop_profile = UserProfile.objects.get(id=shop_profile_id)
     user_role = get_user_role(request)
     if user_role == "USER_SHOP":
         return render(request,
@@ -39,7 +40,8 @@ def shop_overview(request):
                       {'section': 'dashboard',
                        'no_of_services': no_of_services,
                        'no_of_bookings': shop_booking_count,
-                       'no_of_payments': shop_payments_count
+                       'no_of_payments': shop_payments_count,
+                       'shop_profile': shop_profile
                        })
     else:
         return redirect('login')
