@@ -32,7 +32,7 @@ def shop_overview(request):
     shop_booking_count = ServiceBooking.objects.filter(service__shop_id=shop_profile_id).count()
     shop_payments_count = ShopPaymentProceed.objects.filter(payment_booking_id__service__shop_id=shop_profile_id).count()
     no_of_services = Service.objects.filter(shop_id=shop_profile_id).count()
-    shop_profile = UserProfile.objects.get(id=shop_profile_id)
+    shop_profile = ShopProfile.objects.get(id=shop_profile_id)
     user_role = get_user_role(request)
     if user_role == "USER_SHOP":
         return render(request,
