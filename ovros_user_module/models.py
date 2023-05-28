@@ -15,7 +15,7 @@ class ShopProfile(models.Model):
     user_role = models.CharField('Type', max_length=40, choices=Types.choices, default=Types.USER_SHOP)
     shop_name = models.CharField(max_length=100, help_text="Service Shop name")
     shop_profile_img = models.ImageField(upload_to='shops/profile_images', null=True, blank=True,
-                                         default="shops/shop_profile_default.jpg")
+                                         default="shops/shop_profile_default.jpg",)
     shop_address_no = models.CharField(
         max_length=200,
         help_text="Service Shop address Number",

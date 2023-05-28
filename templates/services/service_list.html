@@ -4,8 +4,8 @@
     Ovros-Services
 {% endblock %}
 
-{% block main_site_nav_service_active %}
-active
+{% block main_site_nav_services_active %}
+bg-warning
 {% endblock %}
 
 {% block main_body %}
@@ -19,7 +19,7 @@ active
                     <!-- Breadcrumb -->
                     <ol class="breadcrumb breadcrumb-scroll">
                         <li class="breadcrumb-item">
-                            <a href="index-2.html" class="text-gray-700">
+                            <a href="{% url 'home' %}" class="text-gray-700">
                                 ovros
                             </a>
                         </li>

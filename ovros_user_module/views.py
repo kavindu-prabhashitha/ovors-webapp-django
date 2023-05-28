@@ -144,6 +144,7 @@ def shop_register(request):
         shop_profile_form = ShopProfileCreationForm(request.POST)
         if user_form.is_valid() and shop_profile_form.is_valid():
             # create a new user object but avoid saving it yet
+            shop_p_cd = shop_profile_form.cleaned_data
             new_user = user_form.save(commit=False)
             # set the chosen password
             new_user.set_password(
@@ -157,6 +158,8 @@ def shop_register(request):
             shop.shop_address_no = request.POST['shop_address_no']
             shop.shop_address_street = request.POST['shop_address_street']
             shop.shop_address_city = request.POST['shop_address_city']
+            if shop_p_cd['shop_profile_img']:
+                shop.shop_profile_img = shop_p_cd['shop_profile_img']
             shop.shop_address_district = request.POST['shop_address_district']
             shop.shop_contact = request.POST['shop_contact']
             shop.save()
