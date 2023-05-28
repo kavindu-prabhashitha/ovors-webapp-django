@@ -54,17 +54,17 @@
                         <div class="card-body">
 
                             <!-- Form -->
-                            <form>
+
                                 <div class="row">
-                                    <form method="post">
+                                    <form method="post" enctype="multipart/form-data">
+                                        {% csrf_token %}
                                         {{ user_form|crispy }}
+                                        {{ user_profile_form|crispy }}
                                         <div class="col-12">
                                         <input class="btn btn-primary w-full" type="submit" value="Creat User Account">
                                         </div>
-                                        {% csrf_token %}
                                     </form>
                                 </div>
-                            </form>
 
                         </div>
                     </div>

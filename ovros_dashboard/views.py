@@ -31,7 +31,7 @@ def shop_overview(request):
     shop_profile_id = get_profile_id(request)
     shop_booking_count = ServiceBooking.objects.filter(service__shop_id=shop_profile_id).count()
     shop_payments_count = ShopPaymentProceed.objects.filter(payment_booking_id__service__shop_id=shop_profile_id).count()
-    no_of_services = Service.objects.count()
+    no_of_services = Service.objects.filter(shop_id=shop_profile_id).count()
     user_role = get_user_role(request)
     if user_role == "USER_SHOP":
         return render(request,
@@ -387,15 +387,21 @@ def user_overview(request):
     :return:
     """
     user_id = request.session['profile_data']['profile_data']['user_id']
-    profile_id =  request.session['profile_data']['profile_data']['profile_id']
+    profile_id = get_profile_id(request)
+    user_profile_data = UserProfile.objects.get(user_id=user_id)
     booking_count = ServiceBooking.objects.filter(user_id=user_id).count()
     payment_count = ShopPaymentProceed.objects.filter(payment_user_pro_id_id=profile_id).count()
-    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_overview.html',
-                  {'section': 'dashboard',
-                   'booking_count': booking_count,
-                   'payment_count': payment_count,
-                   'user': User.objects.get(id=user_id)
-                   })
+    user_role = get_user_role(request)
+    if user_role == "USER_CUSTOMER":
+        return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_overview.html',
+                      {'section': 'dashboard',
+                       'booking_count': booking_count,
+                       'payment_count': payment_count,
+                       'user': User.objects.get(id=user_id),
+                       'user_profile': user_profile_data
+                       })
+    else:
+        return redirect('login')
 
 
 @login_required()
@@ -427,7 +433,7 @@ def user_payment(request):
     :param request:
     :return:
     """
-    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment.html', {'section': 'dashboard'})
+    return render(request, 'ovros_dashboard/user_dashboard/user_dashboard_payment_view.html', {'section': 'dashboard'})
 
 
 @login_required()
@@ -559,7 +565,7 @@ def user_profile_edit(request):
         p_form = UserProfileEditForm(initial=initial_user_profile_dict)
         return render(request,
                       'ovros_dashboard/user_dashboard/user_dashboard_profile_edit.html',
-                      {'section': 'dashboard', 'u_form': u_form, 'p_form': p_form})
+                      {'section': 'dashboard', 'u_form': u_form, 'p_form': p_form, 'profile_data': profile})
 
 
 @login_required()

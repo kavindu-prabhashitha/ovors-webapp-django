@@ -58,39 +58,7 @@
                     class="navbar-brand d-inline-block py-lg-2 mb-lg-5 px-lg-6 me-0"
                     href="index.html"
             ><h1><i class="bi bi-gear-wide-connected"></i>OvROS</h1></a>
-            <div class="navbar-user d-lg-none">
-                <div class="dropdown">
-                    <a
-                            href="#"
-                            id="sidebarAvatar"
-                            role="button"
-                            data-bs-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false"
-                    >
-                        <div class="avatar-parent-child">
-                            <img
-                                    alt="..."
-                                    src="{% static 'dashboard/img/people/img-profile.jpg' %}"
-                                    class="avatar avatar- rounded-circle"
-                            />
-                            <span
-                                    class="avatar-child avatar-badge bg-success"
-                            ></span></div
-                        >
-                    </a>
-                    <div
-                            class="dropdown-menu dropdown-menu-end"
-                            aria-labelledby="sidebarAvatar"
-                    >
-                        <a href="#" class="dropdown-item">Profile</a>
-                        <a href="#" class="dropdown-item">Settings</a>
-                        <a href="#" class="dropdown-item">Billing</a>
-                        <hr class="dropdown-divider"/>
-                        <a href="#" class="dropdown-item">Logout</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="collapse navbar-collapse" id="sidebarCollapse">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -135,65 +103,10 @@
 
                 <div class="mt-auto"></div>
                 <div class="my-4 px-lg-6 position-relative">
-                    <div class="dropup w-full">
-                        <button
-                                class="btn-primary d-flex w-full py-3 ps-3 pe-4 align-items-center shadow shadow-3-hover rounded-3"
-                                type="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                        >
-                <span class="me-3"
-                ><img
-                        alt="..."
-                        src="{% static 'dashboard/img/people/img-profile.jpg' %}"
-                        class="avatar avatar-sm rounded-circle"
-                /> </span
-                ><span class="flex-fill text-start text-sm font-semibold"
-                        >Tahlia Mooney </span
-                        ><span
-                        ><i
-                                class="bi bi-chevron-expand text-white text-opacity-70"
-                        ></i
-                        ></span>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end w-full">
-                            <div class="dropdown-header">
-                  <span class="d-block text-sm text-muted mb-1"
-                  >Signed in as</span
-                  >
-                                <span class="d-block text-heading font-semibold"
-                                >Tahlia Mooney</span
-                                >
-                            </div>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'user_overview' %}"
-                            ><i class="bi bi-house me-3"></i>Home </a
-                            ><a class="dropdown-item" href="{% url 'user_profile' %}"
-                        ><i class="bi bi-pencil me-3"></i>Profile </a
-                        >
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#"
-                            ><i class="bi bi-box-arrow-left me-3"></i>Logout</a
-                            >
-                        </div>
-                    </div>
-                    <div
-                            class="d-flex gap-3 justify-content-center align-items-center mt-6 d-none"
-                    >
-                        <div>
-                            <i class="bi bi-moon-stars me-2 text-warning me-2"></i>
-                            <span class="text-heading text-sm font-bold">Dark mode</span>
-                        </div>
-                        <div class="ms-auto">
-                            <div class="form-check form-switch me-n2">
-                                <input
-                                        class="form-check-input"
-                                        type="checkbox"
-                                        id="switch-dark-mode"
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    {% block nav_profile_section_bottom %}
+
+                    {% endblock %}
+
                 </div>
             </div>
         </div>
@@ -239,52 +152,10 @@
                 </form>
                 <div class="navbar-user d-none d-sm-block">
                     <div class="hstack gap-3 ms-4">
+{% block nav_profile_section_top %}
 
-                        <div class="dropdown">
-                            <a
-                                    class="d-flex align-items-center"
-                                    href="#"
-                                    role="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-haspopup="false"
-                                    aria-expanded="false"
-                            >
-                                <div>
-                                    <div
-                                            class="avatar avatar-sm bg-warning rounded-circle text-white"
-                                    >
-                                        <img alt="..." src="{% static 'dashboard/img/people/img-profile.jpg' %}"/>
-                                    </div>
-                                </div>
-                                <div class="d-none d-sm-block ms-3">
-                                    <span class="h6">Tahlia</span>
-                                </div>
-                                <div class="d-none d-md-block ms-md-2">
-                                    <i class="bi bi-chevron-down text-muted text-xs"></i></div
-                                >
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-end">
-                                <div class="dropdown-header">
-                      <span class="d-block text-sm text-muted mb-1"
-                      >Signed in as</span
-                      >
-                                    <span class="d-block text-heading font-semibold"
-                                    >Tahlia Mooney</span
-                                    >
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"
-                                ><i class="bi bi-house me-3"></i>Home </a
-                                ><a class="dropdown-item" href="{% url 'user_profile' %}"
-                            ><i class="bi bi-pencil me-3"></i>Edit profile</a
-                            >
+{% endblock %}
 
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#"
-                                ><i class="bi bi-person me-3"></i>Login</a
-                                >
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
