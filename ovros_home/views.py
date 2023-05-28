@@ -24,21 +24,14 @@ def services(request):
     if request.method == 'GET':
         search(request)
 
-    search_form01 = ServiceSearchForm01()
-    search_form02 = ServiceSearchForm02()
-    all_services = Service.objects.all()
-
-    # return render(request, 'services/service_list.html', {
-    #     'services': all_services,
-    #     'form01': search_form01,
-    #     'form02': search_form02,
-    # })
-
-    return render(request, 'services/service_list.html', {
-        'services': all_services,
-        'form01': search_form01,
-        'form02': search_form02,
-    })
+        search_form01 = ServiceSearchForm01()
+        search_form02 = ServiceSearchForm02()
+        all_services = Service.objects.all()
+        return render(request, 'services/service_list.html', {
+            'services': all_services,
+            'form01': search_form01,
+            'form02': search_form02,
+        })
 
 
 def service_detail(request, service_id):
