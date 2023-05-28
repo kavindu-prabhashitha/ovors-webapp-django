@@ -8,7 +8,6 @@ User Dashboard Overview
 active
 {% endblock %}
 
-
 {% block nav_profile_section_top %}
  <div class="dropdown">
                             <a class="d-flex align-items-center"
@@ -19,7 +18,12 @@ active
                                aria-expanded="false">
                                 <div>
                                     <div class="avatar avatar-sm bg-warning rounded-circle text-white">
-                                        <img alt="..." src="{{ user_profile.photo.url }}"/>
+
+                                        {% if user_profile.photo %}
+                                                 <img alt="..." src="{{ user_profile.photo.url }}"/>
+                                        {% else %}
+                                                 <img alt="..." src="{% static 'images/defaultProfilePic.jpg' %}"/>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="d-none d-sm-block ms-3">
@@ -58,16 +62,13 @@ active
                       <div class="col">
                         <span
                           class="h6 font-semibold text-muted text-sm d-block mb-2"
-                          >Bookings</span
-                        >
+                          ><a href="{% url 'user_bookings' %}">Bookings</a></span>
                         <span class="h3 font-bold mb-0">
-
                             {% if booking_count == 0 %}
-                           0
-                        {% else %}
-                            {{ booking_count }}
-                        {% endif %}
-
+                                0
+                            {% else %}
+                                {{ booking_count }}
+                            {% endif %}
                         </span>
                       </div>
                       <div class="col-auto">
@@ -88,8 +89,8 @@ active
                     <div class="row">
                       <div class="col">
                         <span
-                          class="h6 font-semibold text-muted text-sm d-block mb-2"
-                          >Payments</span
+                          class="h6 font-semibold text-muted text-sm d-block mb-2">
+                            <a href="{% url 'user_payments_view' %}">Payments</a></span
                         >
                         <span class="h3 font-bold mb-0">{{ payment_count }}</span>
                       </div>
@@ -121,8 +122,14 @@ active
                           class="icon icon-shape bg-info text-white text-lg rounded-circle"
                         >
                           <i class="bi bi-clock-history"></i>
+
                         </div>
+
+
                       </div>
+                        <div class="mt-2">
+                              <a href="{% url 'user_generate_report' %}" class="btn btn-sm btn-secondary">Generate Report</a>
+                          </div>
                     </div>
 
                   </div>
@@ -145,8 +152,11 @@ active
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
 
-            <span class="me-3">
-                <img alt="..." src="{{user_profile.photo.url}}" class="avatar avatar-sm rounded-circle"/> </span>
+                {% if user_profile.photo %}
+                        <span class="me-3"><img alt="..." src="{{user_profile.photo.url}}" class="avatar avatar-sm rounded-circle"/> </span>
+                {% else %}
+                        <span class="me-3"><img alt="..." src="{% static 'images/defaultProfilePic.jpg' %}" class="avatar avatar-sm rounded-circle"/> </span>
+                {% endif %}
             <span class="flex-fill text-start text-sm font-semibold">{{ user.first_name}} </span>
             <span><i class="bi bi-chevron-expand text-white text-opacity-70"></i></span>
         </button>
