@@ -47,11 +47,7 @@ OvROS-User Profile
               <div
                 class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3 hstack gap-2 mt-4 mt-sm-0"
               >
-                <a href="#" class="btn btn-sm btn-square btn-neutral"
-                  ><i class="bi bi-envelope"></i> </a
-                ><a href="#" class="btn btn-sm btn-square btn-neutral"
-                  ><i class="bi bi-bell-fill"></i> </a
-                ><a
+                <a
                   href="{% url 'user_profile_edit' %}"
                   class="btn btn-sm btn-primary d-block d-md-inline-block ms-auto ms-md-0"
                   >Edit Profile</a
@@ -72,7 +68,7 @@ OvROS-User Profile
                 <div class="vstack gap-6">
                   <div class="card">
                     <div class="card-body">
-                      <h5 class="mb-3">Biography</h5>
+                      <h5 class="mb-3">About me</h5>
                       <p class="text-sm lh-relaxed mb-4">
                         Personal profiles are the perfect way for you to grab
                         their attention and persuade recruiters to continue
@@ -81,20 +77,10 @@ OvROS-User Profile
                         to know how to write an effective statement first, but
                         we’ll get on to that in a bit.
                       </p>
-                      <p class="text-sm lh-loose mb-4">
-                        When we strive to become better than we are everything
-                        around us becomes better too. This is a wider card with
-                        supporting text below. Personal profiles are the perfect
-                        way for you to grab their attention and persuade
-                        recruiters to continue reading your CV because you’re
-                        telling them from the off exactly why they should hire
-                        you. Of course, you’ll need to know how to write an
-                        effective statement first, but we’ll get on to that in a
-                        bit.
-                      </p>
-                      <a href="#" class="link-primary font-semibold text-sm"
-                        >Read more</a
-                      >
+                        <p class="text-sm lh-relaxed mb-4">
+                            email : {{ profile_d.email }}
+                        </p>
+
                     </div>
                   </div>
 
