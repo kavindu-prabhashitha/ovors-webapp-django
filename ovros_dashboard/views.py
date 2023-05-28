@@ -344,26 +344,37 @@ def shop_profile_edit(request):
     profile_id = request.session['profile_data']['profile_data']['profile_id']
     user = User.objects.get(id=user_id)
     profile = ShopProfile.objects.get(id=profile_id)
+    bank_detail = ShopPaymentDetail.objects.get(shop_profile=profile)
 
     if request.method == 'POST':
         s_form = ShopProfileCreationForm(request.POST, request.FILES or None)
-        if s_form.is_valid():
+        s_bankd_edit_form = ShopBankDetEditForm(request.POST)
+        if s_form.is_valid() and s_bankd_edit_form.is_valid():
             c_data = s_form.cleaned_data
-            print(c_data)
+            s_bankd_cd = s_bankd_edit_form.cleaned_data
             profile.shop_name = c_data['shop_name']
             profile.shop_address_no = c_data['shop_address_no']
             profile.shop_address_city = c_data['shop_address_city']
             profile.shop_address_district = c_data['shop_address_district']
             profile.shop_contact = c_data['shop_contact']
+            profile.shop_email = c_data['shop_email']
             if 'shop_profile_img' in request.FILES:
                 profile.shop_profile_img = c_data['shop_profile_img']
+
+            bank_detail.bank_name = s_bankd_cd['bank_name']
+            bank_detail.bank_branch = s_bankd_cd['bank_branch']
+            bank_detail.account_name = s_bankd_cd['account_name']
+            bank_detail.account_no = s_bankd_cd['account_no']
+
             profile.save()
+            bank_detail.save()
+
             messages.success(request, "Shop Profile Updated..")
             return redirect('shop_profile')
         else:
             return render(request, "ovros_dashboard/shop_dashboard/shop_dashboard_profile_edit.html", {
                 'section': 'dashboard',
-                's_form': s_form
+                's_form': s_form,
             })
 
     else:
@@ -372,15 +383,27 @@ def shop_profile_edit(request):
             'shop_address_no': profile.shop_address_no,
             "shop_address_street": profile.shop_address_street,
             'shop_address_city': profile.shop_address_city,
+            'shop_email': profile.shop_email,
             'shop_address_district': profile.shop_address_district,
             'shop_contact': profile.shop_contact,
             'shop_profile_img': profile.shop_profile_img,
 
         }
+
+        bank_initial_dict ={
+
+            'bank_name': bank_detail.bank_name,
+            'bank_branch': bank_detail.bank_branch,
+            'account_name': bank_detail.account_name,
+            'account_no': bank_detail.account_no,
+        }
         s_form = ShopProfileCreationForm(initial=intial_dict)
+        s_bankd_edit_form = ShopBankDetEditForm(initial=bank_initial_dict)
         return render(request, "ovros_dashboard/shop_dashboard/shop_dashboard_profile_edit.html",{
             'section': 'dashboard',
-            's_form': s_form
+            's_form': s_form,
+            's_bank_form': s_bankd_edit_form,
+            'current_profile': profile
         })
 
 

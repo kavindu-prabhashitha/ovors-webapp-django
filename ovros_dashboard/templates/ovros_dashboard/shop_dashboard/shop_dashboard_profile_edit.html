@@ -54,18 +54,37 @@ Shop Dashboard Overview
 
             <div class="container-fluid max-w-screen-xl">
                 <div class="row g-6">
-                    <div class="col-12 col-md-6 col-lg-3"></div>
-            <div class="col-12 col-md-6 col-lg-6">
+                    <div class="col-12 col-md-6 col-lg-4">
+                         <div class="card shadow-4-hover">
+                <div class="p-2">
+                  <a href="#" class="d-block">
+                      {% if current_profile.shop_profile_img %}
+                          <img class="img-fluid rounded-2" alt="profile photo" src="{{ current_profile.shop_profile_img.url }}"/>
+                      {% else %}
+                          <img class="img-fluid rounded-2" alt="default profile pic" src="{% static 'images/defaultProfilePic.jpg' %}"/>
+                      {% endif %}
+                  </a>
+                </div>
+                  <div class="card-footer">
+                      <span class="badge bg-warning">current profile image</span>
+                  </div>
+
+              </div>
+                    </div>
+                    <div class="col-12 col-md-6 col-lg-6">
 
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ s_form|crispy }}
 
+                    <hr>
+                    <hr>
+                    {{ s_bank_form|crispy }}
                     <input type="submit" value="Edit Details" class="btn btn-sm btn-primary">
                     <a class="btn btn-sm btn-danger" href="{% url 'shop_profile' %}">Cancel</a>
                 </form>
             </div>
-                    <div class="col-12 col-md-6 col-lg-3"></div>
+                    <div class="col-12 col-md-6 col-lg-2"></div>
                 </div>
             </div>
 

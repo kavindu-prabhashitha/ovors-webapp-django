@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from .models import ShopProfile, UserProfile
 
+
 USER_ROLES = [
     ('admin', 'Admin'),
     ('shop', 'Shop'),
