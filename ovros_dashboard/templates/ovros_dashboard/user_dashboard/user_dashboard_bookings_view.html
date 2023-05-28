@@ -75,7 +75,7 @@ active
                   </div>
                   <div class="card-footer">
                                 {% if not booking.booking_status == "APPROVED" %}
-                                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                    <a href="{% url 'cancel_booking' booking.id %}" class="btn btn-danger btn-sm"
                                        data-bs-target="#id_{{ forloop.counter }}">Cancel
                                         Booking</a>
                                 {% endif %}

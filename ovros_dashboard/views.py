@@ -198,7 +198,10 @@ def shop_service_edit(request, service_id):
         return render(request, 'ovros_dashboard/shop_dashboard/shop_dashboard_service_edit.html',
                       {
                         'section': 'dashboard',
-                        'service_edit_form': service_edit_form}
+                        'service_edit_form': service_edit_form,
+                        'current_service': service_rec
+
+                      }
                       )
 
 

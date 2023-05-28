@@ -29,6 +29,13 @@
                                 ><i class="bi bi-plus-square-dotted"></i> </span
                                 ><span>Add Service</span></a>
 
+                                <a
+                                        href="{% url 'shop_services_list' %}"
+                                        class="btn btn-sm btn-primary"
+                                ><span class="pe-2"
+                                ><i class="bi bi-plus-square-dotted"></i> </span
+                                ><span>View Service</span></a>
+
                             </div>
                         </div>
                     </div>
@@ -211,9 +218,6 @@
                                             class="btn btn-sm btn-success border-base">
                                         <span class="pe-2"><i class="bi bi-gear-wide-connected"></i>
                                         </span><span>Actions</span> </button>
-                                    <button type="button" class="btn btn-sm btn-square btn-danger text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
                                 </td>
                             </tr>
 
@@ -295,9 +299,7 @@
                         </table>
                     </div>
                     <div class="card-footer border-0 py-5">
-                      <span class="text-muted text-sm"
-                      >Showing 10 items out of 250 results found</span
-                      >
+                      <span class="text-muted text-sm">...</span>
                     </div>
                 </div>
             </div>

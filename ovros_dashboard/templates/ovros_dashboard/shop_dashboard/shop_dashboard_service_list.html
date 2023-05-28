@@ -11,6 +11,42 @@ active
 
 {% block dashboard_content %}
 
+            <header>
+            <div class="container-fluid">
+                <div class="border-bottom pt-3 pb-3">
+                    <div class="row align-items-center">
+                        <div class="col-sm col-12">
+                            <h1 class="h2 ls-tight">Add service</h1>
+                        </div>
+
+                        {% comment %}
+                        <div class="col-sm-auto col-12 mt-4 mt-sm-0 me-5">
+                            <div class="hstack gap-2 justify-content-sm-end">
+                                <a
+                                        href="{% url 'service_add' %}"
+                                        class="btn btn-sm btn-primary"
+                                ><span class="pe-2"
+                                ><i class="bi bi-plus-square-dotted"></i> </span
+                                ><span>Add Service</span></a>
+
+                                <a
+                                        href="{% url 'shop_services_list' %}"
+                                        class="btn btn-sm btn-primary"
+                                ><span class="pe-2"
+                                ><i class="bi bi-plus-square-dotted"></i> </span
+                                ><span>View Service</span></a>
+
+                            </div>
+                        </div>
+
+                        {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+
     <!-- Service Section Start -->
     <section id="ovros-service">
         <div class="container">
