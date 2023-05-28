@@ -9,6 +9,9 @@ from .forms import (
     UserProfileEditForm,
     ShopProfileCreationForm)
 
+from ovros_payment_module.forms import ShopBankDetAddForm
+from ovros_payment_module.models import ShopPaymentDetail
+
 from .models import (
     UserProfile,
     ShopProfile)
@@ -142,9 +145,11 @@ def shop_register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
         shop_profile_form = ShopProfileCreationForm(request.POST)
-        if user_form.is_valid() and shop_profile_form.is_valid():
+        shop_bank_detail_form = ShopBankDetAddForm(request.POST)
+        if user_form.is_valid() and shop_profile_form.is_valid() and shop_bank_detail_form.is_valid():
             # create a new user object but avoid saving it yet
             shop_p_cd = shop_profile_form.cleaned_data
+            shop_bank_detail_cd = shop_bank_detail_form.cleaned_data
             new_user = user_form.save(commit=False)
             # set the chosen password
             new_user.set_password(
@@ -162,11 +167,21 @@ def shop_register(request):
                 shop.shop_profile_img = shop_p_cd['shop_profile_img']
             shop.shop_address_district = request.POST['shop_address_district']
             shop.shop_contact = request.POST['shop_contact']
+
+            shop_p_details = ShopPaymentDetail.objects.create(shop_profile=shop)
+            shop_p_details.bank_name = shop_bank_detail_cd['bank_name']
+            shop_p_details.bank_branch = shop_bank_detail_cd['bank_branch']
+            shop_p_details.account_name = shop_bank_detail_cd['account_name']
+            shop_p_details.account_no = shop_bank_detail_cd['account_no']
+
             shop.save()
+            shop_p_details.save()
             return redirect('login')
         else:
             return render(request, 'account/shop_register.html', {
-                'user_form': user_form, 'shop_profile': shop_profile_form})
+                'user_form': user_form, ''
+                'shop_profile': shop_profile_form,
+                'shop_bank_detail_form': shop_bank_detail_form})
     else:
         intial_data = {
             "shop_address_no": " ",
@@ -176,9 +191,11 @@ def shop_register(request):
         }
         user_form = UserRegistrationForm()
         shop_profile_form = ShopProfileCreationForm(initial=intial_data)
+        shop_bank_detail_form = ShopBankDetAddForm()
         return render(request, 'account/shop_register.html', {
             'user_form': user_form,
             'shop_profile': shop_profile_form,
+            'shop_bank_detail_form': shop_bank_detail_form
         })
 
 

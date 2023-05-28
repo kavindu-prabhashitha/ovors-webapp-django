@@ -119,15 +119,15 @@ active
                                     aria-haspopup="false" aria-expanded="false">
                                     <div>
                                         <div class="avatar avatar-sm bg-warning rounded-circle text-white">
-                                            {% if shop_profile.photo == None %}
-                                                <img src="{{ shop_profile.photo.url }}" alt="Requested Image">
+                                            {% if shop_profile.shop_profile_img %}
+                                                <img src="{{ shop_profile.shop_profile_img.url }}" alt="Requested Image">
                                             {% else %}
                                                 <img alt="..." src="{% static 'images/defaultProfilePic.jpg' %}" class="avatar avatar-sm rounded-circle" />
                                             {% endif %}
                                         </div>
                                     </div>
                                     <div class="d-none d-sm-block ms-3">
-                                        <span class="h6">{{ shop_profile.user.first_name }}</span>
+                                        <span class="h6">{{ shop_profile.shop_name }}</span>
                                     </div>
                                     <div class="d-none d-md-block ms-md-2">
                                         <i class="bi bi-chevron-down text-muted text-xs"></i>
@@ -136,7 +136,7 @@ active
                                 <div class="dropdown-menu dropdown-menu-end">
                                     <div class="dropdown-header">
                                         <span class="d-block text-sm text-muted mb-1">Signed in as</span>
-                                        <span class="d-block text-heading font-semibold">{{ shop_profile.user.first_name }}</span>
+                                        <span class="d-block text-heading font-semibold">{{ shop_profile.shop_name }}</span>
                                     </div>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="{% url 'home' %}"><i class="bi bi-house me-3"></i>Home </a><a
@@ -155,19 +155,19 @@ active
                                 class="btn-primary d-flex w-full py-3 ps-3 pe-4 align-items-center shadow shadow-3-hover rounded-3"
                                 type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span class="me-3">
-                                    {% if shop_profile.photo == None %}
-                                            <img src="{{ shop_profile.photo.url }}" alt="Requested Image">
+                                    {% if shop_profile.shop_profile_img %}
+                                            <img src="{{ shop_profile.shop_profile_img.url }}" class="avatar avatar-sm rounded-circle" alt="Requested Image">
                                     {% else %}
                                     <img alt="..." src="{% static 'images/defaultProfilePic.jpg' %}" class="avatar avatar-sm rounded-circle" />
                                     {% endif %}
                                 </span><span
-                                    class="flex-fill text-start text-sm font-semibold">{{ shop_profile.user.first_name}} </span><span><i
+                                    class="flex-fill text-start text-sm font-semibold">{{ shop_profile.shop_name}} </span><span><i
                                         class="bi bi-chevron-expand text-white text-opacity-70"></i></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end w-full">
                                 <div class="dropdown-header">
                                     <span class="d-block text-sm text-muted mb-1">Signed in as</span>
-                                    <span class="d-block text-heading font-semibold">{{ shop_profile.user.first_name}}</span>
+                                    <span class="d-block text-heading font-semibold">{{ shop_profile.shop_name}}</span>
                                 </div>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'shop_overview' %}"><i

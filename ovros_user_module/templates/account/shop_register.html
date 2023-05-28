@@ -56,10 +56,19 @@
                             <div class="card-body">
                                 {{ shop_profile|crispy }}
                                 <!-- Button -->
+                            </div>
+                            <div class="card-header bg-secondary">
+                                <!-- Heading -->
+                                <h4 class="mb-0 fw-bold">Shop Bank Account Info</h4>
+                            </div>
+                            <div class="card-body">
+                                {{ shop_bank_detail_form|crispy }}
+                            </div>
+                            <div class="card-footer">
+                                <!-- Button -->
                                 <button class="btn w-100 btn-primary" type="submit">
                                     Create Shop Account
                                 </button>
-
                             </div>
                         </form>
                     </div>

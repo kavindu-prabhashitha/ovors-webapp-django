@@ -18,7 +18,19 @@ Shop Dashboard Overview
             ></div>
             <div class="container-fluid max-w-screen-xl">
               <div class="row g-0">
+ <div class="col-auto">
+                <a
+                  href="#"
+                  class="avatar w-40 h-40 border border-body border-4 rounded-circle shadow mt-n16"
+                  >
+                    {% if profile.shop_profile_img %}
+                        <img alt="..." src="{{profile.shop_profile_img.url}}" class="rounded-circle"/>
+                    {% else %}
+                        <img alt="..." src="{% static 'images/defaultProfilePic.jpg' %}" class="rounded-circle"/>
+                    {% endif %}
 
+                </a>
+              </div>
                 <div class="col ps-4 pt-4">
                   <h6 class="text-xs text-uppercase text-muted mb-1">OVROS</h6>
                   <h1 class="h2">{{ profile.shop_name}}</h1>
@@ -80,7 +92,7 @@ Shop Dashboard Overview
                           <h5 class="mb-4">Contact Details</h5>
                         </div>
                         <div class="card-body">
-                          <p>Email : {{ payment_detail.shop_profile.shop_email }}</p>
+                          <p>Email : {{ profile.shop_email }}</p>
                           <p>Contact : {{ profile.shop_contact }}</p>
                           <p>Address : {{ profile.get_full_address }} </p>
                         </div>
@@ -103,9 +115,10 @@ Shop Dashboard Overview
                           </div>
                         </div>
                         <div class="card-footer">
-                          <a href="" class="btn btn-primary ">Edit Details</a>
+                          <a href="{% url 'shop_profile_edit' %}" class="btn btn-primary ">Edit Details</a>
                       </div>
                       </div>
+                        {% comment %}
                       <div class="card">
                         <div class="card-body">
                           <h5 class="mb-4">Social</h5>
@@ -153,6 +166,7 @@ Shop Dashboard Overview
                           </div>
                         </div>
                       </div>
+                      {% endcomment %}
                     </div>
                   </div>
                 </div>
