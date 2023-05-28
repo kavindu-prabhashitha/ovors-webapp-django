@@ -81,8 +81,7 @@ active
                         {% for shop_booking in user_bookings %}
                           <tr>
                             <td>
-                              <img alt="..." src="{% static 'dashboard/img/social/airbnb.svg' %}" class="avatar avatar-sm rounded-circle me-2"/>
-                              <a class="text-sm" href="#">{{ shop_booking.id }}</a>
+                              #<a class="text-sm" href="#">{{ shop_booking.id }}</a>
                             </td>
                             <td>{{ shop_booking.booking_date }}</td>
                             <td>
@@ -147,29 +146,38 @@ active
                   <div class="d-flex align-items-center mb-5">
                     <div>
                       <p class="text-sm">
-                        Booking ID :
+                        Booking ID : {{ shop_booking.id }}
                       </p>
                       <p class="text-sm">
-                        Shop Name :
+                        Shop Name : {{ shop_booking.service.shop.shop_name }}
                       </p>
                       <p class="text-sm">
-                        Service Price :
+                        Service Price : {{ shop_booking.service.service_price }}
                       </p>
                       <p class="text-sm">
                         Date and Time :
+                          {% if shop_booking.booking_time == None %}
+                              <span class="badge bg-warning">Not Allocated</span>
+                          {% else %}
+                              {{ shop_booking.booking_time }}
+                          {% endif %}
+
                       </p>
                       <p class="mt-4"></p>
                       <p class="text-heading ">
                         Service Shop Payment Details
                       </p>
                       <p class="text-sm">
-                        Bank Name :
+                        Bank Name : {{ shop_booking.service.shop.shoppaymentdetail.bank_name }}
                       </p>
                       <p class="text-sm">
-                        Bank Account Name :
+                        Bank Account Name : {{ shop_booking.service.shop.shoppaymentdetail.account_name }}
                       </p>
                       <p class="text-sm">
-                        Bank Branch Name :
+                        Bank Branch Name : {{ shop_booking.service.shop.shoppaymentdetail.bank_branch }}
+                      </p>
+                    <p class="text-sm">
+                        Account Number : {{ shop_booking.service.shop.shoppaymentdetail.account_no }}
                       </p>
                       <p class="text-sm mt-4" >
                         To proceed payment you have to pay the above-mentioned fee through mobile app or bank and upload the slip
