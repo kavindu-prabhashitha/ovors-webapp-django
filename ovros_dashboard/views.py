@@ -24,6 +24,7 @@ from common.enums import (
 )
 from ovros_payment_module.forms import PaymentProceedForm
 from ovros_payment_module.models import ShopPaymentProceed
+from django.core.exceptions import ObjectDoesNotExist
 
 
 @login_required()
@@ -144,6 +145,7 @@ def shop_bookings_view(request):
 def shop_services_list(request):
     pro_id = request.session['profile_data']['profile_data']['profile_id']
     services = Service.objects.filter(shop_id=pro_id)
+
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_service_list.html',
                   {'section': 'dashboard', 'services': services})
@@ -417,7 +419,7 @@ def user_overview(request):
     user_id = request.session['profile_data']['profile_data']['user_id']
     profile_id = get_profile_id(request)
     user_profile_data = UserProfile.objects.get(user_id=user_id)
-    booking_count = ServiceBooking.objects.filter(user_id=user_id).count()
+    booking_count = ServiceBooking.objects.filter(user__user_id=user_id).count()
     payment_count = ShopPaymentProceed.objects.filter(payment_user_pro_id_id=profile_id).count()
     user_role = get_user_role(request)
     if user_role == "USER_CUSTOMER":
@@ -616,3 +618,24 @@ def get_user_role(request):
 def get_profile_id(request):
     user_profile_id = request.session['profile_data']['profile_data']['profile_id']
     return user_profile_id
+
+
+@login_required()
+def shop_service_delete(request, service_id):
+    user_role = get_user_role(request)
+    user_profile_id = get_profile_id(request)
+    selected_service = Service.objects.get(id=service_id)
+    service_shop = ShopProfile.objects.get(id=user_profile_id)
+
+    if selected_service.shop.id == service_shop.id:
+        print('Service Delete')
+        try:
+            Service.objects.filter(id=service_id).delete()
+            messages.success(request, "Service Deleted Successfully")
+            return redirect('shop_services_list')
+        except ObjectDoesNotExist:
+            messages.warning(request, "Service Not Deleted Successfully, Try again")
+            return redirect('shop_services_list')
+    else:
+        messages.error(request, "Action Not Authorized...")
+        return redirect('shop_services_list')
