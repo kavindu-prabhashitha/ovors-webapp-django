@@ -69,6 +69,8 @@ def shop_services(request):
 def shop_service_ongoing(request):
     current_user = request.user
     user_id = current_user.id
+    shop_profile_id = get_profile_id(request)
+
 
     if request.method == 'POST':
         print("Booking id : ", request.POST['booking_id'])
@@ -80,14 +82,16 @@ def shop_service_ongoing(request):
         booking_rec.save()
 
     shop = ShopProfile.objects.get(user_id=user_id)
-    shop_service_bookings = ServiceBooking.objects.filter(service__shop_id=shop.id).reverse()
+    total_services = Service.objects.filter(shop_id=shop_profile_id)
+    shop_service_bookings = ServiceBooking.objects.filter(service__shop_id=shop_profile_id).reverse()
     service_status_chng_form = ServiceStatusChangeForm()
     return render(request,
                   'ovros_dashboard/shop_dashboard/shop_dashboard_service_ongoing.html',
                   {
                       'section': 'dashboard',
                       'shop_services': shop_service_bookings,
-                      'action_form': service_status_chng_form
+                      'action_form': service_status_chng_form,
+                      'total_services': total_services
                   })
 
 
