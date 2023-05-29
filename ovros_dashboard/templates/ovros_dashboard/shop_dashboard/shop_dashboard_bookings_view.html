@@ -23,14 +23,6 @@
                         <div class="col-sm-auto col-12 mt-4 mt-sm-0 me-5">
                             <div class="hstack gap-2 justify-content-sm-end">
                                 <a
-                                        href="#"
-                                        class="btn btn-sm btn-primary"
-                                        data-bs-toggle="offcanvas"
-                                ><span class="pe-2"
-                                ><i class="bi bi-plus-square-dotted"></i> </span
-                                ><span>Add Booking</span></a
-                                >
-                                <a
                                         href="{% url 'shop_bookings_view' %}"
                                         class="btn btn-sm btn-primary"
                                 ><span class="pe-2"
@@ -117,7 +109,7 @@
                                 <th scope="col">Number</th>
                                 <th scope="col">User Contact</th>
                                 <th scope="col">Service</th>
-                                <th scope="col">Service Status</th>
+                                <th scope="col">Booking Status</th>
                                 <th scope="col">Booking Time</th>
                                 <th></th>
                             </tr>
@@ -126,25 +118,15 @@
                             {% for shop_booking in shop_bookings %}
                             <tr>
                                 <td>
-                                    <img
-                                            alt="..."
-                                            src="{% static 'dashboard/img/social/amazon.svg' %}"
-                                            class="avatar avatar-sm rounded-circle me-2"
-                                    />
                                     <a class="text-sm" href="#"
                                     >{{ forloop.counter }}</a
                                     >
                                 </td>
-                                <td>23-01-2022</td>
+                                <td>{{ shop_booking.user.contact_number }}</td>
                                 <td>
                               <span class="badge badge-lg badge-dot"
                               ><i class="bg-warning"></i>{{ shop_booking.service.service_name }}</span
                               >
-                                </td>
-                                <td>
-                                    <div class="avatar-group">
-                                        <p>{{ shop_booking.user.contact_number }}</p>
-                                    </div>
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
@@ -166,15 +148,20 @@
                                 {% endif %}
                                      </div>
                                 </td>
+                                <td>
+                                {% if shop_booking.booking_time == None %}
+                                    <span class="badge rounded-pill text-bg-danger">Not Assigned</span>
+                                {% else %}
+                                    <span class="badge rounded-pill text-bg-info"> {{ shop_booking.booking_time }}</span>
+                                {% endif %}
+                                </td>
                                 <td class="text-end">
                                     <button data-bs-toggle="modal"
                                             data-bs-target="#id_{{ forloop.counter }}"
-                                            class="btn btn-sm btn-success border-base">
+                                            class="btn btn-sm btn-secondary border-base">
                                         <span class="pe-2"><i class="bi bi-gear-wide-connected"></i>
                                         </span><span>Actions</span> </button>
-                                    <button type="button" class="btn btn-sm btn-square btn-danger text-danger-hover">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
+
                                 </td>
                             </tr>
 

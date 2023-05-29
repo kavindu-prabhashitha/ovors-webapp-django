@@ -1,5 +1,6 @@
 {% extends 'ovros_dashboard/user_dashboard/user_dashboard.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 User Dashboard Payment Proceed
 {% endblock %}
@@ -67,7 +68,7 @@ active
                         <input type="hidden" value="{{ booking_data.id }}" name="booking_id">
                         <input type="hidden" value="{{ booking_data.user.id }}" name="user_profile_id">
                         <input type="hidden" value="1" name="proceed_payment">
-                        <button class="btn btn-success" type="submit">Proceed Payment</button>
+                        <button class="btn btn-sm btn-success" type="submit">Proceed Payment</button>
                     </form>
 
                 </div>
